@@ -1,0 +1,7 @@
+[submodule ".agents/spear"]
+	path = .agents/spear
+	url = https://dev.azure.com/oneCELA/CELA_Demos_and_POCs/_git/VibeSecure-Agents
+	branch = main
+[submodule ".github/prompts/spear"]
+	path = .github/prompts/spear
+	url = https://dev.azure.com/oneCELA/CELA_Demos_and_POCs/_git/VibeShield-Prompts
