@@ -1,0 +1,105 @@
+#
+# Sample PSRule for Azure Configuration - PRODUCTION
+# This file will get copied to your project and should be customized for your dev environment.
+# Reference: https://aka.ms/ps-rule-azure/options
+#
+# PURPOSE:
+#   This file enforces the full PSRule for Azure ruleset with minimal
+#   exceptions. Prod environments must pass all WAF Security (SE),
+#   Reliability (RE), and Operational Excellence (OE) rules. Cost and
+#   availability rules that are relaxed in dev are fully enforced here.
+#
+# SUPPRESSION POLICY:
+#   Only Azure platform constraints are suppressed — cases where Azure
+#   itself prevents compliance (e.g., App Gateway v2 requires default
+#   outbound access for health probes). These are documented with the
+#   specific Azure error or behavior that necessitates the exception.
+#
+#   No security rules are suppressed. No cost-driven exclusions exist.
+#   If a rule fails in prod, the infrastructure must be fixed — not the
+#   rule configuration.
+#
+# ADDING SUPPRESSIONS:
+#   Before adding any suppression here, confirm:
+#   1. The rule failure is caused by an Azure platform constraint, not
+#      a missing configuration.
+#   2. The suppression targets a specific resource (per-resource), not
+#      the rule globally.
+#   3. The comment explains the Azure behavior that forces the exception.
+#
+# See Documentation/PSRule-Governance.md for full decision framework.
+#
+
+# Require minimum version of PSRule for Azure
+requires:
+  PSRule.Rules.Azure: '>=1.34.0'
+
+# Automatically use rules for Azure
+include:
+  module:
+  - PSRule.Rules.Azure
+
+# Configure input file processing
+input:
+  pathIgnore:
+    # Exclude all files at any depth
+    # Note: also exclude bicep modules because they're analyzed via main.bicep expansion
+    - '**'
+    # Only process main.bicep file
+    - '!**/main.bicep'
+
+# Configure output
+output:
+  culture:
+  - 'en-US'
+  style: GitHubActions
+
+# Azure-specific configuration
+configuration:
+  # Enable Bicep expansion - REQUIRED to analyze Bicep files
+  AZURE_BICEP_FILE_EXPANSION: true
+  AZURE_BICEP_FILE_EXPANSION_TIMEOUT: 60
+  
+  # Parameter file for Bicep expansion
+  AZURE_BICEP_PARAMS_FILE: 'parameters.prod.bicepparam'
+
+  # Default parameter values for PSRule expansion (required params not in .bicepparam)
+  # IMPORTANT: Must match $script:Project in Config.ps1
+  AZURE_PARAMETER_DEFAULTS:
+    project: '{{REPLACE-WITH-11-CHAR-PROJECT-NAME}}'
+
+
+  # Mock deployment context for static analysis
+  # IMPORTANT: Must match $script:Location in Config.ps1  
+  AZURE_DEPLOYMENT:
+    name: 'main'
+    location: 'centralus'
+  
+  # Mock resource group context - provides location for resourceGroup().location
+  # IMPORTANT: Must match Get-ResourceGroupName output from Config.ps1
+  # IMPORTANT: Must match $script:Location in Config.ps1  
+  AZURE_RESOURCE_GROUP:
+    name: 'rg-{{REPLACE-WITH-11-CHAR-PROJECT-NAME}}-cus'
+    location: 'centralus'
+
+  # Allowed Azure regions for resources
+  AZURE_RESOURCE_ALLOWED_LOCATIONS:
+  - 'centralus'
+
+  # Minimum Kubernetes version for AKS
+  AZURE_AKS_CLUSTER_MINIMUM_VERSION: '1.28.0'
+
+# ============================================================================
+# Rule Suppressions
+# Use suppression to exclude specific rules or resources from analysis
+# Reference: https://azure.github.io/PSRule.Rules.Azure/concepts/suppression/
+# ============================================================================
+suppression:
+  # Architecture-Specific Suppressions (apply to all environments)
+  Azure.PublicIP.IsAttached:
+    - 'Bastion requires public IP - this is expected'
+  Azure.NSG.AKSRules:
+    - 'NSG on AKS subnets managed by Azure CNI'
+  
+
+# NOTE: For dev environment relaxations, use PSRule.dev.yaml instead

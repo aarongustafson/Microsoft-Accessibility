@@ -1,0 +1,52 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+
+# VibeShield state (traces, eval output, timestamps)
+.vibeshield/
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.secret
+*.key
+*.pfx
+# Build outputs
+bin/
+obj/
+out/
+artifacts/
+# IDE/editor
+.vs/
+.vscode/
+# Node.js
+node_modules/
+dist/
+coverage/
+.npm/
+npm-debug.log*
+yarn-error.log*
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+# .NET
+TestResults/
+*.user
+*.suo
+*.dll
+*.exe
+*.so
+*.rpm
+*.deb
+*.zip
+*.tar
+*.tar.gz
+*.pdb
+*.o
+*.a
+*.dylib

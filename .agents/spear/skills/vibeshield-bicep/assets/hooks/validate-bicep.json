@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "type": "command",
+        "command": "pwsh -NoProfile -File .github/skills/vibeshield-bicep/scripts/Invoke-BicepLintHook.ps1",
+        "timeout": 60
+      }
+    ]
+  }
+}
