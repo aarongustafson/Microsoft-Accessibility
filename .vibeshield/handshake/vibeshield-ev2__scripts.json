@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "capability": "vibeshield-ev2/scripts",
+  "status": "fail",
+  "message": "GITHUB_AUTH_FAILED: GitHub authentication failed",
+  "details": {
+    "phase": "prerequisites"
+  },
+  "ts": "2026-06-03T20:25:48Z"
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "event": "PostToolUse",
+    "tools": ["create_file", "replace_string_in_file", "multi_replace_string_in_file"],
+    "description": "Validates the pre-commit hook structure: must start with a shebang (#!/), must invoke scan.ps1 via pwsh or powershell, and must forward the exit code with 'exit $?'.",
+    "steps": [
+      {
+        "type": "command",
+        "command": {
+          "windows": "powershell -NoProfile -Command \"$f = '${file}'; if ($f -notmatch '[/\\\\]pre-commit$') { exit 0 }; if ($f -notmatch '[/\\\\]\\.github[/\\\\]codeql[/\\\\]hooks[/\\\\]pre-commit$') { exit 0 }; $c = Get-Content $f -Raw -ErrorAction Stop; if ([string]::IsNullOrWhiteSpace($c)) { Write-Host '[FAIL] pre-commit hook is empty:' $f; exit 2 }; $lines = Get-Content $f; if ($lines[0] -notmatch '^#!') { Write-Host '[FAIL] pre-commit hook missing shebang (#!/) on first line in' $f; exit 2 }; if ($c -notmatch 'scan\\.ps1') { Write-Host '[FAIL] pre-commit hook does not invoke scan.ps1 in' $f; exit 2 }; if ($c -notmatch '(pwsh|powershell)') { Write-Host '[FAIL] pre-commit hook does not use pwsh or powershell to invoke scan.ps1 in' $f; exit 2 }; if ($c -notmatch 'exit\\s+\\$\\?') { Write-Host '[FAIL] pre-commit hook missing exit \\$? (exit code forwarding) in' $f; exit 2 }; exit 0\""
+        },
+        "timeout": 5000
+      }
+    ]
+  }
+]

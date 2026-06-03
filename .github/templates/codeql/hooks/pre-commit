@@ -1,0 +1,16 @@
+#!/bin/sh
+# CodeQL pre-commit hook - non-bypassable security scan
+# Git sets the working directory to the repo root when running hooks.
+# scan.ps1 is always installed at .github/codeql/scan.ps1 relative to repo root.
+SCAN_SCRIPT=".github/codeql/scan.ps1"
+if [ ! -f "$SCAN_SCRIPT" ]; then
+  echo "[FAIL] CodeQL scan script not found at $SCAN_SCRIPT" >&2
+  exit 1
+fi
+# Use pwsh (PowerShell Core) on macOS/Linux; fall back to powershell (Windows)
+if command -v pwsh >/dev/null 2>&1; then
+  pwsh -ExecutionPolicy Bypass -NoProfile -File "$SCAN_SCRIPT"
+else
+  powershell -ExecutionPolicy Bypass -NoProfile -File "$SCAN_SCRIPT"
+fi
+exit $?

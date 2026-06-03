@@ -1,0 +1,113 @@
+#################################################################################
+#                               OneBranch Pipelines                              #
+# VibeShield-Deploy — Official Pipeline Skeleton                                #
+# Documentation:  https://aka.ms/obpipelines                                     #
+# Yaml Schema:    https://aka.ms/obpipelines/yaml/schema                         #
+# Retail Tasks:   https://aka.ms/obpipelines/tasks                              #
+# Support:        https://aka.ms/onebranchsup                                   #
+#################################################################################
+#
+# This is the Official variant — runs on main branch merges.
+# Includes code signing via onebranch.pipeline.signing@1.
+#
+# Replace Build/Deploy stage contents with the appropriate
+# onebranch-build-*.yml and deploy-*.yml / deploy-ev2.yml templates.
+#
+# Pool configuration:
+#   Build stages  → pool: { type: windows }
+#   Deploy stages → pool: { type: release } (EV2 only)
+
+parameters:
+  - name: enableDebugMode
+    displayName: 'Enable Debug Mode'
+    type: boolean
+    default: false
+  - name: runBuild
+    displayName: 'Run Build stage'
+    type: boolean
+    default: true
+  - name: runProvision
+    displayName: 'Run Provision stage'
+    type: boolean
+    default: true
+  - name: runDeploy
+    displayName: 'Run Deploy stage'
+    type: boolean
+    default: true
+
+trigger:
+  branches:
+    include:
+      - main
+      - release/*
+  paths:
+    include:
+      - src/**
+      - infra/**
+      - .azure-pipelines/<pipeline-file>.yml
+
+pr: none
+
+variables:
+  CDP_DEFINITION_BUILD_COUNT: $[counter('', 0)]
+  system.debug: ${{ parameters.enableDebugMode }}
+  WindowsContainerImage: 'onebranch.azurecr.io/windows/ltsc2022/vse2022:latest'
+  resourceGroup: '<resource-group>'
+  serviceConnection: 'sc-vibe-<name>-ARM'
+  appName: '<app-name>'
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: OneBranch.Pipelines/GovernedTemplates
+      ref: refs/heads/main
+
+extends:
+  template: v2/OneBranch.Official.CrossPlat.yml@templates
+  parameters:
+    featureFlags:
+      WindowsHostVersion: '1ESWindows2022'
+    cloudvault:
+      enabled: false
+    globalSdl:
+      tsa:
+        enabled: true
+      sbom:
+        enabled: true
+        packageName: '<app-name>-Official'
+      asyncSdl:
+        enabled: true
+        forStages: [build]
+        credscan:
+          suppressionsFile: $(Build.SourcesDirectory)\.gdn\global.gdnsuppressions
+        binskim:
+          break: true
+        apiscan:
+          enabled: false
+
+    stages:
+      # CONDITIONAL: Include only when parameters.runBuild is true
+      - ${{ if eq(parameters.runBuild, true) }}:
+        - stage: Build
+          # ... insert build jobs from onebranch-build-*.yml (Official variant with signing)
+
+      # CONDITIONAL: Include only when parameters.runProvision is true
+      - ${{ if eq(parameters.runProvision, true) }}:
+        - stage: Provision
+          ${{ if eq(parameters.runBuild, true) }}:
+            dependsOn: Build
+          ${{ else }}:
+            dependsOn: []
+          # ... insert provision job (ARM via AzureCLI@2, or EV2 via deploy-ev2.yml)
+
+      # CONDITIONAL: Include only when parameters.runDeploy is true
+      - ${{ if eq(parameters.runDeploy, true) }}:
+        - stage: Deploy
+          ${{ if eq(parameters.runProvision, true) }}:
+            dependsOn: Provision
+          ${{ elseif eq(parameters.runBuild, true) }}:
+            dependsOn: Build
+          ${{ else }}:
+            dependsOn: []
+          # ... insert deploy job from deploy-*.yml

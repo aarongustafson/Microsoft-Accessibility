@@ -1,0 +1,32 @@
+# Container Build Stage
+# For container-based apps (Dockerfile, Go, Rust) that deploy to Container Apps.
+# Validates the Dockerfile builds successfully and publishes the build context as an artifact.
+# The actual Docker image push to ACR happens in the deploy stage (deploy-containerapp.yml).
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build Container Image'
+      steps:
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        - task: Docker@2
+          displayName: 'Validate Docker build'
+          inputs:
+            command: 'build'
+            Dockerfile: '**/Dockerfile'
+            tags: '$(Build.BuildId)'
+
+        # Remove .git/ before publishing to reduce artifact size and avoid leaking history
+        - pwsh: Remove-Item -Recurse -Force "$(Build.SourcesDirectory)/.git"
+          displayName: 'Clean .git from artifact'
+
+        - task: 1ES.PublishBuildArtifacts@1
+          displayName: 'Publish artifact'
+          inputs:
+            PathtoPublish: '$(Build.SourcesDirectory)'
+            ArtifactName: 'drop'

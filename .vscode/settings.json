@@ -1,0 +1,41 @@
+{
+    "chat.promptFilesRecommendations": {
+        "speckit.constitution": true,
+        "speckit.specify": true,
+        "speckit.plan": true,
+        "speckit.tasks": true,
+        "speckit.implement": true
+    },
+    "chat.tools.terminal.autoApprove": {
+        ".specify/scripts/bash/": true,
+        ".specify/scripts/powershell/": true,
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-bicep[\\/\\\\]scripts[\\/\\\\]Invoke-BicepLintHook\\.ps1$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-bicep[\\/\\\\]scripts[\\/\\\\]Invoke-BicepLint\\.ps1( -[A-Za-z]+( [\\w./\\\\:][\\w.\\-/\\\\:]*)?)*$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-bicep[\\/\\\\]scripts[\\/\\\\]Invoke-BicepValidation\\.ps1( -[A-Za-z]+( [\\w./\\\\:][\\w.\\-/\\\\:]*)?)*$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-bicep[\\/\\\\]scripts[\\/\\\\]Initialize-BicepProject\\.ps1( -[A-Za-z]+( [\\w./\\\\:][\\w.\\-/\\\\:]*)?)*$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-powershell[\\/\\\\]scripts[\\/\\\\]Invoke-PSScriptAnalyzerHook\\.ps1$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-powershell[\\/\\\\]scripts[\\/\\\\]Invoke-PSScriptAnalyzer\\.ps1( -[A-Za-z]+( [\\w./\\\\:][\\w.\\-/\\\\:]*)?)*$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "/^pwsh -NoProfile -File [\\.\\\\]?\\.?github[\\/\\\\]skills[\\/\\\\]vibeshield-powershell[\\/\\\\]scripts[\\/\\\\]Test-PowerShellScripts\\.ps1( -[A-Za-z]+( [\\w./\\\\:][\\w.\\-/\\\\:]*)?)*$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+    }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "event": "PostToolUse",
+    "tools": ["create_file", "replace_string_in_file", "multi_replace_string_in_file"],
+    "description": "Validates scan.ps1 contains the $extMap hashtable with all 8 CodeQL-supported languages: javascript, python, java, csharp, cpp, go, ruby, swift. A missing language means files of that type will silently skip scanning.",
+    "steps": [
+      {
+        "type": "command",
+        "command": {
+          "windows": "powershell -NoProfile -Command \"$f = '${file}'; if ($f -notmatch 'scan\\.ps1$') { exit 0 }; $c = Get-Content $f -Raw -ErrorAction Stop; if ([string]::IsNullOrWhiteSpace($c)) { Write-Host '[FAIL] scan.ps1 is empty:' $f; exit 2 }; if ($c -notmatch '\\$extMap') { Write-Host '[FAIL] scan.ps1 missing $extMap hashtable in' $f; exit 2 }; $missing = @(); foreach ($lang in @('javascript','python','java','csharp','cpp','go','ruby','swift')) { if ($c -notmatch [regex]::Escape(\"'$lang'\")) { $missing += $lang } }; if ($missing.Count -gt 0) { Write-Host '[FAIL] scan.ps1 $extMap missing language(s):' ($missing -join ', ') 'in' $f; exit 2 }; exit 0\""
+        },
+        "timeout": 5000
+      }
+    ]
+  }
+]

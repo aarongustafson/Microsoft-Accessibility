@@ -1,0 +1,50 @@
+# Java Build Stage
+# Replace <version> with the JDK version from pom.xml source/target configuration.
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build Java Application'
+      steps:
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        - task: JavaToolInstaller@0
+          displayName: 'Install JDK'
+          inputs:
+            versionSpec: '<version>'
+            jdkArchitectureOption: 'x64'
+            jdkSourceOption: 'PreInstalled'
+
+        - task: MavenAuthenticate@0
+          displayName: 'Authenticate with package feed'
+          inputs:
+            artifactsFeeds: '$(feedName)'
+
+        # CONDITIONAL: When local tests fail (BR-02 != PASS) or --SkipTests is used,
+        # change options to '-DskipTests=true', set publishJUnitResults to false,
+        # and remove testResultsFiles.
+        - task: Maven@4
+          displayName: 'Maven build and test'
+          inputs:
+            mavenPomFile: 'pom.xml'
+            goals: 'clean package'
+            options: '-DskipTests=false'
+            publishJUnitResults: true
+            testResultsFiles: '**/surefire-reports/TEST-*.xml'
+
+        - task: CopyFiles@2
+          displayName: 'Copy WAR/JAR'
+          inputs:
+            SourceFolder: '$(System.DefaultWorkingDirectory)/target'
+            Contents: '*.?(war|jar)'
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+        - task: 1ES.PublishBuildArtifacts@1
+          displayName: 'Publish artifact'
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'

@@ -1,0 +1,62 @@
+# .NET Build Stage
+# Replace <sdk-version> with the .NET SDK version determined by the SDK Detection Priority:
+#   1. global.json → sdk.version (if present)
+#   2. Local `dotnet --version` output (actual installed SDK)
+#   3. If .slnx solution format is used → minimum SDK 9.0
+#   4. <TargetFramework> in *.csproj as FALLBACK ONLY (this is the runtime target, not the SDK)
+# The SDK version that BUILDS the project is often newer than the runtime it TARGETS.
+# Example: A project targeting net8.0 may require SDK 10.x if using .slnx or global.json.
+#
+# Both TargetFramework SDK and build SDK are ALWAYS installed:
+#   - TargetFramework SDK provides the runtime shared frameworks (Microsoft.NETCore.App,
+#     Microsoft.AspNetCore.App) needed at execution time (tests, publish).
+#   - Build SDK provides the compiler and build tooling.
+#   - Install TFM SDK FIRST, build SDK SECOND — last-installed takes precedence for building.
+#   - Use packageType: 'sdk' (NOT 'runtime') — 'runtime' omits Microsoft.AspNetCore.App.
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build .NET Application'
+      steps:
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        # ALWAYS include — provides runtime shared frameworks for the target
+        - task: UseDotNet@2
+          displayName: 'Install .NET <target-framework> SDK (runtime shared frameworks)'
+          inputs:
+            packageType: 'sdk'
+            version: '<target-framework>'
+
+        - task: UseDotNet@2
+          displayName: 'Install .NET SDK'
+          inputs:
+            packageType: 'sdk'
+            version: '<sdk-version>'
+
+        - task: NuGetAuthenticate@1
+          displayName: 'Authenticate with package feed'
+
+        - pwsh: dotnet restore
+          displayName: 'Restore dependencies'
+
+        - pwsh: dotnet build --configuration Release --no-restore
+          displayName: 'Build'
+
+        # CONDITIONAL: Include ONLY when local tests pass (BR-02=PASS).
+        # OMIT when: no tests detected, tests fail locally, or --SkipTests was used.
+        - pwsh: dotnet test --configuration Release --no-build --verbosity normal
+          displayName: 'Run tests'
+
+        - pwsh: dotnet publish --configuration Release --no-build --output $(Build.ArtifactStagingDirectory)
+          displayName: 'Publish'
+
+        - task: 1ES.PublishBuildArtifacts@1
+          displayName: 'Publish artifact'
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'

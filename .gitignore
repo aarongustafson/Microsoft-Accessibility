@@ -50,3 +50,25 @@ TestResults/
 *.o
 *.a
 *.dylib
+.codeql-db/
+.codeql-results.sarif
+.codeql-results-*.sarif
+.github/codeql/.scan-lock
+.github/codeql/status.json
+
+# vibeshield-deploy-start
+# VibeShield-Deploy — track required files, exclude runtime artifacts
+# Un-ignore directories so git descends into them for per-file rules
+!.vibeshield/
+!.vibeshield/results/
+!.vscode/
+# Required files — MUST be committed
+!.vibeshield/deploy-integrity-manifest.json
+!.vibeshield/project-config.json
+!.vibeshield/team-preferences.yaml
+!.vibeshield/results/workspace-manifest.json
+!.vscode/mcp.json
+# Runtime artifacts — NEVER commit (regenerated each session)
+.vibeshield/deploy-state.json
+.vibeshield/results/*.sarif
+# vibeshield-deploy-end

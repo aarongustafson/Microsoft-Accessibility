@@ -1,0 +1,655 @@
+{
+  "$comment": "VibeShield-Deploy persistent configuration — git-tracked, deployed by Install-VibeShield.ps1",
+  "tenants": {
+    "tme": {
+      "id": "70a036f6-8e4d-4615-bad6-149c02e7720d",
+      "displayName": "TME",
+      "subscriptions": {
+        "default": "8480d11e-9fa0-4922-a2cc-09821005d3c2"
+      }
+    },
+    "corp": {
+      "id": "72f988bf-86f1-41af-91ab-2d7cd011db47",
+      "displayName": "Corpnet",
+      "subscriptions": {
+        "default": "c3f5ce42-3fe7-407a-9ee8-a8365e4b2a4b"
+      }
+    },
+    "ame": {
+      "id": "",
+      "displayName": "AME",
+      "subscriptions": {}
+    }
+  },
+  "projectTypes": {
+    "_comment": "Supported tenants per projectType. First in list is the default. User can override to any other tenant in the list.",
+    "prototype": {
+      "tenants": [
+        "tme"
+      ]
+    },
+    "businessUse": {
+      "tenants": [
+        "corp",
+        "ame"
+      ]
+    }
+  },
+  "azure": {
+    "adoResourceId": "499b84ac-1321-427f-aa17-267ca6975798",
+    "graphResource": "https://graph.microsoft.com/"
+  },
+  "ado": {
+    "_comment": "Install-VibeShield.ps1 populates sourceRepoUrl from the target project's git remote. Empty default prevents accidental interaction with the VSD source repo.",
+    "defaultOrgUrl": "https://dev.azure.com/oneCELA",
+    "defaultProject": "CELA_Demos_and_POCs",
+    "sourceRepoUrl": "https://dev.azure.com/oneCELA/CELA_Demos_and_POCs/_git/jecurry_Maximize-All-Windows"
+  },
+  "pipeline": {
+    "defaultYamlPath": ".azdo/pipelines/azure-pipeline.yml",
+    "defaultBranchName": "deploy/add-pipeline",
+    "defaultCommitMessage": "VibeShield-Deploy: add 1ES deployment pipeline for Azure"
+  },
+  "monitor": {
+    "pollIntervalSec": 30,
+    "reportIntervalSec": 60,
+    "timeoutMinutes": 60,
+    "totalTimeoutMinutes": 90,
+    "maxRetries": 3,
+    "stalenessHours": 8,
+    "maxLoopBacks": 2
+  },
+  "logging": {
+    "level": "info",
+    "auditEnabled": true,
+    "logFile": ".vibeshield/deploy.log",
+    "auditFile": ".vibeshield/audit.jsonl",
+    "keepLogCount": 5,
+    "maxLogSizeMB": 10,
+    "maxAuditEntries": 5000,
+    "auditTrimPercent": 20,
+    "sarifHistoryCount": 10,
+    "sanitizeOutput": true
+  },
+  "agents": {
+    "vibeshield-deploy-orchestrator": {
+      "alias": [
+        "vsd"
+      ],
+      "type": "orchestrator",
+      "stages": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "skills": [
+        "deploy-classification"
+      ],
+      "scripts": [
+        "Invoke-Stage1Runner.ps1",
+        "Invoke-Stage2PreRunner.ps1",
+        "Invoke-Stage2PostRunner.ps1",
+        "Invoke-Stage3Runner.ps1"
+      ],
+      "canDelegate": [
+        "vibeshield-deploy-preflight",
+        "vibeshield-deploy-pipeline-author",
+        "vibeshield-deploy-pipeline-push",
+        "vibeshield-deploy-monitor"
+      ],
+      "userInvocable": true
+    },
+    "vibeshield-deploy-preflight": {
+      "alias": [],
+      "type": "sub-agent",
+      "stages": [
+        1
+      ],
+      "skills": [
+        "deploy-preflight-checks",
+        "deploy-app-type-select"
+      ],
+      "scripts": [
+        "Invoke-PreflightChecks.ps1",
+        "Invoke-UserOnboarding.ps1"
+      ],
+      "canDelegate": [
+        "vibeshield-bicep"
+      ],
+      "userInvocable": false
+    },
+    "vibeshield-deploy-pipeline-author": {
+      "alias": [],
+      "type": "sub-agent",
+      "stages": [
+        2
+      ],
+      "skills": [
+        "deploy-workspace-analysis",
+        "deploy-build-readiness",
+        "deploy-1es-pipeline-authoring",
+        "deploy-pipeline-validation",
+        "deploy-service-connection-resolve"
+      ],
+      "scripts": [
+        "Invoke-BuildReadiness.ps1",
+        "Invoke-PipelineAuthorValidation.ps1",
+        "Invoke-OneBranchValidation.ps1",
+        "Invoke-ServiceConnectionResolve.ps1",
+        "Invoke-WorkspaceAnalysis.ps1"
+      ],
+      "canDelegate": [
+        "vibeshield-bicep"
+      ],
+      "userInvocable": false
+    },
+    "vibeshield-deploy-pipeline-push": {
+      "alias": [],
+      "type": "sub-agent",
+      "stages": [
+        3
+      ],
+      "skills": [
+        "deploy-pipeline-push",
+        "deploy-pipeline-validation",
+        "deploy-user-onboarding"
+      ],
+      "scripts": [
+        "Invoke-PipelinePush.ps1"
+      ],
+      "canDelegate": [
+        "vibeshield-bicep"
+      ],
+      "userInvocable": false
+    },
+    "vibeshield-deploy-monitor": {
+      "alias": [],
+      "type": "sub-agent",
+      "stages": [
+        4
+      ],
+      "skills": [
+        "deploy-monitor",
+        "deploy-deployment-diagnostics"
+      ],
+      "scripts": [
+        "Invoke-DeployMonitor.ps1"
+      ],
+      "canDelegate": [],
+      "userInvocable": false
+    },
+    "vibeshield-bicep": {
+      "alias": [],
+      "type": "external",
+      "stages": [],
+      "skills": [],
+      "scripts": [],
+      "canDelegate": [],
+      "userInvocable": true
+    }
+  },
+  "support": {
+    "email": "CELAVibeShieldSupport@microsoft.com",
+    "officeHourUrl": "https://microsoft.sharepoint.com/teams/CELAEngineeringFundamentals/SitePages/Contact-Us.aspx",
+    "userGuideUrl": "https://dev.azure.com/oneCELA/CELA_Demos_and_POCs/_git/VibeShield-Deploy?path=/docs/user-guide.md&_a=preview",
+    "teamName": "CELA SPEAR"
+  },
+  "paths": {
+    "stateFile": ".vibeshield/deploy-state.json",
+    "resultsDir": ".vibeshield/results",
+    "projectConfig": ".vibeshield/project-config.json",
+    "integrityManifest": ".vibeshield/deploy-integrity-manifest.json",
+    "pipelineDir1ES": ".azdo/pipelines",
+    "pipelineDirOneBranch": ".azure-pipelines"
+  },
+  "pipelineFrameworks": {
+    "1ES": {
+      "unofficial": {
+        "templateName": "1ES.Unofficial@1",
+        "templatePath": "v1/1ES.Unofficial.PipelineTemplate.yml@1ESPipelineTemplates"
+      },
+      "official": {
+        "templateName": "1ES.Official@1",
+        "templatePath": "v1/1ES.Official.PipelineTemplate.yml@1ESPipelineTemplates"
+      },
+      "repoName": "1ESPipelineTemplates",
+      "repoFullName": "1ESPipelineTemplates/1ESPipelineTemplates",
+      "repoRef": "refs/tags/release",
+      "pool": {
+        "name": "1ES-BuildPool",
+        "os": "windows"
+      },
+      "poolOverrides": {},
+      "filePatternUnofficial": "1ES-Unofficial-{appName}.yml",
+      "filePatternOfficial": "1ES-Official-{appName}.yml",
+      "sdlBlock": "sdl",
+      "artifactPublishTask": "1ES.PublishBuildArtifacts@1"
+    },
+    "OneBranch": {
+      "buddy": {
+        "templatePath": "v2/OneBranch.NonOfficial.CrossPlat.yml@templates",
+        "triggerExcludeMain": true
+      },
+      "official": {
+        "templatePath": "v2/OneBranch.Official.CrossPlat.yml@templates",
+        "triggerIncludeMain": true
+      },
+      "repoName": "templates",
+      "repoFullName": "OneBranch.Pipelines/GovernedTemplates",
+      "repoRef": "refs/heads/main",
+      "pool": {
+        "build": {
+          "type": "windows"
+        },
+        "deploy": {
+          "type": "release"
+        }
+      },
+      "poolOverrides": {},
+      "filePatternBuddy": "OneBranch-Buddy-{appName}.yml",
+      "filePatternOfficial": "OneBranch-Official-{appName}.yml",
+      "sdlBlock": "globalSdl",
+      "artifactPublish": "ob_outputDirectory",
+      "versioningTask": "onebranch.pipeline.version@1",
+      "signingTask": "onebranch.pipeline.signing@1",
+      "mandatoryVariables": [
+        "CDP_DEFINITION_BUILD_COUNT",
+        "WindowsContainerImage"
+      ],
+      "containerImage": "onebranch.azurecr.io/windows/ltsc2022/vse2022:latest",
+      "featureFlags": {
+        "WindowsHostVersion": "1ESWindows2022"
+      }
+    }
+  },
+  "ev2": {
+    "serviceConnectionPattern": "cn-ev2deploy-{service}-{environment}",
+    "serviceConnectionType": "Ev2Endpoint",
+    "deployTask": "vsrm-ev2.ev2-rollout.ev2-rollout-task.Ev2RARollout@2",
+    "artifactRoot": "ev2/ServiceGroupRoot",
+    "requiredFiles": [
+      "RolloutSpec.json",
+      "ServiceModel.json"
+    ],
+    "regionShortCodes": {
+      "centralus": "cus",
+      "eastus": "eus",
+      "eastus2": "eus2",
+      "westus": "wus",
+      "westus2": "wus2",
+      "westus3": "wus3",
+      "northeurope": "neu",
+      "westeurope": "weu",
+      "southeastasia": "sea",
+      "australiaeast": "aue",
+      "uksouth": "uks",
+      "japaneast": "jpe"
+    },
+    "environmentMapping": {
+      "Dev": "Test",
+      "Test": "Test",
+      "UAT": "Test",
+      "POC": "Test",
+      "Prod": "Production"
+    },
+    "rolloutConfig": {
+      "rolloutType": "normal",
+      "overrideManagedValidationDuration": false,
+      "managedValidationOverrideDurationInHours": 0,
+      "icmIncidentId": 0
+    },
+    "extensionIdentity": {
+      "source": "serviceConnection",
+      "description": "Shell extensions reuse the managed identity from the EV2 service connection. Set source to 'explicit' and provide resourceId/clientId for a dedicated extension identity.",
+      "fallbackBehavior": "block"
+    }
+  },
+  "frameworkSelection": {
+    "_policy": {
+      "description": "Administrators may change framework/variant/infraDeploy for any environment. The following invariants must hold.",
+      "validFrameworks": [
+        "1ES",
+        "OneBranch"
+      ],
+      "validVariants": {
+        "1ES": [
+          "Unofficial",
+          "Official"
+        ],
+        "OneBranch": [
+          "NonOfficial",
+          "Official"
+        ]
+      },
+      "validInfraDeploy": [
+        "ARM",
+        "EV2"
+      ],
+      "infraDeployCompatibility": "ARM and EV2 are supported with both 1ES and OneBranch. EV2 requires es-metadata.yml and ServiceGroupRoot artifacts regardless of framework.",
+      "alwaysBusinessUse": [
+        "Test",
+        "UAT",
+        "Prod"
+      ],
+      "alwaysBusinessUseAction": "block — Prototype projects must change projectType to BusinessUse before deploying to Test/UAT/Prod",
+      "variantRestrictions": {
+        "Prod": [
+          "Official"
+        ]
+      }
+    },
+    "prototype": {
+      "POC": {
+        "framework": "1ES",
+        "variant": "Unofficial",
+        "infraDeploy": "ARM"
+      },
+      "DEV": {
+        "framework": "1ES",
+        "variant": "Unofficial",
+        "infraDeploy": "ARM"
+      }
+    },
+    "businessUse": {
+      "POC": {
+        "framework": "1ES",
+        "variant": "Unofficial",
+        "infraDeploy": "EV2"
+      },
+      "DEV": {
+        "framework": "1ES",
+        "variant": "Unofficial",
+        "infraDeploy": "EV2"
+      },
+      "Test": {
+        "framework": "1ES",
+        "variant": "Official",
+        "infraDeploy": "EV2"
+      },
+      "UAT": {
+        "framework": "1ES",
+        "variant": "Official",
+        "infraDeploy": "EV2"
+      },
+      "Prod": {
+        "framework": "1ES",
+        "variant": "Official",
+        "infraDeploy": "EV2"
+      }
+    }
+  },
+  "naming": {
+    "serviceConnectionPattern": "sc-vibe-{username}-ARM",
+    "mgmtResourceGroupPattern": "rg-vibe-{username}",
+    "managedIdentityPattern": "uami-vibe-{username}"
+  },
+  "safety": {
+    "sensitiveFilePatterns": [
+      ".env",
+      ".env.*",
+      "*.pfx",
+      "*.key",
+      "*.pem",
+      "*.cer",
+      "secrets.json",
+      "appsettings.Development.json",
+      "local.settings.json"
+    ],
+    "gitignoreExcludes": [
+      "node_modules",
+      "bin",
+      "obj",
+      "dist",
+      "__pycache__",
+      ".env",
+      "*.log"
+    ],
+    "largeDirPatterns": [
+      "node_modules/",
+      "bin/",
+      "obj/",
+      "dist/",
+      ".venv/",
+      "venv/",
+      "__pycache__/",
+      ".terraform/",
+      "packages/"
+    ]
+  },
+  "preferences": {
+    "defaults": {
+      "verbosity": "standard",
+      "tone": "professional",
+      "confirmations": "irreversible-only",
+      "progress_format": "grouped",
+      "error_detail": "both",
+      "emoji": true,
+      "inline_definitions": false,
+      "profile": "developer"
+    },
+    "profiles": {
+      "beginner": {
+        "verbosity": "detailed",
+        "tone": "friendly",
+        "confirmations": "always",
+        "progress_format": "per-check",
+        "error_detail": "actionable",
+        "emoji": true,
+        "inline_definitions": true
+      },
+      "developer": {
+        "verbosity": "standard",
+        "tone": "professional",
+        "confirmations": "irreversible-only",
+        "progress_format": "grouped",
+        "error_detail": "both",
+        "emoji": true,
+        "inline_definitions": false
+      },
+      "ci-automation": {
+        "verbosity": "minimal",
+        "tone": "terse",
+        "confirmations": "auto",
+        "progress_format": "silent",
+        "error_detail": "technical",
+        "emoji": false,
+        "inline_definitions": false
+      }
+    }
+  },
+  "appTypes": [
+    {
+      "name": "Functions",
+      "targetService": "Azure Functions",
+      "buildCmd": "dotnet build --configuration Release",
+      "testCmd": "dotnet test --configuration Release --no-build",
+      "configFiles": [
+        "host.json"
+      ],
+      "sdkVersionFloor": "6",
+      "markers": [
+        "host.json"
+      ],
+      "markerDepth": 1,
+      "runtimes": {
+        ".NET": {
+          "markers": [
+            ".csproj",
+            ".fsproj",
+            ".vbproj"
+          ],
+          "markerDepth": 2
+        },
+        "Node.js": {
+          "markers": [
+            "package.json"
+          ],
+          "markerDepth": 0,
+          "buildCmd": "npm ci",
+          "testCmd": "npm test --if-present"
+        },
+        "Python": {
+          "markers": [
+            "requirements.txt"
+          ],
+          "markerDepth": 0,
+          "buildCmd": "pip install -r requirements.txt",
+          "testCmd": "pytest --tb=short"
+        },
+        "Java": {
+          "markers": [
+            "pom.xml",
+            "build.gradle"
+          ],
+          "markerDepth": 0,
+          "buildCmd": "mvn package -DskipTests -q",
+          "testCmd": "mvn test -q"
+        }
+      }
+    },
+    {
+      "name": "Container",
+      "targetService": "Azure Container Apps",
+      "buildCmd": "docker build . --quiet",
+      "testCmd": null,
+      "configFiles": [
+        "Dockerfile"
+      ],
+      "sdkVersionFloor": null,
+      "markers": [
+        "Dockerfile"
+      ],
+      "markerDepth": 0
+    },
+    {
+      "name": ".NET",
+      "targetService": "Azure App Service",
+      "buildCmd": "dotnet build --configuration Release",
+      "testCmd": "dotnet test --configuration Release --no-build",
+      "configFiles": [
+        "*.csproj"
+      ],
+      "sdkVersionFloor": "6",
+      "markers": [
+        ".csproj",
+        ".fsproj",
+        ".vbproj"
+      ],
+      "markerDepth": 2,
+      "variants": {
+        ".fsproj": "F#",
+        ".vbproj": "VB.NET"
+      }
+    },
+    {
+      "name": "Node.js backend",
+      "targetService": "Azure App Service",
+      "buildCmd": "npm ci",
+      "testCmd": "npm test --if-present",
+      "configFiles": [
+        "package.json"
+      ],
+      "sdkVersionFloor": "18",
+      "markers": [
+        "package.json"
+      ],
+      "markerDepth": 0,
+      "frontendDetection": {
+        "dependencyPatterns": [
+          "react",
+          "angular",
+          "vue",
+          "svelte",
+          "next",
+          "nuxt",
+          "gatsby",
+          "vite"
+        ],
+        "overrideName": "Static frontend",
+        "overrideTargetService": "Azure Static Web Apps"
+      }
+    },
+    {
+      "name": "Java",
+      "targetService": "Azure App Service",
+      "buildCmd": "mvn package -DskipTests -q",
+      "testCmd": "mvn test -q",
+      "configFiles": [
+        "pom.xml"
+      ],
+      "sdkVersionFloor": "11",
+      "markers": [
+        "pom.xml",
+        "build.gradle"
+      ],
+      "markerDepth": 0,
+      "buildCmdOverrides": {
+        "build.gradle": {
+          "buildCmd": "gradle build -x test",
+          "testCmd": "gradle test",
+          "configFiles": [
+            "build.gradle"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Python",
+      "targetService": "Azure App Service",
+      "buildCmd": "pip install -r requirements.txt",
+      "testCmd": "pytest --tb=short",
+      "configFiles": [
+        "requirements.txt"
+      ],
+      "sdkVersionFloor": "3.9",
+      "markers": [
+        "requirements.txt",
+        "pyproject.toml"
+      ],
+      "markerDepth": 0
+    },
+    {
+      "name": "Go",
+      "targetService": "Azure Container Apps",
+      "buildCmd": "go build ./...",
+      "testCmd": "go test ./...",
+      "configFiles": [
+        "go.mod"
+      ],
+      "sdkVersionFloor": null,
+      "markers": [
+        "go.mod"
+      ],
+      "markerDepth": 0
+    },
+    {
+      "name": "Rust",
+      "targetService": "Azure Container Apps",
+      "buildCmd": "cargo build --release",
+      "testCmd": "cargo test",
+      "configFiles": [
+        "Cargo.toml"
+      ],
+      "sdkVersionFloor": null,
+      "markers": [
+        "Cargo.toml"
+      ],
+      "markerDepth": 0
+    },
+    {
+      "name": "Static website",
+      "targetService": "Azure Static Web Apps",
+      "buildCmd": null,
+      "testCmd": null,
+      "configFiles": [
+        "index.html"
+      ],
+      "sdkVersionFloor": null,
+      "markers": [
+        "index.html"
+      ],
+      "markerDepth": 1
+    }
+  ]
+}

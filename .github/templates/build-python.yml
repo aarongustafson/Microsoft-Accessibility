@@ -1,0 +1,56 @@
+# Python Build Stage
+# Replace <version> with the python_requires version from pyproject.toml or the desired Python version.
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build Python Application'
+      steps:
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        - task: UsePythonVersion@0
+          displayName: 'Set Python version'
+          inputs:
+            versionSpec: '<version>'
+
+        - task: PipAuthenticate@1
+          displayName: 'Authenticate with package feed'
+          inputs:
+            artifactFeeds: '$(feedName)'
+            onlyAddExtraIndex: false
+
+        - pwsh: |
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          displayName: 'Install dependencies'
+
+        # CONDITIONAL: Include the following test steps ONLY when local tests pass (BR-02=PASS).
+        # OMIT when: no tests detected, tests fail locally, or --SkipTests was used.
+        - pwsh: |
+            pip install pytest
+            pytest --junitxml=junit-results.xml
+          displayName: 'Run tests'
+
+        - task: PublishTestResults@2
+          displayName: 'Publish test results'
+          inputs:
+            testResultsFiles: 'junit-results.xml'
+          condition: succeededOrFailed()
+
+        - task: ArchiveFiles@2
+          displayName: 'Archive build output'
+          inputs:
+            rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+            includeRootFolder: false
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+
+        - task: 1ES.PublishBuildArtifacts@1
+          displayName: 'Publish artifact'
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'

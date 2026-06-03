@@ -1,0 +1,70 @@
+# 1ES + EV2 Deploy Stages
+# Used when framework == '1ES' and infraDeploy == 'EV2'.
+# NOT used for ARM deployments — those use deploy-appservice.yml, deploy-functions.yml, etc.
+#
+# Two stages:
+#   1. Provision — deploys infrastructure via Ev2RARollout@2 using RolloutSpec.Infra.json
+#   2. Deploy    — deploys application via Ev2RARollout@2 using RolloutSpec.App.json
+#
+# Prerequisites:
+#   - ev2/ServiceGroupRoot/ must exist with RolloutSpec.Infra.json, RolloutSpec.App.json, ServiceModel.json
+#   - Build stage must publish ev2/ directory + zipped module outputs + shell extension tars to artifact 'drop'
+#   - EV2 service connection (Ev2Endpoint type) must be authorized
+#   - ServiceTreeId variable must be set at pipeline top level (literal GUID from es-metadata.yml)
+#
+# Differences from ARM deploy stages:
+#   - No AzureCLI@2 — infrastructure is deployed via Ev2RARollout@2, not az deployment group create
+#   - No stageDependencies for app names — app names come from ServiceModel.json
+#   - No checkout needed — downloads artifact only
+#   - EV2 Endpoint service connection — not ARM service connection
+#
+# Stage naming: Provision / Deploy (same as ARM for consistency)
+# For OneBranch + EV2, see deploy-ev2.yml (different naming: {Ev2Env}_Deploy_{Scope}_{ProjectEnv})
+
+- stage: Provision
+  displayName: 'EV2: Deploy Infrastructure'
+  dependsOn: Build
+  jobs:
+    - job: DeployInfra
+      displayName: 'EV2 Region Agnostic - Infrastructure'
+      steps:
+        - download: current
+          artifact: drop
+
+        - task: vsrm-ev2.ev2-rollout.ev2-rollout-task.Ev2RARollout@2
+          displayName: 'Ev2 Region Agnostic - Infrastructure'
+          inputs:
+            EndpointProviderType: Ev2Endpoint
+            ConnectedServiceName: '$(ev2ServiceConnection)'
+            TaskAction: RegisterAndRollout
+            ServiceRootPath: '$(Pipeline.Workspace)/drop/ev2/ServiceGroupRoot'
+            RolloutSpecPath: '$(Pipeline.Workspace)/drop/ev2/ServiceGroupRoot/RolloutSpec.Infra.json'
+            SkipRegistrationIfExists: true
+            ForceRegistration: true
+            StageMapVersion: '*'
+            Select: 'regions(<region>)'
+          timeoutInMinutes: 30
+
+- stage: Deploy
+  displayName: 'EV2: Deploy Application'
+  dependsOn: Provision
+  jobs:
+    - job: DeployApp
+      displayName: 'EV2 Region Agnostic - Application'
+      steps:
+        - download: current
+          artifact: drop
+
+        - task: vsrm-ev2.ev2-rollout.ev2-rollout-task.Ev2RARollout@2
+          displayName: 'Ev2 Region Agnostic - Application'
+          inputs:
+            EndpointProviderType: Ev2Endpoint
+            ConnectedServiceName: '$(ev2ServiceConnection)'
+            TaskAction: RegisterAndRollout
+            ServiceRootPath: '$(Pipeline.Workspace)/drop/ev2/ServiceGroupRoot'
+            RolloutSpecPath: '$(Pipeline.Workspace)/drop/ev2/ServiceGroupRoot/RolloutSpec.App.json'
+            SkipRegistrationIfExists: true
+            ForceRegistration: true
+            StageMapVersion: '*'
+            Select: 'regions(<region>)'
+          timeoutInMinutes: 30

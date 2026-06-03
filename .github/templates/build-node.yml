@@ -1,0 +1,48 @@
+# Node.js Build Stage
+# Replace <version-from-package.json> with the engines.node value from package.json.
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build Node.js Application'
+      steps:
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        - task: NodeTool@0
+          displayName: 'Install Node.js'
+          inputs:
+            versionSpec: '<version-from-package.json>'
+
+        - task: npmAuthenticate@0
+          displayName: 'Authenticate with package feed'
+          inputs:
+            workingFile: '$(Build.SourcesDirectory)/.npmrc'
+
+        - pwsh: npm ci
+          displayName: 'Install dependencies'
+
+        - pwsh: npm run build --if-present
+          displayName: 'Build'
+
+        # CONDITIONAL: Include ONLY when local tests pass (BR-02=PASS).
+        # OMIT when: no tests detected, tests fail locally, or --SkipTests was used.
+        - pwsh: npm test --if-present
+          displayName: 'Run tests'
+
+        - task: ArchiveFiles@2
+          displayName: 'Archive build output'
+          inputs:
+            rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+            includeRootFolder: false
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+
+        - task: 1ES.PublishBuildArtifacts@1
+          displayName: 'Publish artifact'
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'

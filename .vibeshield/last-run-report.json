@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-06-03T19:57:20.0681658Z",
+  "repositoryPath": "C:\\Users\\jecurry\\OneDrive - Microsoft\\Documents\\GitHub\\Maximize-All-Windows",
+  "exitCode": 3,
+  "outcome": "installer-failure",
+  "jsonlLogPath": "C:\\Users\\jecurry\\OneDrive - Microsoft\\Documents\\GitHub\\Maximize-All-Windows\\.vibeshield\\evals\\trace-20260603-154619-8e64078c.jsonl",
+  "phaseResults": {
+    "Phase 1: Bootstrap update": "no updates needed",
+    "Phase 2: Tool prerequisites": "not reached (installer failed)",
+    "Phase 3: Azure authentication": "not reached (installer failed)",
+    "Phase 4: Governance": "not reached (installer failed)",
+    "Phase 5: Project checkin": "not reached (installer failed)",
+    "Phase 6: Safe libraries": "not reached (installer failed)",
+    "Phase 7: Capability setup": "not reached (installer failed)",
+    "Phase 8: Cleanup": "not reached (installer failed)"
+  },
+  "capabilities": []
+}

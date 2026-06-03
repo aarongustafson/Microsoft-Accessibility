@@ -1,0 +1,120 @@
+# OneBranch .NET Build Stage
+# Parallel to build-dotnet.yml but adapted for OneBranch:
+#   - pool: type: windows (inherited from skeleton)
+#   - ob_outputDirectory for artifact publishing (automatic)
+#   - onebranch.pipeline.version@1 for versioning
+#   - DotNetCoreCLI@2 instead of inline dotnet commands
+#   - PublishTestResults@2 for test reporting
+#   - onebranch.pipeline.signing@1 for Official variant (sign + verify)
+#
+# SDK version detection uses the same priority as 1ES:
+#   1. global.json → sdk.version
+#   2. Local dotnet --version
+#   3. .slnx → SDK 9.0 minimum
+#   4. <TargetFramework> in *.csproj (fallback only)
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build .NET Application'
+      pool:
+        type: windows
+      variables:
+        ob_outputDirectory: '$(Build.SourcesDirectory)\out'
+      steps:
+        - task: onebranch.pipeline.version@1
+          displayName: 'Setup BuildNumber'
+          inputs:
+            system: 'RevisionCounter'
+            major: '1'
+            minor: '0'
+            exclude_commit: true
+
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        # CONDITIONAL: Include the TFM SDK install step ONLY when HasUnitTests=true AND
+        # the build SDK major version differs from the TargetFramework.
+        - task: UseDotNet@2
+          displayName: 'Install .NET <target-framework> SDK (for tests)'
+          inputs:
+            packageType: 'sdk'
+            version: '<target-framework>'
+
+        - task: UseDotNet@2
+          displayName: 'Install .NET SDK <sdk-version>'
+          inputs:
+            packageType: 'sdk'
+            version: '<sdk-version>'
+
+        - task: NuGetAuthenticate@1
+          displayName: 'Authenticate with package feed'
+
+        - task: NuGetToolInstaller@1
+          displayName: 'Install NuGet'
+          inputs:
+            checkLatest: true
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Restore packages'
+          inputs:
+            command: 'restore'
+            projects: '**/*.sln'
+            feedsToUse: 'config'
+            nugetConfigPath: 'nuget.config'
+          retryCountOnTaskFailure: 3
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Build solution'
+          inputs:
+            command: 'build'
+            arguments: '--configuration Release --no-restore'
+            projects: '**/*.sln'
+
+        # CONDITIONAL: Include ONLY when HasUnitTests=true. OMIT when HasUnitTests=false.
+        - task: DotNetCoreCLI@2
+          displayName: 'Run tests'
+          inputs:
+            command: 'test'
+            arguments: '--configuration Release --no-build --results-directory $(ob_outputDirectory) --logger trx'
+            projects: '**/*Tests*.csproj'
+            publishTestResults: false
+
+        # CONDITIONAL: Include ONLY when HasUnitTests=true.
+        - task: PublishTestResults@2
+          displayName: 'Publish test results'
+          condition: succeededOrFailed()
+          inputs:
+            testResultsFormat: 'VSTest'
+            testResultsFiles: '**/*.trx'
+            searchFolder: '$(ob_outputDirectory)'
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish application'
+          inputs:
+            command: 'publish'
+            arguments: '--configuration Release --output $(ob_outputDirectory)'
+            projects: '**/*.csproj'
+            publishWebProjects: false
+
+        # OFFICIAL VARIANT ONLY: Sign binaries after publish, before any packaging
+        - task: onebranch.pipeline.signing@1
+          displayName: 'Sign binaries'
+          inputs:
+            command: 'sign'
+            signing_environment: 'azure-ado'
+            files_to_sign: '**/*.exe;**/*.dll;**/*.ps1;**/*.psm1'
+            search_root: '$(ob_outputDirectory)'
+
+        # OFFICIAL VARIANT ONLY: Verify signatures
+        - task: onebranch.pipeline.signing@1
+          displayName: 'Verify signatures'
+          inputs:
+            command: 'verify'
+            search_root: '$(ob_outputDirectory)'
+            files_to_verify: '**/*.dll;**/*.exe'
+
+        # Artifact is automatically published via ob_outputDirectory — no explicit task needed

@@ -1,0 +1,67 @@
+# OneBranch Node.js Build Stage
+# Parallel to build-node.yml but adapted for OneBranch conventions.
+
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: BuildJob
+      displayName: 'Build Node.js Application'
+      pool:
+        type: windows
+      variables:
+        ob_outputDirectory: '$(Build.SourcesDirectory)\out'
+      steps:
+        - task: onebranch.pipeline.version@1
+          displayName: 'Setup BuildNumber'
+          inputs:
+            system: 'RevisionCounter'
+            major: '1'
+            minor: '0'
+            exclude_commit: true
+
+        - checkout: self
+          submodules: false
+          persistCredentials: true
+          fetchDepth: 1
+
+        - task: NodeTool@0
+          displayName: 'Install Node.js'
+          inputs:
+            versionSpec: '<version-from-package.json>'
+
+        - task: npmAuthenticate@0
+          displayName: 'Authenticate with package feed'
+          inputs:
+            workingFile: '.npmrc'
+
+        - task: PowerShell@2
+          displayName: 'Install dependencies'
+          inputs:
+            targetType: 'inline'
+            pwsh: true
+            script: npm ci
+
+        - task: PowerShell@2
+          displayName: 'Build'
+          inputs:
+            targetType: 'inline'
+            pwsh: true
+            script: npm run build --if-present
+
+        # CONDITIONAL: Include ONLY when HasUnitTests=true.
+        - task: PowerShell@2
+          displayName: 'Run tests'
+          inputs:
+            targetType: 'inline'
+            pwsh: true
+            script: npm test --if-present
+
+        - task: ArchiveFiles@2
+          displayName: 'Archive build output'
+          inputs:
+            rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+            includeRootFolder: false
+            archiveType: 'zip'
+            archiveFile: '$(ob_outputDirectory)/$(Build.BuildId).zip'
+
+        # Artifact is automatically published via ob_outputDirectory

@@ -1,0 +1,50 @@
+name: "codeql-precommit"
+paths-ignore:
+  # Dependency / package directories (all languages)
+  - node_modules
+  - '**/node_modules/**'
+  - .python_packages
+  - '**/site-packages/**'
+  - vendor
+  - '**/vendor/**'
+  - packages
+  - bower_components
+  # Build output directories
+  - dist
+  - build
+  - out
+  - bin
+  - obj
+  - target
+  - __pycache__
+  - '**/__pycache__/**'
+  - _build
+  - .next
+  - .nuget
+  # Test directories and files
+  - '**/test/**'
+  - '**/tests/**'
+  - '**/*.test.*'
+  - '**/*.spec.*'
+  # Agent / tooling directories
+  - .speckit
+  - .codeql-db
+  - .codeql
+  - .github
+  - .vscode
+  - .azure
+  - .devcontainer
+  - azure-pipelines
+  - docs
+  - scripts
+  - tools
+  # Non-source file types
+  - '**/*.ps1'
+  - '**/*.psm1'
+  - '**/*.psd1'
+  - '**/*.md'
+  - '**/*.yml'
+  - '**/*.yaml'
+  - '**/*.json'
+  - '**/*.xml'
+  - '**/codeql/**'
