@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "helpUri": "https://eng.ms/docs/microsoft-security/security/azure-security/cloudai-security-fundamentals-engineering/security-integration/guardian-wiki/microsoft-guardian/general/baselines"
+  },
+  "version": "1.0.0",
+  "baselines": {
+    "default": {
+      "name": "default",
+      "createdDate": "2026-06-07 01:12:36Z",
+      "lastUpdatedDate": "2026-06-07 01:12:36Z"
+    }
+  },
+  "results": {
+    "c2f43a5fd0d4a0b602dd6bf685a115b2e7b64a3b5de19448769c9c3d5dba44cb": {
+      "signature": "c2f43a5fd0d4a0b602dd6bf685a115b2e7b64a3b5de19448769c9c3d5dba44cb",
+      "alternativeSignatures": [
+        "415b63445b590492f3c61af75dcf0ed4cb2f4a7d7b1e78b8e1cf00e0be576ed1",
+        "8a084a1b9919a8dae149363f3b6e0475c77d4e8c0edc27d73df1c66b01ceebca"
+      ],
+      "target": ".github/skills/codeql-vulnerability-remediation/SKILL.md",
+      "line": 113,
+      "uriBaseId": "file:///D:/a/_work/1/s/",
+      "memberOf": [
+        "default"
+      ],
+      "tool": "credscan",
+      "ruleId": "CSCAN-GENERAL0060",
+      "createdDate": "2026-06-07 01:12:36Z",
+      "expirationDate": "2026-11-24 01:15:05Z",
+      "justification": "This error is baselined with an expiration date of 180 days from 2026-06-07 01:15:05Z"
+    }
+  }
+}
