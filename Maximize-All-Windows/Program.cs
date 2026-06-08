@@ -13,9 +13,9 @@ using System.Windows.Forms;
 
 internal static class AppInfo
 {
-    // User-facing label. Keep as a simple release-candidate name (e.g. "RC2", "RC3").
-    // The fully-qualified build number (file/assembly version) is set in the .csproj.
-    public const string DisplayVersion = "RC2";
+    // User-facing label. Includes a build counter so test builds can be told apart in the Settings window.
+    // Keep the build number aligned with FileVersion in the .csproj.
+    public const string DisplayVersion = "RC2 build 57 (ui-polish)";
 }
 
 internal static class Program
@@ -669,9 +669,9 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         var form = new Form
         {
             Text = "Maximize All Windows",
-            Width = 520,
-            Height = 340,
-            MinimumSize = new Size(520, 360),
+            Width = 820,
+            Height = 540,
+            MinimumSize = new Size(720, 480),
             MinimizeBox = true,
             MaximizeBox = true,
             StartPosition = FormStartPosition.CenterScreen,
@@ -680,15 +680,33 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             ShowIcon = true,
             ShowInTaskbar = true,
             Icon = _customIcon ?? SystemIcons.Application,
-            BackColor = SystemColors.Control
+            BackColor = SystemColors.Window
         };
 
-        var title = new Label
+        // --- Settings page controls -------------------------------------------------
+        var settingsTitle = new Label
         {
             AutoSize = true,
             Text = "Settings",
-            Font = new Font(form.Font.FontFamily, form.Font.Size + 4f, FontStyle.Bold),
-            Margin = new Padding(0, 0, 0, 16)
+            Font = new Font(form.Font.FontFamily, form.Font.Size + 8f, FontStyle.Bold),
+            Margin = new Padding(0, 0, 0, 4)
+        };
+
+        var settingsSubtitle = new Label
+        {
+            AutoSize = true,
+            Text = "Configure how Maximize All Windows behaves.",
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 0, 0, 24)
+        };
+
+        var generalHeader = new Label
+        {
+            AutoSize = true,
+            Text = "GENERAL",
+            Font = new Font(form.Font, FontStyle.Bold),
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 0, 0, 8)
         };
 
         var startWithWindowsCheck = new CheckBox
@@ -696,27 +714,23 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "Start with Windows",
             Checked = _settings.StartWithWindows,
-            Margin = new Padding(0, 0, 0, 12)
+            Margin = new Padding(0, 0, 0, 24)
         };
 
-        var showInGroup = new GroupBox
+        var appearanceHeader = new Label
         {
+            AutoSize = true,
+            Text = "APPEARANCE",
+            Font = new Font(form.Font, FontStyle.Bold),
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 0, 0, 8)
+        };
+
+        var showInLabel = new Label
+        {
+            AutoSize = true,
             Text = "Show in",
-            AutoSize = false,
-            Width = 220,
-            Height = 92,
-            Margin = new Padding(0, 0, 0, 16),
-            Padding = new Padding(10, 6, 10, 10)
-        };
-
-        var showInLayout = new FlowLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            AutoSize = false,
-            FlowDirection = FlowDirection.TopDown,
-            WrapContents = false,
-            Margin = new Padding(0),
-            Padding = new Padding(0)
+            Margin = new Padding(0, 0, 0, 6)
         };
 
         var trayRadio = new RadioButton
@@ -735,24 +749,135 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             Margin = new Padding(0, 0, 0, 4)
         };
 
-        showInLayout.Controls.Add(trayRadio);
-        showInLayout.Controls.Add(taskbarRadio);
-        showInGroup.Controls.Add(showInLayout);
+        var settingsPage = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.TopDown,
+            WrapContents = false,
+            AutoScroll = true,
+            BackColor = SystemColors.Window,
+            Padding = new Padding(32, 28, 32, 28)
+        };
+        settingsPage.Controls.Add(settingsTitle);
+        settingsPage.Controls.Add(settingsSubtitle);
+        settingsPage.Controls.Add(generalHeader);
+        settingsPage.Controls.Add(startWithWindowsCheck);
+        settingsPage.Controls.Add(appearanceHeader);
+        settingsPage.Controls.Add(showInLabel);
+        settingsPage.Controls.Add(trayRadio);
+        settingsPage.Controls.Add(taskbarRadio);
 
-        var buttonRow = new FlowLayoutPanel
+        // --- About page controls ----------------------------------------------------
+        var aboutTitle = new Label
         {
             AutoSize = true,
-            FlowDirection = FlowDirection.LeftToRight,
-            WrapContents = false,
-            Margin = new Padding(0, 0, 0, 12)
+            Text = "About",
+            Font = new Font(form.Font.FontFamily, form.Font.Size + 8f, FontStyle.Bold),
+            Margin = new Padding(0, 0, 0, 4)
         };
 
+        var aboutSubtitle = new Label
+        {
+            AutoSize = true,
+            Text = "Maximize All Windows",
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 0, 0, 24)
+        };
+
+        var aboutVersionHeader = new Label
+        {
+            AutoSize = true,
+            Text = "VERSION",
+            Font = new Font(form.Font, FontStyle.Bold),
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 0, 0, 8)
+        };
+
+        var aboutVersionValue = new Label
+        {
+            AutoSize = true,
+            Text = AppInfo.DisplayVersion,
+            Margin = new Padding(0, 0, 0, 24)
+        };
+
+        var aboutDescriptionHeader = new Label
+        {
+            AutoSize = true,
+            Text = "WHAT IT DOES",
+            Font = new Font(form.Font, FontStyle.Bold),
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 0, 0, 8)
+        };
+
+        var aboutDescription = new Label
+        {
+            AutoSize = true,
+            MaximumSize = new Size(620, 0),
+            Text = "Automatically maximizes new windows as they open, so every app fills the screen by default. Useful for accessibility and for keeping focus on one task at a time.",
+            Margin = new Padding(0)
+        };
+
+        var aboutPage = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.TopDown,
+            WrapContents = false,
+            AutoScroll = true,
+            BackColor = SystemColors.Window,
+            Padding = new Padding(32, 28, 32, 28),
+            Visible = false
+        };
+        aboutPage.Controls.Add(aboutTitle);
+        aboutPage.Controls.Add(aboutSubtitle);
+        aboutPage.Controls.Add(aboutVersionHeader);
+        aboutPage.Controls.Add(aboutVersionValue);
+        aboutPage.Controls.Add(aboutDescriptionHeader);
+        aboutPage.Controls.Add(aboutDescription);
+
+        // --- Sidebar nav ------------------------------------------------------------
+        var sidebar = new ListBox
+        {
+            Dock = DockStyle.Fill,
+            BackColor = Color.FromArgb(243, 243, 243),
+            BorderStyle = BorderStyle.None,
+            Font = new Font(form.Font.FontFamily, form.Font.Size + 1f),
+            IntegralHeight = false,
+            ItemHeight = 36
+        };
+        sidebar.Items.Add("  Settings");
+        sidebar.Items.Add("  About");
+        sidebar.SelectedIndex = 0;
+        sidebar.SelectedIndexChanged += (_, _) =>
+        {
+            var showAbout = sidebar.SelectedIndex == 1;
+            settingsPage.Visible = !showAbout;
+            aboutPage.Visible = showAbout;
+        };
+
+        var sidebarHost = new Panel
+        {
+            Dock = DockStyle.Fill,
+            BackColor = Color.FromArgb(243, 243, 243),
+            Padding = new Padding(0, 16, 0, 16)
+        };
+        sidebarHost.Controls.Add(sidebar);
+
+        // --- Content host (holds both pages, only one visible at a time) ------------
+        var contentHost = new Panel
+        {
+            Dock = DockStyle.Fill,
+            BackColor = SystemColors.Window
+        };
+        contentHost.Controls.Add(settingsPage);
+        contentHost.Controls.Add(aboutPage);
+
+        // --- Footer (buttons + version) --------------------------------------------
         var okButton = new Button
         {
             AutoSize = true,
             Text = "OK",
             Margin = new Padding(0, 0, 8, 0),
-            MinimumSize = new Size(80, 0)
+            MinimumSize = new Size(88, 30)
         };
 
         var cancelButton = new Button
@@ -760,7 +885,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "Cancel",
             Margin = new Padding(0, 0, 8, 0),
-            MinimumSize = new Size(80, 0)
+            MinimumSize = new Size(88, 30)
         };
 
         var exitButton = new Button
@@ -768,61 +893,63 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "Exit App",
             Margin = new Padding(0),
-            MinimumSize = new Size(80, 0)
+            MinimumSize = new Size(88, 30)
         };
 
-        buttonRow.Controls.Add(okButton);
-        buttonRow.Controls.Add(cancelButton);
+        var buttonRow = new FlowLayoutPanel
+        {
+            AutoSize = true,
+            FlowDirection = FlowDirection.RightToLeft,
+            WrapContents = false,
+            Anchor = AnchorStyles.Right,
+            Margin = new Padding(0)
+        };
+        // RightToLeft flow: add in reverse visual order.
         buttonRow.Controls.Add(exitButton);
+        buttonRow.Controls.Add(cancelButton);
+        buttonRow.Controls.Add(okButton);
 
         var versionLabel = new Label
         {
             AutoSize = true,
             Text = $"Version {AppInfo.DisplayVersion}",
             ForeColor = SystemColors.GrayText,
+            Anchor = AnchorStyles.Left,
             Margin = new Padding(0)
         };
 
-        var layout = new FlowLayoutPanel
+        var footer = new TableLayoutPanel
         {
+            Dock = DockStyle.Bottom,
+            ColumnCount = 2,
+            RowCount = 1,
             AutoSize = true,
             AutoSizeMode = AutoSizeMode.GrowAndShrink,
-            FlowDirection = FlowDirection.TopDown,
-            WrapContents = false,
-            Padding = new Padding(28, 24, 28, 24),
-            Margin = new Padding(0),
-            BackColor = SystemColors.Window,
-            Anchor = AnchorStyles.None,
-            MinimumSize = new Size(440, 0)
+            BackColor = Color.FromArgb(249, 249, 249),
+            Padding = new Padding(20, 12, 20, 12)
         };
+        footer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        footer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        footer.Controls.Add(versionLabel, 0, 0);
+        footer.Controls.Add(buttonRow, 1, 0);
 
-        layout.Controls.Add(title);
-        layout.Controls.Add(startWithWindowsCheck);
-        layout.Controls.Add(showInGroup);
-        layout.Controls.Add(buttonRow);
-        layout.Controls.Add(versionLabel);
-
-        // Center the settings "card" within the form so the UI looks intentional
-        // at the default size and also when the window is maximized on a large
-        // monitor (instead of stranding the controls in the top-left corner).
-        var centeringHost = new TableLayoutPanel
+        // --- Root layout: sidebar | content, with footer pinned below --------------
+        var body = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            ColumnCount = 3,
-            RowCount = 3,
-            AutoScroll = true,
-            BackColor = SystemColors.Control,
-            Padding = new Padding(24)
+            ColumnCount = 2,
+            RowCount = 1,
+            BackColor = SystemColors.Window
         };
-        centeringHost.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-        centeringHost.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-        centeringHost.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-        centeringHost.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-        centeringHost.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        centeringHost.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-        centeringHost.Controls.Add(layout, 1, 1);
+        body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220));
+        body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        body.Controls.Add(sidebarHost, 0, 0);
+        body.Controls.Add(contentHost, 1, 0);
 
-        form.Controls.Add(centeringHost);
+        // Add footer FIRST so the body's Dock=Fill flows around it (docked controls
+        // honor reverse z-order: last-added gets the remaining space).
+        form.Controls.Add(footer);
+        form.Controls.Add(body);
 
         form.AcceptButton = okButton;
         form.CancelButton = cancelButton;
@@ -832,6 +959,8 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             startWithWindowsCheck.Checked = _settings.StartWithWindows;
             trayRadio.Checked = _settings.RunInSystemTray;
             taskbarRadio.Checked = !_settings.RunInSystemTray;
+            // Always show the Settings page when the window reopens.
+            sidebar.SelectedIndex = 0;
         }
 
         form.VisibleChanged += (_, _) =>
