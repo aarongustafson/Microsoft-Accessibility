@@ -671,7 +671,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             Text = "Maximize All Windows",
             Width = 520,
             Height = 340,
-            MinimumSize = new Size(420, 300),
+            MinimumSize = new Size(520, 360),
             MinimizeBox = true,
             MaximizeBox = true,
             StartPosition = FormStartPosition.CenterScreen,
@@ -679,15 +679,16 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             WindowState = FormWindowState.Maximized,
             ShowIcon = true,
             ShowInTaskbar = true,
-            Icon = _customIcon ?? SystemIcons.Application
+            Icon = _customIcon ?? SystemIcons.Application,
+            BackColor = SystemColors.Control
         };
 
         var title = new Label
         {
             AutoSize = true,
             Text = "Settings",
-            Font = new Font(form.Font, FontStyle.Bold),
-            Margin = new Padding(0, 0, 0, 12)
+            Font = new Font(form.Font.FontFamily, form.Font.Size + 4f, FontStyle.Bold),
+            Margin = new Padding(0, 0, 0, 16)
         };
 
         var startWithWindowsCheck = new CheckBox
@@ -784,11 +785,15 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
         var layout = new FlowLayoutPanel
         {
-            Dock = DockStyle.Fill,
-            AutoScroll = true,
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
             FlowDirection = FlowDirection.TopDown,
             WrapContents = false,
-            Padding = new Padding(16)
+            Padding = new Padding(28, 24, 28, 24),
+            Margin = new Padding(0),
+            BackColor = SystemColors.Window,
+            Anchor = AnchorStyles.None,
+            MinimumSize = new Size(440, 0)
         };
 
         layout.Controls.Add(title);
@@ -796,7 +801,28 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         layout.Controls.Add(showInGroup);
         layout.Controls.Add(buttonRow);
         layout.Controls.Add(versionLabel);
-        form.Controls.Add(layout);
+
+        // Center the settings "card" within the form so the UI looks intentional
+        // at the default size and also when the window is maximized on a large
+        // monitor (instead of stranding the controls in the top-left corner).
+        var centeringHost = new TableLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            ColumnCount = 3,
+            RowCount = 3,
+            AutoScroll = true,
+            BackColor = SystemColors.Control,
+            Padding = new Padding(24)
+        };
+        centeringHost.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        centeringHost.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        centeringHost.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+        centeringHost.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+        centeringHost.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        centeringHost.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+        centeringHost.Controls.Add(layout, 1, 1);
+
+        form.Controls.Add(centeringHost);
 
         form.AcceptButton = okButton;
         form.CancelButton = cancelButton;
