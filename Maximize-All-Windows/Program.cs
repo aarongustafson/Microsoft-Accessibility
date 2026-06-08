@@ -15,7 +15,7 @@ internal static class AppInfo
 {
     // User-facing label. Includes a build counter so test builds can be told apart in the Settings window.
     // Keep the build number aligned with FileVersion in the .csproj.
-    public const string DisplayVersion = "RC2 build 58 (dark-mode)";
+    public const string DisplayVersion = "RC2 build 59 (dark-tray-menu)";
 }
 
 internal static class Program
@@ -162,6 +162,8 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
     private readonly TaskbarCreatedWatcher _taskbarWatcher;
     private readonly Form _controlWindow;
     private readonly System.Windows.Forms.Timer _trayPromoteTimer;
+    private readonly ContextMenuStrip _trayMenu;
+    private readonly UserPreferenceChangedEventHandler _trayThemeHandler;
 
     private bool _isExiting;
 
@@ -194,7 +196,8 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
         _customIcon = LoadTrayIcon();
 
-        var menu = new ContextMenuStrip();
+        _trayMenu = new ContextMenuStrip();
+        var menu = _trayMenu;
 
         var suppressStartWithWindowsChanged = false;
         var startWithWindowsItem = new ToolStripMenuItem("Start with Windows")
@@ -233,6 +236,22 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         menu.Items.Add(startWithWindowsItem);
         menu.Items.Add(new ToolStripSeparator());
         menu.Items.Add("Exit", null, (_, _) => ExitThread());
+
+        // Theme the tray context menu to match the system theme, and refresh it
+        // every time the menu opens (cheap, and handles edge cases like the user
+        // changing themes while the menu has never been shown).
+        ThemeHelper.ApplyToContextMenuStrip(menu, ThemeHelper.GetPalette(ThemeHelper.IsSystemInDarkMode()));
+        menu.Opening += (_, _) =>
+            ThemeHelper.ApplyToContextMenuStrip(menu, ThemeHelper.GetPalette(ThemeHelper.IsSystemInDarkMode()));
+
+        _trayThemeHandler = (_, e) =>
+        {
+            if (e.Category == UserPreferenceCategory.General || e.Category == UserPreferenceCategory.VisualStyle)
+            {
+                ThemeHelper.ApplyToContextMenuStrip(menu, ThemeHelper.GetPalette(ThemeHelper.IsSystemInDarkMode()));
+            }
+        };
+        SystemEvents.UserPreferenceChanged += _trayThemeHandler;
 
         _taskbarWatcher = new TaskbarCreatedWatcher(() =>
         {
@@ -331,6 +350,8 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         _trayPromoteTimer.Stop();
         _trayPromoteTimer.Dispose();
 
+        SystemEvents.UserPreferenceChanged -= _trayThemeHandler;
+
         if (!_controlWindow.IsDisposed)
         {
             _controlWindow.Close();
@@ -339,6 +360,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
         _trayIcon.Visible = false;
         _trayIcon.Dispose();
+        _trayMenu.Dispose();
         _customIcon?.Dispose();
         _callback = null;
 
@@ -1601,6 +1623,59 @@ internal static class ThemeHelper
             ButtonBack = SystemColors.Control,
             ButtonHover = Color.FromArgb(229, 241, 251)
         };
+    }
+
+    public static void ApplyToContextMenuStrip(ContextMenuStrip menu, ThemePalette palette)
+    {
+        if (palette.IsDark)
+        {
+            menu.Renderer = new ToolStripProfessionalRenderer(new DarkMenuColors(palette))
+            {
+                RoundedEdges = false
+            };
+            menu.BackColor = palette.Surface;
+            menu.ForeColor = palette.Text;
+            foreach (ToolStripItem item in menu.Items)
+            {
+                item.BackColor = palette.Surface;
+                item.ForeColor = palette.Text;
+            }
+        }
+        else
+        {
+            // Reset to the OS default professional renderer (system colors).
+            menu.RenderMode = ToolStripRenderMode.ManagerRenderMode;
+            menu.BackColor = SystemColors.Menu;
+            menu.ForeColor = SystemColors.MenuText;
+            foreach (ToolStripItem item in menu.Items)
+            {
+                item.BackColor = SystemColors.Menu;
+                item.ForeColor = SystemColors.MenuText;
+            }
+        }
+    }
+
+    private sealed class DarkMenuColors : ProfessionalColorTable
+    {
+        private readonly ThemePalette _p;
+        public DarkMenuColors(ThemePalette palette) { _p = palette; UseSystemColors = false; }
+
+        public override Color MenuItemSelected => _p.SidebarSelected;
+        public override Color MenuItemSelectedGradientBegin => _p.SidebarSelected;
+        public override Color MenuItemSelectedGradientEnd => _p.SidebarSelected;
+        public override Color MenuItemBorder => _p.Accent;
+        public override Color MenuItemPressedGradientBegin => _p.SidebarSelected;
+        public override Color MenuItemPressedGradientEnd => _p.SidebarSelected;
+        public override Color MenuBorder => _p.Border;
+        public override Color ToolStripDropDownBackground => _p.Surface;
+        public override Color ImageMarginGradientBegin => _p.Surface;
+        public override Color ImageMarginGradientMiddle => _p.Surface;
+        public override Color ImageMarginGradientEnd => _p.Surface;
+        public override Color SeparatorDark => _p.Border;
+        public override Color SeparatorLight => _p.Border;
+        public override Color CheckBackground => _p.SidebarSelected;
+        public override Color CheckSelectedBackground => _p.SidebarSelected;
+        public override Color CheckPressedBackground => _p.SidebarSelected;
     }
 }
 
