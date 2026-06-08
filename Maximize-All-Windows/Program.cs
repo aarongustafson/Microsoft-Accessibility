@@ -15,7 +15,7 @@ internal static class AppInfo
 {
     // User-facing label. Includes a build counter so test builds can be told apart in the Settings window.
     // Keep the build number aligned with FileVersion in the .csproj.
-    public const string DisplayVersion = "RC2 build 57 (ui-polish)";
+    public const string DisplayVersion = "RC2 build 58 (dark-mode)";
 }
 
 internal static class Program
@@ -842,7 +842,8 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             BorderStyle = BorderStyle.None,
             Font = new Font(form.Font.FontFamily, form.Font.Size + 1f),
             IntegralHeight = false,
-            ItemHeight = 36
+            ItemHeight = 36,
+            DrawMode = DrawMode.OwnerDrawFixed
         };
         sidebar.Items.Add("  Settings");
         sidebar.Items.Add("  About");
@@ -877,7 +878,9 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "OK",
             Margin = new Padding(0, 0, 8, 0),
-            MinimumSize = new Size(88, 30)
+            MinimumSize = new Size(88, 30),
+            FlatStyle = FlatStyle.Flat,
+            UseVisualStyleBackColor = false
         };
 
         var cancelButton = new Button
@@ -885,7 +888,9 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "Cancel",
             Margin = new Padding(0, 0, 8, 0),
-            MinimumSize = new Size(88, 30)
+            MinimumSize = new Size(88, 30),
+            FlatStyle = FlatStyle.Flat,
+            UseVisualStyleBackColor = false
         };
 
         var exitButton = new Button
@@ -893,7 +898,9 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "Exit App",
             Margin = new Padding(0),
-            MinimumSize = new Size(88, 30)
+            MinimumSize = new Size(88, 30),
+            FlatStyle = FlatStyle.Flat,
+            UseVisualStyleBackColor = false
         };
 
         var buttonRow = new FlowLayoutPanel
@@ -953,6 +960,111 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
         form.AcceptButton = okButton;
         form.CancelButton = cancelButton;
+
+        // --- Theming ----------------------------------------------------------------
+        // Track palette in a closure-shared variable so the sidebar's owner-draw
+        // handler always sees the current theme.
+        ThemePalette palette = ThemeHelper.GetPalette(ThemeHelper.IsSystemInDarkMode());
+
+        sidebar.DrawItem += (sender, e) =>
+        {
+            if (e.Index < 0 || sender is not ListBox lb)
+            {
+                return;
+            }
+
+            var isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
+            var backColor = isSelected ? palette.SidebarSelected : palette.Sidebar;
+            using (var bg = new SolidBrush(backColor))
+            {
+                e.Graphics.FillRectangle(bg, e.Bounds);
+            }
+
+            // Accent stripe on the selected item (Windows 11 Settings style).
+            if (isSelected)
+            {
+                using var accent = new SolidBrush(palette.Accent);
+                var stripe = new Rectangle(e.Bounds.Left, e.Bounds.Top + 6, 3, e.Bounds.Height - 12);
+                e.Graphics.FillRectangle(accent, stripe);
+            }
+
+            var text = lb.Items[e.Index]?.ToString() ?? string.Empty;
+            using var fg = new SolidBrush(palette.Text);
+            var textBounds = new RectangleF(
+                e.Bounds.Left + 12,
+                e.Bounds.Top + (e.Bounds.Height - lb.Font.Height) / 2f,
+                e.Bounds.Width - 12,
+                lb.Font.Height);
+            e.Graphics.DrawString(text, lb.Font, fg, textBounds);
+        };
+
+        void ApplyTheme(ThemePalette p)
+        {
+            palette = p;
+
+            form.BackColor = p.Background;
+
+            sidebarHost.BackColor = p.Sidebar;
+            sidebar.BackColor = p.Sidebar;
+            sidebar.ForeColor = p.Text;
+
+            contentHost.BackColor = p.Surface;
+            settingsPage.BackColor = p.Surface;
+            aboutPage.BackColor = p.Surface;
+
+            settingsTitle.ForeColor = p.Text;
+            settingsSubtitle.ForeColor = p.MutedText;
+            generalHeader.ForeColor = p.MutedText;
+            startWithWindowsCheck.ForeColor = p.Text;
+            appearanceHeader.ForeColor = p.MutedText;
+            showInLabel.ForeColor = p.Text;
+            trayRadio.ForeColor = p.Text;
+            taskbarRadio.ForeColor = p.Text;
+
+            aboutTitle.ForeColor = p.Text;
+            aboutSubtitle.ForeColor = p.MutedText;
+            aboutVersionHeader.ForeColor = p.MutedText;
+            aboutVersionValue.ForeColor = p.Text;
+            aboutDescriptionHeader.ForeColor = p.MutedText;
+            aboutDescription.ForeColor = p.Text;
+
+            footer.BackColor = p.Footer;
+            versionLabel.ForeColor = p.MutedText;
+
+            foreach (var btn in new[] { okButton, cancelButton, exitButton })
+            {
+                btn.BackColor = p.ButtonBack;
+                btn.ForeColor = p.Text;
+                btn.FlatAppearance.BorderColor = p.Border;
+                btn.FlatAppearance.MouseOverBackColor = p.ButtonHover;
+                btn.FlatAppearance.MouseDownBackColor = p.SidebarSelected;
+            }
+
+            // Theme the title bar via DWM (Win10 2004+ / Win11). Silently no-op on older versions.
+            TrySetTitleBarTheme(form, p.IsDark);
+
+            sidebar.Invalidate();
+        }
+
+        ApplyTheme(palette);
+
+        // Re-apply when the user toggles system light/dark mode while the app is running.
+        UserPreferenceChangedEventHandler themeChanged = (_, e) =>
+        {
+            if (e.Category == UserPreferenceCategory.General || e.Category == UserPreferenceCategory.VisualStyle)
+            {
+                if (form.IsDisposed)
+                {
+                    return;
+                }
+                form.BeginInvoke(new Action(() =>
+                {
+                    ApplyTheme(ThemeHelper.GetPalette(ThemeHelper.IsSystemInDarkMode()));
+                }));
+            }
+        };
+        SystemEvents.UserPreferenceChanged += themeChanged;
+        form.FormClosed += (_, _) => SystemEvents.UserPreferenceChanged -= themeChanged;
 
         void ResetControlsFromSettings()
         {
@@ -1045,6 +1157,27 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         };
 
         return form;
+    }
+
+    // DWMWA_USE_IMMERSIVE_DARK_MODE: 20 on Win10 build 19041+ / Win11; 19 on earlier Win10 2004 builds.
+    private const uint DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
+    private const uint DWMWA_USE_IMMERSIVE_DARK_MODE_LEGACY = 19;
+
+    private static void TrySetTitleBarTheme(Form form, bool dark)
+    {
+        if (!form.IsHandleCreated)
+        {
+            // Force handle creation so DWM has something to attach to.
+            _ = form.Handle;
+        }
+
+        int value = dark ? 1 : 0;
+        var hr = DwmSetWindowAttribute(form.Handle, DWMWA_USE_IMMERSIVE_DARK_MODE, ref value, sizeof(int));
+        if (hr != 0)
+        {
+            // Fall back to the legacy attribute id used on early Win10 2004 builds.
+            DwmSetWindowAttribute(form.Handle, DWMWA_USE_IMMERSIVE_DARK_MODE_LEGACY, ref value, sizeof(int));
+        }
     }
 
     private void ShowControlWindow()
@@ -1204,6 +1337,9 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
     [DllImport("dwmapi.dll")]
     private static extern int DwmGetWindowAttribute(nint hwnd, uint dwAttribute, out int pvAttribute, int cbAttribute);
+
+    [DllImport("dwmapi.dll")]
+    private static extern int DwmSetWindowAttribute(nint hwnd, uint dwAttribute, ref int pvAttribute, int cbAttribute);
 
     [StructLayout(LayoutKind.Sequential)]
     private struct RECT
@@ -1384,6 +1520,87 @@ internal static class StartupRegistration
 
         var firstSpace = trimmed.IndexOf(' ');
         return firstSpace > 0 ? trimmed[..firstSpace] : trimmed;
+    }
+}
+
+internal sealed class ThemePalette
+{
+    public bool IsDark { get; init; }
+    public Color Background { get; init; }
+    public Color Surface { get; init; }
+    public Color Sidebar { get; init; }
+    public Color SidebarSelected { get; init; }
+    public Color SidebarHover { get; init; }
+    public Color Footer { get; init; }
+    public Color Text { get; init; }
+    public Color MutedText { get; init; }
+    public Color Border { get; init; }
+    public Color Accent { get; init; }
+    public Color ButtonBack { get; init; }
+    public Color ButtonHover { get; init; }
+}
+
+internal static class ThemeHelper
+{
+    private const string PersonalizeKey = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+
+    public static bool IsSystemInDarkMode()
+    {
+        try
+        {
+            using var key = Registry.CurrentUser.OpenSubKey(PersonalizeKey);
+            // AppsUseLightTheme: 1 = light, 0 = dark. Default to light when missing.
+            var value = key?.GetValue("AppsUseLightTheme");
+            if (value is int i)
+            {
+                return i == 0;
+            }
+        }
+        catch
+        {
+            // Fall through to light default.
+        }
+        return false;
+    }
+
+    public static ThemePalette GetPalette(bool dark)
+    {
+        if (dark)
+        {
+            return new ThemePalette
+            {
+                IsDark = true,
+                Background = Color.FromArgb(32, 32, 32),
+                Surface = Color.FromArgb(40, 40, 40),
+                Sidebar = Color.FromArgb(24, 24, 24),
+                SidebarSelected = Color.FromArgb(55, 55, 55),
+                SidebarHover = Color.FromArgb(45, 45, 45),
+                Footer = Color.FromArgb(28, 28, 28),
+                Text = Color.FromArgb(240, 240, 240),
+                MutedText = Color.FromArgb(170, 170, 170),
+                Border = Color.FromArgb(60, 60, 60),
+                Accent = Color.FromArgb(0, 120, 212),
+                ButtonBack = Color.FromArgb(55, 55, 55),
+                ButtonHover = Color.FromArgb(70, 70, 70)
+            };
+        }
+
+        return new ThemePalette
+        {
+            IsDark = false,
+            Background = SystemColors.Window,
+            Surface = SystemColors.Window,
+            Sidebar = Color.FromArgb(243, 243, 243),
+            SidebarSelected = Color.FromArgb(225, 225, 225),
+            SidebarHover = Color.FromArgb(235, 235, 235),
+            Footer = Color.FromArgb(249, 249, 249),
+            Text = SystemColors.ControlText,
+            MutedText = SystemColors.GrayText,
+            Border = Color.FromArgb(220, 220, 220),
+            Accent = Color.FromArgb(0, 120, 212),
+            ButtonBack = SystemColors.Control,
+            ButtonHover = Color.FromArgb(229, 241, 251)
+        };
     }
 }
 
