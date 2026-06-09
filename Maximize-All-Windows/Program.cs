@@ -15,7 +15,7 @@ internal static class AppInfo
 {
     // User-facing label. Includes a build counter so test builds can be told apart in the Settings window.
     // Keep the build number aligned with FileVersion in the .csproj.
-    public const string DisplayVersion = "RC2 build 59 (dark-tray-menu)";
+    public const string DisplayVersion = "Beta build 1 (post-RC2, toward RC3)";
 }
 
 internal static class Program
