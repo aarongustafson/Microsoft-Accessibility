@@ -15,7 +15,7 @@ internal static class AppInfo
 {
     // User-facing label. Includes a build counter so test builds can be told apart in the Settings window.
     // Keep the build number aligned with FileVersion in the .csproj.
-    public const string DisplayVersion = "Beta build 1 (post-RC2, toward RC3)";
+    public const string DisplayVersion = "Beta build 2 (post-RC2, toward RC3)";
 }
 
 internal static class Program
@@ -962,18 +962,52 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         footer.Controls.Add(versionLabel, 0, 0);
         footer.Controls.Add(buttonRow, 1, 0);
 
-        // --- Root layout: sidebar | content, with footer pinned below --------------
+        // --- Hero illustration (right column) --------------------------------------
+        // Fills the previously-empty right side of the maximized window with a
+        // brand illustration of "a window being maximized." Click cycles between
+        // two styles (Before/After and Stacked) and persists the choice in settings.
+        const int HeroColumnWidth = 420;
+        const int HeroCollapseBelowWidth = 1000;
+
+        var heroIllustration = new HeroIllustration
+        {
+            Dock = DockStyle.Fill,
+            Style = _settings.HeroIllustration
+        };
+        heroIllustration.Click += (_, _) =>
+        {
+            heroIllustration.Style = heroIllustration.Style == HeroIllustrationStyle.BeforeAfter
+                ? HeroIllustrationStyle.Stacked
+                : HeroIllustrationStyle.BeforeAfter;
+            _settings.HeroIllustration = heroIllustration.Style;
+            SettingsService.Save(_settings);
+        };
+
+        // --- Root layout: sidebar | content | hero, with footer pinned below -------
         var body = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            ColumnCount = 2,
+            ColumnCount = 3,
             RowCount = 1,
             BackColor = SystemColors.Window
         };
         body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220));
         body.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-        body.Controls.Add(sidebarHost, 0, 0);
-        body.Controls.Add(contentHost, 1, 0);
+        body.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, HeroColumnWidth));
+        body.Controls.Add(sidebarHost,       0, 0);
+        body.Controls.Add(contentHost,       1, 0);
+        body.Controls.Add(heroIllustration,  2, 0);
+
+        // Collapse the hero column when the user shrinks the window so it doesn't
+        // crowd the settings on small displays / restored windows.
+        void UpdateHeroVisibility()
+        {
+            var show = form.ClientSize.Width >= HeroCollapseBelowWidth;
+            body.ColumnStyles[2].Width = show ? HeroColumnWidth : 0;
+            heroIllustration.Visible = show;
+        }
+        form.SizeChanged += (_, _) => UpdateHeroVisibility();
+        UpdateHeroVisibility();
 
         // Add footer FIRST so the body's Dock=Fill flows around it (docked controls
         // honor reverse z-order: last-added gets the remaining space).
@@ -1052,6 +1086,10 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
             footer.BackColor = p.Footer;
             versionLabel.ForeColor = p.MutedText;
+
+            // Hero illustration paints itself; just hand it the current palette so
+            // its theme-aware portions (background, line colors) stay in sync.
+            heroIllustration.Palette = p;
 
             foreach (var btn in new[] { okButton, cancelButton, exitButton })
             {
@@ -1378,6 +1416,7 @@ internal sealed class AppSettings
     public bool StartWithWindows { get; set; }
     public bool RunInSystemTray { get; set; } = true;
     public bool HasCompletedFirstRunPrompt { get; set; }
+    public HeroIllustrationStyle HeroIllustration { get; set; } = HeroIllustrationStyle.BeforeAfter;
 }
 
 internal static class SettingsService
