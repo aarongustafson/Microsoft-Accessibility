@@ -159,13 +159,13 @@ internal sealed class HeroIllustration : Control
         {
             var points = new[]
             {
-                new PointF(200, 313),
-                new PointF(222, 339),
-                new PointF(210, 339),
-                new PointF(210, 354),
-                new PointF(190, 354),
-                new PointF(190, 339),
-                new PointF(178, 339)
+                new PointF(190, 313),
+                new PointF(210, 313),
+                new PointF(210, 333),
+                new PointF(222, 333),
+                new PointF(200, 354),
+                new PointF(178, 333),
+                new PointF(190, 333)
             };
             g.FillPolygon(arrowFill, points);
         }

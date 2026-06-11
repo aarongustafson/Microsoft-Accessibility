@@ -609,6 +609,25 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         return new Icon(stream);
     }
 
+    // Rounded-rectangle path used by the Windows 11-style sidebar selection drawing.
+    private static System.Drawing.Drawing2D.GraphicsPath RoundedRectPath(RectangleF r, float radius)
+    {
+        var d = Math.Min(radius * 2, Math.Min(r.Width, r.Height));
+        var path = new System.Drawing.Drawing2D.GraphicsPath();
+        if (d <= 0)
+        {
+            path.AddRectangle(r);
+            return path;
+        }
+        path.StartFigure();
+        path.AddArc(r.X, r.Y, d, d, 180, 90);
+        path.AddArc(r.Right - d, r.Y, d, d, 270, 90);
+        path.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
+        path.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+        path.CloseFigure();
+        return path;
+    }
+
     private string _pendingPromoteReason = string.Empty;
 
     private void EnsureTrayIconVisible()
@@ -1029,22 +1048,51 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
                 return;
             }
 
+            var g = e.Graphics;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
             var isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
-            var backColor = isSelected ? palette.SidebarSelected : palette.Sidebar;
-            using (var bg = new SolidBrush(backColor))
+
+            // Always clear to the sidebar background first.
+            using (var bg = new SolidBrush(palette.Sidebar))
             {
-                e.Graphics.FillRectangle(bg, e.Bounds);
+                g.FillRectangle(bg, e.Bounds);
             }
 
-            // Accent stripe on the selected item (Windows 11 Settings style).
+            // Windows 11 Settings navigation pattern:
+            //  - a SUBTLE rounded selection fill (not high-contrast), inset with a margin
+            //  - an ACCENT rounded pill on the left edge that is the real state indicator
+            //    (carries the 3:1 non-text contrast, WCAG 1.4.11)
+            //  - NORMAL text color, which keeps 4.5:1+ against the subtle fill (WCAG 1.4.3)
             if (isSelected)
             {
+                var pad = 4;
+                var selRect = new Rectangle(
+                    e.Bounds.Left + pad,
+                    e.Bounds.Top + 2,
+                    e.Bounds.Width - pad * 2,
+                    e.Bounds.Height - 4);
+                using (var path = RoundedRectPath(selRect, 6))
+                using (var fill = new SolidBrush(palette.SidebarSelected))
+                {
+                    g.FillPath(fill, path);
+                }
+
+                // Accent pill: ~50% of the row height, fully rounded.
+                var pillHeight = (int)(e.Bounds.Height * 0.5f);
+                var pillRect = new Rectangle(
+                    selRect.Left + 2,
+                    e.Bounds.Top + (e.Bounds.Height - pillHeight) / 2,
+                    3,
+                    pillHeight);
                 using var accent = new SolidBrush(palette.Accent);
-                var stripe = new Rectangle(e.Bounds.Left, e.Bounds.Top + 6, 3, e.Bounds.Height - 12);
-                e.Graphics.FillRectangle(accent, stripe);
+                using var pill = RoundedRectPath(pillRect, pillRect.Width / 2f);
+                g.FillPath(accent, pill);
             }
 
             var text = lb.Items[e.Index]?.ToString() ?? string.Empty;
+            // Normal text color in both states. The subtle selection fill stays close
+            // to the sidebar background, so the standard foreground keeps 4.5:1+.
             using var fg = new SolidBrush(palette.Text);
             var textBounds = new RectangleF(
                 e.Bounds.Left + 12,
@@ -1634,8 +1682,10 @@ internal static class ThemeHelper
                 Background = Color.FromArgb(32, 32, 32),
                 Surface = Color.FromArgb(40, 40, 40),
                 Sidebar = Color.FromArgb(24, 24, 24),
-                SidebarSelected = Color.FromArgb(55, 55, 55),
-                SidebarHover = Color.FromArgb(45, 45, 45),
+                // Subtle selection fill (Windows 11 Settings style). The accent pill
+                // is the state indicator; normal text keeps 4.5:1 against this fill.
+                SidebarSelected = Color.FromArgb(45, 45, 45),
+                SidebarHover = Color.FromArgb(38, 38, 38),
                 Footer = Color.FromArgb(28, 28, 28),
                 Text = Color.FromArgb(240, 240, 240),
                 MutedText = Color.FromArgb(170, 170, 170),
@@ -1652,8 +1702,10 @@ internal static class ThemeHelper
             Background = SystemColors.Window,
             Surface = SystemColors.Window,
             Sidebar = Color.FromArgb(243, 243, 243),
+            // Subtle selection fill (Windows 11 Settings style). The accent pill
+            // is the state indicator; normal text keeps 4.5:1 against this fill.
             SidebarSelected = Color.FromArgb(225, 225, 225),
-            SidebarHover = Color.FromArgb(235, 235, 235),
+            SidebarHover = Color.FromArgb(234, 234, 234),
             Footer = Color.FromArgb(249, 249, 249),
             Text = SystemColors.ControlText,
             MutedText = SystemColors.GrayText,
