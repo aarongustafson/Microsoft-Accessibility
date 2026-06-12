@@ -12,10 +12,13 @@ internal enum HeroIllustrationStyle
 
 /// <summary>
 /// Custom-drawn brand illustration that fills the otherwise-empty right side of
-/// the Settings window with "a window being maximized." Theme-aware (light/dark)
-/// and click-to-cycle between two styles.
+/// the Settings window with "a window being maximized." Theme-aware (light/dark).
+/// The tagline is rendered as real, separate text (child labels) so screen readers
+/// can read it and it is not an image of text (WCAG 1.4.5). Derives from Panel so
+/// the child labels stay properly parented in the accessibility tree (a UserPaint
+/// Control let them float up to the form, where the text leaked into the buttons).
 /// </summary>
-internal sealed class HeroIllustration : Control
+internal sealed class HeroIllustration : Panel
 {
     // Internal layout grid the artwork is drawn against. The whole illustration
     // is then uniformly scaled to fit the available ClientSize, preserving aspect
@@ -23,8 +26,22 @@ internal sealed class HeroIllustration : Control
     private const int DesignWidth  = 400;
     private const int DesignHeight = 600;
 
+    // Design-grid Y positions / font sizes for the tagline, mirrored by the real
+    // text labels so they sit exactly where the artwork expects them.
+    private const float TitleDesignY    = 28f;
+    private const float TitleDesignFont = 17f;
+    private const float SubDesignY      = 56f;
+    private const float SubDesignFont   = 12f;
+
     private ThemePalette _palette;
     private HeroIllustrationStyle _style;
+
+    // Separate real text for the tagline, plus a visually-hidden label that carries
+    // the picture's alt text. Order matters: tagline first, alt last, so a screen
+    // reader in scan mode reads the text before the image description.
+    private readonly Label _titleLabel;
+    private readonly Label _subtitleLabel;
+    private readonly Label _altLabel;
 
     public HeroIllustration()
     {
@@ -35,10 +52,48 @@ internal sealed class HeroIllustration : Control
             | ControlStyles.UserPaint
             | ControlStyles.ResizeRedraw,
             true);
-        Cursor = Cursors.Hand;
-        AccessibleRole = AccessibleRole.Graphic;
-        UpdateAccessibleName();
+        // Decorative graphic: never take keyboard focus.
+        SetStyle(ControlStyles.Selectable, false);
+        TabStop = false;
+        // The container itself carries no accessible name/role; the child labels
+        // provide the text and the alt description in reading order.
+        AccessibleRole = AccessibleRole.None;
+        AccessibleName = string.Empty;
         _palette = ThemeHelper.GetPalette(false);
+
+        _titleLabel = new Label
+        {
+            AutoSize = true,
+            TextAlign = ContentAlignment.MiddleCenter,
+            // StaticText role so WinForms doesn't treat the label as the accessible
+            // name of the next control in tab order.
+            AccessibleRole = AccessibleRole.StaticText,
+            TabIndex = 0
+        };
+        _subtitleLabel = new Label
+        {
+            AutoSize = true,
+            TextAlign = ContentAlignment.MiddleCenter,
+            AccessibleRole = AccessibleRole.StaticText,
+            TabIndex = 1
+        };
+        // Visually hidden (ForeColor == BackColor) but read by AT, ordered last so
+        // the image description follows the tagline text in scan mode.
+        _altLabel = new Label
+        {
+            AutoSize = false,
+            Size = new Size(1, 1),
+            Text = "Illustration of a window being maximized.",
+            AccessibleRole = AccessibleRole.StaticText,
+            AccessibleName = "Illustration of a window being maximized.",
+            TabIndex = 2
+        };
+        Controls.Add(_titleLabel);
+        Controls.Add(_subtitleLabel);
+        Controls.Add(_altLabel);
+
+        UpdateText();
+        UpdateTextColors();
     }
 
     public ThemePalette Palette
@@ -47,6 +102,7 @@ internal sealed class HeroIllustration : Control
         set
         {
             _palette = value;
+            UpdateTextColors();
             Invalidate();
         }
     }
@@ -61,17 +117,90 @@ internal sealed class HeroIllustration : Control
                 return;
             }
             _style = value;
-            UpdateAccessibleName();
+            UpdateText();
+            UpdateTextColors();
+            LayoutText();
             Invalidate();
         }
     }
 
-    private void UpdateAccessibleName()
+    private void UpdateText()
     {
-        AccessibleName = _style == HeroIllustrationStyle.Stacked
-            ? "Illustration: a window growing from small to fullscreen."
-            : "Illustration: small scattered windows becoming one maximized window.";
-        AccessibleDescription = "Click to switch illustration style.";
+        _titleLabel.Text = "Every window, full screen.";
+        _subtitleLabel.Text = _style == HeroIllustrationStyle.BeforeAfter
+            ? "Automatically."
+            : "Less hunting. More focus.";
+    }
+
+    private void UpdateTextColors()
+    {
+        Color back, title, subtitle;
+        if (_style == HeroIllustrationStyle.BeforeAfter)
+        {
+            // Matches the top of the deep-blue gradient drawn in DrawBeforeAfter.
+            back = Color.FromArgb(10, 73, 120);
+            title = Color.White;
+            subtitle = Color.FromArgb(207, 227, 245);
+        }
+        else
+        {
+            back = _palette.IsDark
+                ? Color.FromArgb(20, 32, 50)
+                : Color.FromArgb(234, 243, 251);
+            title = _palette.IsDark
+                ? Color.FromArgb(207, 227, 245)
+                : Color.FromArgb(10, 73, 120);
+            subtitle = _palette.IsDark
+                ? Color.FromArgb(160, 188, 215)
+                : Color.FromArgb(55, 96, 126);
+        }
+
+        _titleLabel.BackColor = back;
+        _subtitleLabel.BackColor = back;
+        _titleLabel.ForeColor = title;
+        _subtitleLabel.ForeColor = subtitle;
+
+        // Keep the alt label invisible to sighted users but present for AT.
+        _altLabel.BackColor = back;
+        _altLabel.ForeColor = back;
+    }
+
+    private void LayoutText()
+    {
+        if (ClientSize.Width <= 0 || ClientSize.Height <= 0 || _titleLabel is null)
+        {
+            return;
+        }
+
+        // Use the same scale/offset as the artwork so the text lands exactly where
+        // the painted version used to (accounting for the letterbox).
+        var scale = Math.Min(
+            (float)ClientSize.Width / DesignWidth,
+            (float)ClientSize.Height / DesignHeight);
+        if (scale <= 0)
+        {
+            return;
+        }
+        var offsetY = (ClientSize.Height - DesignHeight * scale) / 2f;
+
+        _titleLabel.Font = new Font("Segoe UI", Math.Max(8f, TitleDesignFont * scale), FontStyle.Bold, GraphicsUnit.Pixel);
+        _subtitleLabel.Font = new Font("Segoe UI", Math.Max(7f, SubDesignFont * scale), FontStyle.Regular, GraphicsUnit.Pixel);
+
+        _titleLabel.MaximumSize = new Size(ClientSize.Width - 16, 0);
+        _subtitleLabel.MaximumSize = new Size(ClientSize.Width - 16, 0);
+
+        _titleLabel.Location = new Point(
+            Math.Max(0, (ClientSize.Width - _titleLabel.Width) / 2),
+            (int)Math.Round(offsetY + TitleDesignY * scale));
+        _subtitleLabel.Location = new Point(
+            Math.Max(0, (ClientSize.Width - _subtitleLabel.Width) / 2),
+            (int)Math.Round(offsetY + SubDesignY * scale));
+    }
+
+    protected override void OnResize(EventArgs e)
+    {
+        base.OnResize(e);
+        LayoutText();
     }
 
     protected override void OnPaint(PaintEventArgs e)
@@ -140,13 +269,7 @@ internal sealed class HeroIllustration : Control
             g.FillRectangle(bg, 0, 0, DesignWidth, DesignHeight);
         }
 
-        using var titleFont    = new Font("Segoe UI", 17f, FontStyle.Bold, GraphicsUnit.Pixel);
-        using var subtitleFont = new Font("Segoe UI", 12f, FontStyle.Regular, GraphicsUnit.Pixel);
-        using var whiteBrush   = new SolidBrush(Color.White);
-        using var subBrush     = new SolidBrush(Color.FromArgb(207, 227, 245));
-
-        DrawCenteredString(g, "Every window, full screen.", titleFont, whiteBrush, y: 28f);
-        DrawCenteredString(g, "Automatically.",             subtitleFont, subBrush,  y: 58f);
+        // Tagline is rendered as real text by the title/subtitle labels.
 
         DrawMiniDesktopScattered(g, new RectangleF(40, 100, 320, 180));
 
@@ -270,20 +393,7 @@ internal sealed class HeroIllustration : Control
             g.FillRectangle(bg, 0, 0, DesignWidth, DesignHeight);
         }
 
-        var titleColor = _palette.IsDark
-            ? Color.FromArgb(207, 227, 245)
-            : Color.FromArgb( 10,  73, 120);
-        var subColor = _palette.IsDark
-            ? Color.FromArgb(160, 188, 215)
-            : Color.FromArgb( 55,  96, 126);
-
-        using var titleFont    = new Font("Segoe UI", 16f, FontStyle.Bold, GraphicsUnit.Pixel);
-        using var subtitleFont = new Font("Segoe UI", 11f, FontStyle.Regular, GraphicsUnit.Pixel);
-        using var titleBrush   = new SolidBrush(titleColor);
-        using var subBrush     = new SolidBrush(subColor);
-
-        DrawCenteredString(g, "Every window, full screen", titleFont,    titleBrush, y: 30f);
-        DrawCenteredString(g, "Less hunting. More focus.", subtitleFont, subBrush,   y: 56f);
+        // Tagline is rendered as real text by the title/subtitle labels.
 
         // Smallest (top-left), medium (overlapping), then large "maximized".
         DrawStackedWindow(g, new RectangleF( 60, 110, 130,  90), opacity: 0.55f, highlighted: false);
@@ -386,13 +496,6 @@ internal sealed class HeroIllustration : Control
     // ===================================================================
     // Drawing helpers
     // ===================================================================
-    private static void DrawCenteredString(
-        Graphics g, string text, Font font, Brush brush, float y)
-    {
-        var size = g.MeasureString(text, font);
-        g.DrawString(text, font, brush, (DesignWidth - size.Width) / 2f, y);
-    }
-
     private static void DrawArrow(Graphics g, PointF from, PointF to, Pen pen)
     {
         g.DrawLine(pen, from, to);

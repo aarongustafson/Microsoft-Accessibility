@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 860" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="desktopBg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#1f3a5f"/>
+      <stop offset="1" stop-color="#0a1b2e"/>
+    </linearGradient>
+    <pattern id="wallpaper" width="60" height="60" patternUnits="userSpaceOnUse">
+      <rect width="60" height="60" fill="url(#desktopBg)"/>
+      <circle cx="30" cy="30" r="0.8" fill="#ffffff10"/>
+    </pattern>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="8" stdDeviation="14" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <text x="40" y="34" font-size="20" font-weight="700" fill="#111">Concept B — Don't open maximized; small centered window (~960×620)</text>
+  <text x="40" y="58" font-size="14" fill="#555">The window is already small enough that a Magnifier viewport (~3×) can hold most of it. Less panning, no “lost in white space.” Cheapest fix — one-line change in `CreateControlWindow`.</text>
+
+  <!-- desktop -->
+  <rect x="40" y="80" width="1200" height="720" fill="url(#wallpaper)" rx="6"/>
+
+  <!-- taskbar at bottom of "desktop" -->
+  <rect x="40" y="770" width="1200" height="30" fill="#1f1f1f" opacity="0.85"/>
+  <g transform="translate(620,776)" fill="#cfd8dc">
+    <rect x="0"  y="2" width="18" height="18" rx="2" fill="#0078d4"/>
+    <rect x="28" y="2" width="18" height="18" rx="2" fill="#444"/>
+    <rect x="56" y="2" width="18" height="18" rx="2" fill="#444"/>
+    <rect x="84" y="2" width="18" height="18" rx="2" fill="#444"/>
+  </g>
+
+  <!-- compact window, centered on desktop -->
+  <g filter="url(#shadow)" transform="translate(160,140)">
+    <!-- frame -->
+    <rect x="0" y="0" width="960" height="600" fill="#ffffff" rx="8"/>
+    <!-- title bar -->
+    <rect x="0" y="0" width="960" height="36" fill="#fafafa" rx="8"/>
+    <rect x="0" y="20" width="960" height="16" fill="#fafafa"/>
+    <text x="20" y="23" font-size="13" fill="#222">Maximize All Windows</text>
+    <g transform="translate(905,0)" fill="#444">
+      <text x="0"  y="23" font-size="16">—</text>
+      <rect x="20" y="11" width="14" height="14" fill="none" stroke="#444"/>
+      <text x="44" y="23" font-size="16">✕</text>
+    </g>
+
+    <!-- sidebar -->
+    <rect x="0" y="36" width="200" height="508" fill="#f3f3f3"/>
+    <rect x="0" y="52" width="3"  height="36"  fill="#0078d4"/>
+    <text x="24" y="76" font-size="14" font-weight="600" fill="#111">Settings</text>
+    <text x="24" y="116" font-size="14" fill="#333">About</text>
+
+    <!-- content -->
+    <rect x="200" y="36" width="760" height="508" fill="#ffffff"/>
+    <text x="232" y="92" font-size="26" font-weight="700" fill="#111">Settings</text>
+    <text x="232" y="116" font-size="13" fill="#666">Configure how Maximize All Windows behaves.</text>
+
+    <text x="232" y="166" font-size="11" font-weight="700" fill="#666" letter-spacing="0.5">GENERAL</text>
+    <rect x="232" y="182" width="16" height="16" rx="2" fill="#fff" stroke="#666"/>
+    <polyline points="236,190 242,196 252,186" fill="none" stroke="#0078d4" stroke-width="2"/>
+    <text x="258" y="196" font-size="14" fill="#111">Start with Windows</text>
+
+    <text x="232" y="244" font-size="11" font-weight="700" fill="#666" letter-spacing="0.5">APPEARANCE</text>
+    <text x="232" y="268" font-size="13" fill="#111">Show in</text>
+    <circle cx="240" cy="290" r="8" fill="#fff" stroke="#666"/>
+    <circle cx="240" cy="290" r="4" fill="#0078d4"/>
+    <text x="256" y="294" font-size="14" fill="#111">System tray</text>
+    <circle cx="240" cy="314" r="8" fill="#fff" stroke="#666"/>
+    <text x="256" y="318" font-size="14" fill="#111">Taskbar</text>
+
+    <!-- footer -->
+    <rect x="0" y="544" width="960" height="56" fill="#f9f9f9"/>
+    <text x="20" y="578" font-size="12" fill="#666">Version RC2 build 59 (dark-tray-menu)</text>
+    <g transform="translate(720,556)">
+      <rect x="0"   y="0" width="80" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="32"  y="20" font-size="13" fill="#111">OK</text>
+      <rect x="92"  y="0" width="80" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="116" y="20" font-size="13" fill="#111">Cancel</text>
+      <rect x="184" y="0" width="84" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="200" y="20" font-size="13" fill="#111">Exit App</text>
+    </g>
+  </g>
+
+  <!-- Magnifier viewport encloses most of the small window -->
+  <g>
+    <rect x="200" y="170" width="900" height="560" fill="none" stroke="#ffd633" stroke-width="3" stroke-dasharray="10 6"/>
+    <rect x="200" y="136" width="220" height="28" fill="#222"/>
+    <text x="210" y="156" font-size="13" font-weight="600" fill="#ffd633">Magnifier view @ ~1.5×</text>
+  </g>
+
+  <g transform="translate(40,820)">
+    <text x="0" y="12" font-size="12" fill="#222"><tspan font-weight="700">Code change:</tspan> remove <tspan font-family="Consolas, monospace">WindowState = FormWindowState.Maximized</tspan>; keep the 820×540 default with a sensible MinimumSize.</text>
+  </g>
+</svg>

@@ -271,6 +271,15 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             ContextMenuStrip = menu
         };
         _trayIcon.DoubleClick += (_, _) => ShowControlWindow();
+        // Single left-click also opens the UI (right-click still shows the context
+        // menu, which NotifyIcon handles automatically).
+        _trayIcon.MouseClick += (_, e) =>
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ShowControlWindow();
+            }
+        };
         AppLog.Write("Tray icon created.");
 
         _trayPromoteTimer = new System.Windows.Forms.Timer { Interval = 250 };
@@ -779,7 +788,10 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "System tray",
             Checked = _settings.RunInSystemTray,
-            Margin = new Padding(0, 0, 0, 4)
+            Margin = new Padding(0, 0, 0, 4),
+            // WinForms radio buttons don't expose UIA PositionInSet/SizeOfSet, so
+            // include the position in the accessible name for Narrator ("1 of 2").
+            AccessibleName = "System tray, 1 of 2"
         };
 
         var taskbarRadio = new RadioButton
@@ -787,8 +799,29 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AutoSize = true,
             Text = "Taskbar",
             Checked = !_settings.RunInSystemTray,
-            Margin = new Padding(0, 0, 0, 4)
+            Margin = new Padding(0, 0, 0, 4),
+            AccessibleName = "Taskbar, 2 of 2"
         };
+
+        // Isolate the radio buttons in their own container. WinForms scopes radio
+        // arrow-key navigation to siblings sharing a parent; keeping them in a
+        // dedicated panel means Up/Down arrows cycle only between these two radios,
+        // while Tab continues to move to/from the other controls (checkbox, buttons).
+        var showInGroup = new FlowLayoutPanel
+        {
+            AutoSize = true,
+            AutoSizeMode = AutoSizeMode.GrowAndShrink,
+            FlowDirection = FlowDirection.TopDown,
+            WrapContents = false,
+            Margin = new Padding(0),
+            Padding = new Padding(0),
+            // Announce as a labeled radio group ("Show in") instead of the default
+            // generic "pane" role that Narrator was reading.
+            AccessibleRole = AccessibleRole.Grouping,
+            AccessibleName = "Show in"
+        };
+        showInGroup.Controls.Add(trayRadio);
+        showInGroup.Controls.Add(taskbarRadio);
 
         var settingsPage = new FlowLayoutPanel
         {
@@ -805,8 +838,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         settingsPage.Controls.Add(startWithWindowsCheck);
         settingsPage.Controls.Add(appearanceHeader);
         settingsPage.Controls.Add(showInLabel);
-        settingsPage.Controls.Add(trayRadio);
-        settingsPage.Controls.Add(taskbarRadio);
+        settingsPage.Controls.Add(showInGroup);
 
         // --- About page controls ----------------------------------------------------
         var aboutTitle = new Label
@@ -889,12 +921,6 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         sidebar.Items.Add("  Settings");
         sidebar.Items.Add("  About");
         sidebar.SelectedIndex = 0;
-        sidebar.SelectedIndexChanged += (_, _) =>
-        {
-            var showAbout = sidebar.SelectedIndex == 1;
-            settingsPage.Visible = !showAbout;
-            aboutPage.Visible = showAbout;
-        };
 
         var sidebarHost = new Panel
         {
@@ -911,7 +937,28 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             BackColor = SystemColors.Window
         };
         contentHost.Controls.Add(settingsPage);
-        contentHost.Controls.Add(aboutPage);
+        // aboutPage is added on demand when the user selects About (see the sidebar
+        // SelectedIndexChanged handler) so its text stays out of the a11y tree while
+        // the Settings page is showing.
+        sidebar.SelectedIndexChanged += (_, _) =>
+        {
+            var showAbout = sidebar.SelectedIndex == 1;
+            // Add/remove (not just hide) the inactive page so a screen reader never
+            // reads text from the page that isn't showing. Toggling Visible alone
+            // left the About description in the accessibility tree, where it leaked
+            // into the announcement of the footer buttons.
+            var active = showAbout ? aboutPage : settingsPage;
+            var inactive = showAbout ? settingsPage : aboutPage;
+            if (!contentHost.Controls.Contains(active))
+            {
+                contentHost.Controls.Add(active);
+            }
+            active.Visible = true;
+            if (contentHost.Controls.Contains(inactive))
+            {
+                contentHost.Controls.Remove(inactive);
+            }
+        };
 
         // --- Footer (buttons + version) --------------------------------------------
         var okButton = new Button
@@ -921,7 +968,10 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             Margin = new Padding(0, 0, 8, 0),
             MinimumSize = new Size(88, 30),
             FlatStyle = FlatStyle.Flat,
-            UseVisualStyleBackColor = false
+            UseVisualStyleBackColor = false,
+            TabIndex = 0,
+            AccessibleName = "OK",
+            AccessibleDescription = string.Empty
         };
 
         var cancelButton = new Button
@@ -931,7 +981,10 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             Margin = new Padding(0, 0, 8, 0),
             MinimumSize = new Size(88, 30),
             FlatStyle = FlatStyle.Flat,
-            UseVisualStyleBackColor = false
+            UseVisualStyleBackColor = false,
+            TabIndex = 1,
+            AccessibleName = "Cancel",
+            AccessibleDescription = string.Empty
         };
 
         var exitButton = new Button
@@ -941,7 +994,10 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             Margin = new Padding(0),
             MinimumSize = new Size(88, 30),
             FlatStyle = FlatStyle.Flat,
-            UseVisualStyleBackColor = false
+            UseVisualStyleBackColor = false,
+            TabIndex = 2,
+            AccessibleName = "Exit App",
+            AccessibleDescription = string.Empty
         };
 
         var buttonRow = new FlowLayoutPanel
@@ -950,56 +1006,45 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             FlowDirection = FlowDirection.RightToLeft,
             WrapContents = false,
             Anchor = AnchorStyles.Right,
-            Margin = new Padding(0)
+            Margin = new Padding(0),
+            // Explicit empty name blocks WinForms' "a Label names the next control in
+            // tab order" behavior, which was donating the hero illustration's text to
+            // this container and making Narrator read it when focusing the buttons.
+            AccessibleName = string.Empty
         };
         // RightToLeft flow: add in reverse visual order.
         buttonRow.Controls.Add(exitButton);
         buttonRow.Controls.Add(cancelButton);
         buttonRow.Controls.Add(okButton);
 
-        var versionLabel = new Label
-        {
-            AutoSize = true,
-            Text = $"Version {AppInfo.DisplayVersion}",
-            ForeColor = SystemColors.GrayText,
-            Anchor = AnchorStyles.Left,
-            Margin = new Padding(0)
-        };
-
         var footer = new TableLayoutPanel
         {
             Dock = DockStyle.Bottom,
-            ColumnCount = 2,
+            ColumnCount = 1,
             RowCount = 1,
             AutoSize = true,
             AutoSizeMode = AutoSizeMode.GrowAndShrink,
             BackColor = Color.FromArgb(249, 249, 249),
-            Padding = new Padding(20, 12, 20, 12)
+            Padding = new Padding(20, 12, 20, 12),
+            // See buttonRow: block label-donation of the hero text.
+            AccessibleName = string.Empty
         };
-        footer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-        footer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-        footer.Controls.Add(versionLabel, 0, 0);
-        footer.Controls.Add(buttonRow, 1, 0);
+        footer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
+        footer.Controls.Add(buttonRow, 0, 0);
 
         // --- Hero illustration (right column) --------------------------------------
         // Fills the previously-empty right side of the maximized window with a
-        // brand illustration of "a window being maximized." Click cycles between
-        // two styles (Before/After and Stacked) and persists the choice in settings.
+        // brand illustration of "a window being maximized."
         const int HeroColumnWidth = 420;
         const int HeroCollapseBelowWidth = 1000;
 
         var heroIllustration = new HeroIllustration
         {
             Dock = DockStyle.Fill,
-            Style = _settings.HeroIllustration
-        };
-        heroIllustration.Click += (_, _) =>
-        {
-            heroIllustration.Style = heroIllustration.Style == HeroIllustrationStyle.BeforeAfter
-                ? HeroIllustrationStyle.Stacked
-                : HeroIllustrationStyle.BeforeAfter;
-            _settings.HeroIllustration = heroIllustration.Style;
-            SettingsService.Save(_settings);
+            Style = _settings.HeroIllustration,
+            // Decorative (AccessibleRole.Graphic). Keep it out of the Tab cycle so
+            // keyboard users only land on interactive controls.
+            TabStop = false
         };
 
         // --- Root layout: sidebar | content | hero, with footer pinned below -------
@@ -1032,6 +1077,11 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         // honor reverse z-order: last-added gets the remaining space).
         form.Controls.Add(footer);
         form.Controls.Add(body);
+
+        // Semantic Tab order at the form level: traverse the body (sidebar -> content)
+        // before the footer buttons, regardless of the z-order add sequence above.
+        body.TabIndex = 0;
+        footer.TabIndex = 1;
 
         form.AcceptButton = okButton;
         form.CancelButton = cancelButton;
@@ -1100,7 +1150,29 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
                 e.Bounds.Width - 12,
                 lb.Font.Height);
             e.Graphics.DrawString(text, lb.Font, fg, textBounds);
+
+            // Visible keyboard-focus indicator (WCAG 2.4.7). Only shown when the
+            // sidebar actually has keyboard focus, so it doesn't appear during
+            // mouse-only use. A high-contrast rounded outline matches the Windows 11
+            // Settings focus rectangle.
+            var hasFocus = (e.State & DrawItemState.Focus) == DrawItemState.Focus;
+            if (hasFocus && lb.Focused)
+            {
+                var focusRect = new Rectangle(
+                    e.Bounds.Left + 3,
+                    e.Bounds.Top + 1,
+                    e.Bounds.Width - 7,
+                    e.Bounds.Height - 3);
+                using var focusPath = RoundedRectPath(focusRect, 6);
+                using var focusPen = new Pen(palette.Text, 2f);
+                g.DrawPath(focusPen, focusPath);
+            }
         };
+
+        // Repaint the sidebar when focus enters/leaves so the focus outline
+        // appears and disappears correctly.
+        sidebar.GotFocus += (_, _) => sidebar.Invalidate();
+        sidebar.LostFocus += (_, _) => sidebar.Invalidate();
 
         void ApplyTheme(ThemePalette p)
         {
@@ -1122,6 +1194,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             startWithWindowsCheck.ForeColor = p.Text;
             appearanceHeader.ForeColor = p.MutedText;
             showInLabel.ForeColor = p.Text;
+            showInGroup.BackColor = p.Surface;
             trayRadio.ForeColor = p.Text;
             taskbarRadio.ForeColor = p.Text;
 
@@ -1133,7 +1206,6 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             aboutDescription.ForeColor = p.Text;
 
             footer.BackColor = p.Footer;
-            versionLabel.ForeColor = p.MutedText;
 
             // Hero illustration paints itself; just hand it the current palette so
             // its theme-aware portions (background, line colors) stay in sync.
