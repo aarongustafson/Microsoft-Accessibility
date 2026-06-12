@@ -23,7 +23,7 @@ The settings window is the primary UI. It is **resizable and maximizable** and o
 - **OK** — applies any changes and dismisses the settings window (hide in tray mode, minimize in taskbar mode).
 - **Cancel** — discards changes and dismisses the window.
 - **Exit App** — quits the application entirely.
-- **Version** label in the bottom-left corner shows the current release (for example `Version RC2`). The detailed build number is recorded in the executable's file properties.
+- **Version** label in the bottom-left corner shows the current release (for example `Version RC3`). The detailed build number is recorded in the executable's file properties.
 
 In **system tray** mode you can also right-click the tray icon for:
 
@@ -96,6 +96,19 @@ This build is **not yet code-signed**, so Windows SmartScreen and Edge/Outlook a
 A signed pipeline build is planned for general distribution.
 
 ## Release notes
+
+### RC3
+
+This is the **RC3** release. The user-visible version label reads `RC3`; detailed build metadata (`2.0.2.1`, RC3 build 1) is recorded in the executable's file properties (right-click the EXE → **Properties** → **Details**).
+
+Highlights since RC2:
+
+- **Dark mode support.** The app now detects the Windows app theme and applies matching light/dark palettes throughout the settings window, including the title bar (via DWM) and the tray context menu. The theme updates live when you switch Windows between light and dark.
+- **New two-pane settings layout.** The settings window uses a Windows 11-style sidebar with **Settings** and **About** pages. The selected sidebar item is drawn with a rounded accent highlight.
+- **Hero illustration.** The settings window's right column now shows a hero illustration that reinforces the "maximize" concept.
+- **Improved keyboard navigation and accessibility.** Sidebar selection follows the Windows 11 accessible pattern, the **System tray** / **Taskbar** radios are grouped so Up/Down arrows cycle only between them, and controls expose proper `AccessibleName` values (e.g. "System tray, 1 of 2") for screen readers.
+
+---
 
 ### RC2
 

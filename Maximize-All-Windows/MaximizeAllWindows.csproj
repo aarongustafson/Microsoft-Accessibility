@@ -6,10 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Assets\tray-icon.ico</ApplicationIcon>
-    <Version>2.0.1-beta.2</Version>
+    <Version>2.0.2-rc3</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.1.2</FileVersion>
-    <InformationalVersion>2.0.1-beta.2 (Beta build 2 - post-RC2, toward RC3)</InformationalVersion>
+    <FileVersion>2.0.2.1</FileVersion>
+    <InformationalVersion>2.0.2-rc3 (RC3 build 1)</InformationalVersion>
   </PropertyGroup>
 
   <ItemGroup>
