@@ -48,14 +48,3 @@ TestResults/
 *.o
 *.a
 *.dylib
-.codeql-db/
-.codeql-results.sarif
-.codeql-results-*.sarif
-.github/codeql/.scan-lock
-.github/codeql/status.json
-
-# Un-ignore directories so git descends into them for per-file rules
-!.vscode/
-# Required files — MUST be committed
-!.vscode/mcp.json
-# Runtime artifacts — NEVER commit (regenerated each session)

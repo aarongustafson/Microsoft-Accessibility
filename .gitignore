@@ -11,7 +11,6 @@ Thumbs.db
 *.key
 *.pfx
 
-
 # Build outputs
 [Bb]in/
 [Oo]bj/
@@ -62,13 +61,6 @@ __pycache__/
 venv/
 .pytest_cache/
 .mypy_cache/
-
-# CodeQL
-.codeql-db/
-.codeql-results.sarif
-.codeql-results-*.sarif
-.github/codeql/.scan-lock
-.github/codeql/status.json
 
 # SARIF scan results
 *.sarif
