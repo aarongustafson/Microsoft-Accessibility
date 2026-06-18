@@ -1,0 +1,61 @@
+name: Maximize-All-Windows Release
+
+# Builds a self-contained, single-file Windows x64 executable (no .NET install
+# required by end users) and publishes it as a GitHub Release asset.
+#
+# To cut a release, push a tag like:
+#   git tag maximize-all-windows-v2.0.2
+#   git push origin maximize-all-windows-v2.0.2
+#
+# The built MaximizeAllWindows.exe is always also available as a workflow
+# artifact (e.g. when run manually via "Run workflow").
+
+on:
+  push:
+    tags:
+      - 'maximize-all-windows-v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish self-contained single-file exe
+        run: >
+          dotnet publish Maximize-All-Windows/src/MaximizeAllWindows.csproj
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:EnableCompressionInSingleFile=true
+          -o publish
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MaximizeAllWindows-win-x64
+          path: |
+            publish/MaximizeAllWindows.exe
+            Maximize-All-Windows/README.txt
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: >
+          gh release create "$env:GITHUB_REF_NAME"
+          "publish/MaximizeAllWindows.exe"
+          --title "Maximize All Windows $env:GITHUB_REF_NAME"
+          --notes "Self-contained Windows x64 build - no .NET install required. Download MaximizeAllWindows.exe below and see the README for install steps."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,11 +4,12 @@
 #
 # Usage:
 #   pwsh -File tools/smoke-test.ps1 -Exe "path\to\MaximizeAllWindows.exe"
-# Defaults to the published artifact.
+# Defaults to the locally published build (src\bin\publish\MaximizeAllWindows.exe);
+# produce it with tools\reinstall.cmd or a `dotnet publish` to that folder.
 
 [CmdletBinding()]
 param(
-    [string]$Exe = "$PSScriptRoot\..\artifacts\MaximizeAllWindows-2.0.0-rc2-win-x64\MaximizeAllWindows.exe"
+    [string]$Exe = (Join-Path (Split-Path -Parent $PSScriptRoot) 'bin\publish\MaximizeAllWindows.exe')
 )
 
 $ErrorActionPreference = 'Stop'

@@ -14,6 +14,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\tray-icon.ico" />
-    <None Include="README.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="..\README.txt" Link="README.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

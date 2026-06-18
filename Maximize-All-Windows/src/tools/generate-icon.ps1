@@ -1,6 +1,7 @@
 $ErrorActionPreference = "Stop"
 
-$assetDir = "c:\Users\jecurry\OneDrive - Microsoft\Documents\GitHub\Maximize-All-Windows\Assets"
+# Assets live one level up from this script (src/Assets).
+$assetDir = Join-Path (Split-Path -Parent $PSScriptRoot) 'Assets'
 New-Item -Path $assetDir -ItemType Directory -Force | Out-Null
 
 Add-Type -AssemblyName System.Drawing

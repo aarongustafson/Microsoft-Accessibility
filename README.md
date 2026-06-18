@@ -9,8 +9,14 @@ A collection of small Windows accessibility utilities from Microsoft.
 A lightweight Windows utility (.NET 8 / Windows Forms) that automatically maximizes
 newly opened top-level application windows, making content easier to see and work with.
 It runs from the taskbar or system tray and remembers windows you manually restore so
-they are not re-maximized. See the [project README](./Maximize-All-Windows/README.txt)
-for features, install/uninstall steps, and configuration.
+they are not re-maximized.
+
+**[⬇ Download MaximizeAllWindows.exe (latest release)](https://github.com/microsoft/Microsoft-Accessibility/releases/latest/download/MaximizeAllWindows.exe)** — a self-contained
+Windows x64 executable; no .NET installation required. After downloading, right-click
+the file → **Properties** → check **Unblock** → **OK**, then run it.
+
+See the [project README](./Maximize-All-Windows/README.txt) for features, install/uninstall
+steps, and configuration. Source code lives in [Maximize-All-Windows/src](./Maximize-All-Windows/src).
 
 ## Contributing
 

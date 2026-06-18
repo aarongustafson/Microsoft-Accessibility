@@ -4,6 +4,20 @@ Maximize-All-Windows is a small Windows utility that automatically maximizes new
 
 By default it runs in the **taskbar** with a settings window. You can switch to **system tray** mode from the settings dialog if you prefer.
 
+## Download
+
+Download the latest self-contained Windows x64 build (no .NET install required):
+
+  https://github.com/microsoft/Microsoft-Accessibility/releases/latest/download/MaximizeAllWindows.exe
+
+Or browse all releases:
+
+  https://github.com/microsoft/Microsoft-Accessibility/releases/latest
+
+After downloading, right-click the file > Properties > check Unblock > OK (only
+needed for files downloaded from the internet), then run it. See "Install and
+uninstall" below for putting it in Add/Remove Programs.
+
 ## How it works
 
 - The app installs Windows event hooks and listens for new top-level windows.
