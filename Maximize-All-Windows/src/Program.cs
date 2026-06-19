@@ -1984,7 +1984,7 @@ internal static class InstallManager
         key.SetValue("InstallLocation", installDir, RegistryValueKind.String);
         key.SetValue("DisplayIcon", installedExe, RegistryValueKind.String);
         key.SetValue("UninstallString", $"\"{installedExe}\" --uninstall", RegistryValueKind.String);
-        key.SetValue("QuietUninstallString", $"\"{installedExe}\" --uninstall", RegistryValueKind.String);
+        key.SetValue("QuietUninstallString", $"\"{installedExe}\" --uninstall-silent", RegistryValueKind.String);
         key.SetValue("NoModify", 1, RegistryValueKind.DWord);
         key.SetValue("NoRepair", 1, RegistryValueKind.DWord);
     }
