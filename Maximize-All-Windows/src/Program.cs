@@ -37,7 +37,17 @@ internal static class Program
         var hasMutex = false;
         try
         {
-            hasMutex = SingleInstanceMutex.WaitOne(0, false);
+            try
+            {
+                hasMutex = SingleInstanceMutex.WaitOne(0, false);
+            }
+            catch (AbandonedMutexException)
+            {
+                // Previous instance exited unexpectedly while holding the mutex; treat this instance as primary.
+                hasMutex = true;
+                AppLog.Write("Single-instance mutex was abandoned; continuing as primary instance.");
+            }
+
             if (!hasMutex)
             {
                 MessageBox.Show(
