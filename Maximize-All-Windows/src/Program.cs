@@ -16,8 +16,7 @@ using System.Windows.Forms;
 
 internal static class AppInfo
 {
-    // User-facing label. Includes a build counter so test builds can be told apart in the Settings window.
-    // Keep the build number aligned with FileVersion in the .csproj.
+    // User-facing version label shown in the Settings window.
     public const string DisplayVersion = "RC3";
 }
 
