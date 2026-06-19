@@ -221,7 +221,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         };
         startWithWindowsItem.CheckedChanged += (_, _) =>
         {
-            if (suppressStartWithWindowsChanged)
+            if (suppressStartWithWindowsChanged || startWithWindowsItem.Checked == _settings.StartWithWindows)
             {
                 return;
             }
