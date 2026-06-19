@@ -12,7 +12,7 @@ Download the latest self-contained Windows x64 build (no .NET install required):
 
 Or browse all releases:
 
-  https://github.com/microsoft/Microsoft-Accessibility/releases/latest
+  https://github.com/microsoft/Microsoft-Accessibility/releases
 
 After downloading, right-click the file > Properties > check Unblock > OK (only
 needed for files downloaded from the internet), then run it. See "Install and
