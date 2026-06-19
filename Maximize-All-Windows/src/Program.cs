@@ -1968,7 +1968,7 @@ internal static class InstallManager
         }
 
         key.SetValue("DisplayName", "Maximize All Windows", RegistryValueKind.String);
-        key.SetValue("Publisher", "Maximize-All-Windows", RegistryValueKind.String);
+        key.SetValue("Publisher", "Microsoft Corporation", RegistryValueKind.String);
         key.SetValue("DisplayVersion", version, RegistryValueKind.String);
         key.SetValue("InstallLocation", installDir, RegistryValueKind.String);
         key.SetValue("DisplayIcon", installedExe, RegistryValueKind.String);
