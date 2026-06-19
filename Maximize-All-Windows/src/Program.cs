@@ -1220,6 +1220,8 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             aboutDescription.ForeColor = p.Text;
 
             footer.BackColor = p.Footer;
+            versionLabel.BackColor = p.Footer;
+            versionLabel.ForeColor = p.MutedText;
 
             // Hero illustration paints itself; just hand it the current palette so
             // its theme-aware portions (background, line colors) stay in sync.
