@@ -25,6 +25,7 @@ uninstall" below for putting it in Add/Remove Programs.
 - If you manually **restore** a window (un-maximize it), the app remembers that and will not auto-maximize that window again for the rest of the session.
 - Tooltips, menus, popups, owned dialogs, tool windows, and small transient surfaces are ignored.
 - Microsoft Teams "caption" windows (live/closed captions) are explicitly excluded so they are not maximized over the meeting window.
+- Windows belonging to apps running **as administrator** (elevated) are not auto-maximized. The app runs as the normal user, and Windows User Interface Privilege Isolation (UIPI) prevents a non-elevated app from controlling elevated windows. This is by design.
 
 ## The settings window
 
