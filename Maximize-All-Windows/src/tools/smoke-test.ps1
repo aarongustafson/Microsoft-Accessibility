@@ -83,8 +83,8 @@ try {
     Assert-True ($null -ne $group) 'GroupBox "Show in" is present with caption rendered'
 
     # 4. Verify radios.
-    $trayRadio    = Find-Descendant $window $CT::RadioButton 'System tray'
-    $taskbarRadio = Find-Descendant $window $CT::RadioButton 'Taskbar'
+    $trayRadio    = Find-Descendant $window $CT::RadioButton 'System tray, 1 of 2'
+    $taskbarRadio = Find-Descendant $window $CT::RadioButton 'Taskbar, 2 of 2'
     Assert-True ($null -ne $trayRadio)    'Radio "System tray" is present'
     Assert-True ($null -ne $taskbarRadio) 'Radio "Taskbar" is present'
 
@@ -93,8 +93,8 @@ try {
 
     # 5. Verify version label.
     $versionLabel = $window.FindFirst($TS::Descendants,
-        (New-Object System.Windows.Automation.PropertyCondition($AEP, 'Version RC2 0.54')))
-    Assert-True ($null -ne $versionLabel) 'Version label shows RC2 0.54'
+        (New-Object System.Windows.Automation.PropertyCondition($AEP, 'Version RC3')))
+    Assert-True ($null -ne $versionLabel) 'Version label shows RC3'
 
     # 6. Click OK with no changes -> taskbar mode dismisses by minimizing (window still exists).
     $ok = Find-Descendant $window $CT::Button 'OK'
