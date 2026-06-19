@@ -1020,10 +1020,19 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         buttonRow.Controls.Add(cancelButton);
         buttonRow.Controls.Add(okButton);
 
+        var versionLabel = new Label
+        {
+            AutoSize = true,
+            Text = $"Version {AppInfo.DisplayVersion}",
+            ForeColor = SystemColors.GrayText,
+            Margin = new Padding(0, 6, 0, 0),
+            AccessibleRole = AccessibleRole.StaticText
+        };
+
         var footer = new TableLayoutPanel
         {
             Dock = DockStyle.Bottom,
-            ColumnCount = 1,
+            ColumnCount = 2,
             RowCount = 1,
             AutoSize = true,
             AutoSizeMode = AutoSizeMode.GrowAndShrink,
@@ -1033,7 +1042,9 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             AccessibleName = string.Empty
         };
         footer.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-        footer.Controls.Add(buttonRow, 0, 0);
+        footer.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+        footer.Controls.Add(versionLabel, 0, 0);
+        footer.Controls.Add(buttonRow, 1, 0);
 
         // --- Hero illustration (right column) --------------------------------------
         // Fills the previously-empty right side of the maximized window with a
