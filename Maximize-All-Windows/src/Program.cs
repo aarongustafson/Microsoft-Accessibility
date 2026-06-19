@@ -707,7 +707,10 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
     private void QueueVisibilityCheck(string reason, int attemptsRemaining, int delayMs)
     {
-        if (attemptsRemaining <= 0) return;
+        if (_isExiting || attemptsRemaining <= 0)
+        {
+            return;
+        }
 
         var probe = new System.Windows.Forms.Timer { Interval = Math.Max(50, delayMs) };
         probe.Tick += (_, _) =>
@@ -715,13 +718,25 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             probe.Stop();
             probe.Dispose();
 
-            var (hwnd, uid) = TrayIconReflection.GetIdentity(_trayIcon);
-            var visibility = TrayIconLocator.Query(hwnd, uid);
-            AppLog.Write($"Visibility ({reason}) hwnd=0x{hwnd:X} uid={uid}: {visibility}");
-
-            if (visibility == TrayIconLocator.Visibility.NotFound || visibility == TrayIconLocator.Visibility.Unknown)
+            if (_isExiting)
             {
-                QueueVisibilityCheck(reason, attemptsRemaining - 1, delayMs);
+                return;
+            }
+
+            try
+            {
+                var (hwnd, uid) = TrayIconReflection.GetIdentity(_trayIcon);
+                var visibility = TrayIconLocator.Query(hwnd, uid);
+                AppLog.Write($"Visibility ({reason}) hwnd=0x{hwnd:X} uid={uid}: {visibility}");
+
+                if ((visibility == TrayIconLocator.Visibility.NotFound || visibility == TrayIconLocator.Visibility.Unknown) && !_isExiting)
+                {
+                    QueueVisibilityCheck(reason, attemptsRemaining - 1, delayMs);
+                }
+            }
+            catch (Exception ex)
+            {
+                AppLog.Write($"Visibility probe failed ({reason}): {ex.Message}");
             }
         };
         probe.Start();
