@@ -84,6 +84,8 @@ internal static class Program
             {
                 SingleInstanceMutex.ReleaseMutex();
             }
+
+            SingleInstanceMutex.Dispose();
         }
     }
 
