@@ -98,9 +98,13 @@ try {
     Assert-True ($taskbarSel.Current.IsSelected) 'Taskbar radio is initially selected (matches settings.json)'
 
     # 5. Verify version label.
+    $productVersion = (Get-Item $Exe).VersionInfo.ProductVersion
+    $rc = [regex]::Match([string]$productVersion, 'RC\d+', [System.Text.RegularExpressions.RegexOptions]::IgnoreCase).Value
+    if (-not $rc) { throw "Could not infer RC label from ProductVersion: '$productVersion'" }
+
     $versionLabel = $window.FindFirst($TS::Descendants,
-        (New-Object System.Windows.Automation.PropertyCondition($AEP, 'Version RC3')))
-    Assert-True ($null -ne $versionLabel) 'Version label shows RC3'
+        (New-Object System.Windows.Automation.PropertyCondition($AEP, "Version $rc")))
+    Assert-True ($null -ne $versionLabel) "Version label shows $rc"
 
     # 6. Click OK with no changes -> taskbar mode dismisses by minimizing (window still exists).
     $ok = Find-Descendant $window $CT::Button 'OK'
