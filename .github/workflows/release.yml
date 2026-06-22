@@ -48,8 +48,7 @@ jobs:
           name: MaximizeAllWindows-win-x64
           path: |
             publish/MaximizeAllWindows.exe
-            Maximize-All-Windows/README.txt
-
+            publish/README.txt
       - name: Publish GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
