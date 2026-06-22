@@ -1392,8 +1392,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
     {
         if (!form.IsHandleCreated)
         {
-            // Force handle creation so DWM has something to attach to.
-            _ = form.Handle;
+            return;
         }
 
         int value = dark ? 1 : 0;
