@@ -1350,6 +1350,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             }
 
             sidebar.Invalidate();
+        }
 
         ApplyTheme(palette);
         form.HandleCreated += (_, _) => TrySetTitleBarTheme(form, palette.IsDark);
