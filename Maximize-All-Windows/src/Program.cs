@@ -1263,10 +1263,12 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             }
 
             // Theme the title bar via DWM (Win10 2004+ / Win11). Silently no-op on older versions.
-            TrySetTitleBarTheme(form, p.IsDark);
+            if (form.IsHandleCreated)
+            {
+                TrySetTitleBarTheme(form, p.IsDark);
+            }
 
             sidebar.Invalidate();
-        }
 
         ApplyTheme(palette);
 
