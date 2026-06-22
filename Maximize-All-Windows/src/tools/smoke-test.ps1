@@ -56,13 +56,13 @@ try {
 
     function Wait-Window {
         param([string]$Name, [int]$TimeoutMs = 8000)
-        $deadline = [Environment]::TickCount + $TimeoutMs
+        $start = [Environment]::TickCount64
         do {
             $cond = New-Object System.Windows.Automation.PropertyCondition($AEP, $Name)
             $w = $AE::RootElement.FindFirst($TS::Children, $cond)
             if ($w) { return $w }
             Start-Sleep -Milliseconds 200
-        } while ([Environment]::TickCount -lt $deadline)
+        } while (([Environment]::TickCount64 - $start) -lt $TimeoutMs)
         return $null
     }
 
