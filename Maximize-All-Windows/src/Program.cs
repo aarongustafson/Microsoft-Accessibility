@@ -1271,6 +1271,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             sidebar.Invalidate();
 
         ApplyTheme(palette);
+        form.HandleCreated += (_, _) => TrySetTitleBarTheme(form, palette.IsDark);
 
         // Re-apply when the user toggles system light/dark mode while the app is running.
         UserPreferenceChangedEventHandler themeChanged = (_, e) =>
