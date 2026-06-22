@@ -161,6 +161,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
     private const long WS_THICKFRAME = 0x00040000L;
     private const long WS_MAXIMIZEBOX = 0x00010000L;
     private const long WS_EX_TOOLWINDOW = 0x00000080L;
+    private const long WS_EX_TOPMOST = 0x00000008L;
 
     private const uint GA_ROOT = 2;
     private const uint GW_OWNER = 4;
@@ -170,6 +171,7 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
     private readonly ConcurrentDictionary<nint, byte> _userRestoredWindows = new();
     private readonly ConcurrentDictionary<nint, byte> _autoMaximizedWindows = new();
     private readonly ConcurrentDictionary<nint, bool> _lastZoomState = new();
+    private readonly ConcurrentDictionary<nint, byte> _teamsRecheckPending = new();
     private readonly NotifyIcon _trayIcon;
     private readonly Icon? _customIcon;
     private readonly AppSettings _settings;
@@ -422,6 +424,11 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             return;
         }
 
+        EvaluateWindow(hwnd, deferTeams: true);
+    }
+
+    private void EvaluateWindow(nint hwnd, bool deferTeams)
+    {
         if (_userRestoredWindows.ContainsKey(hwnd))
         {
             return;
@@ -434,6 +441,23 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
 
         if (IsTeamsCaptionWindow(hwnd))
         {
+            return;
+        }
+
+        // Teams Live Captions, chat message pop-outs, and the meeting window are all
+        // process ms-teams / class TeamsWebView and are indistinguishable at
+        // EVENT_OBJECT_SHOW: none are topmost yet and the title is blank or a generic
+        // "Microsoft Teams". The captions/pinned overlay becomes always-on-top (and
+        // its title becomes "Captions | ... | Pinned window") a moment later, so defer
+        // the decision for these surfaces and re-check once they settle. The re-check
+        // calls back with deferTeams:false to actually maximize chat/meeting windows.
+        if (deferTeams && IsTeamsWebViewWindow(hwnd))
+        {
+            if (_teamsRecheckPending.TryAdd(hwnd, 0))
+            {
+                ScheduleTeamsCaptionRecheck(hwnd, 0);
+            }
+
             return;
         }
 
@@ -499,38 +523,55 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
         _lastZoomState[hwnd] = isZoomed;
     }
 
-    private static bool IsTeamsCaptionWindow(nint hwnd)
+    private static bool IsTeamsHost(string processName) =>
+        processName.Equals("ms-teams", StringComparison.OrdinalIgnoreCase)
+        || processName.Equals("teams", StringComparison.OrdinalIgnoreCase)
+        || processName.Equals("msedgewebview2", StringComparison.OrdinalIgnoreCase);
+
+    // True for a new-Teams WebView surface (captions, chat message pop-out, or the
+    // meeting window). These cannot be told apart at show time and are handled with a
+    // deferred re-check.
+    private static bool IsTeamsWebViewWindow(nint hwnd)
     {
-        if (!TryGetProcessName(hwnd, out var processName))
+        if (!TryGetProcessName(hwnd, out var processName) || !IsTeamsHost(processName))
         {
             return false;
         }
 
-        // New Teams hosts many popped-out windows (including Live Captions) in
-        // msedgewebview2.exe rather than ms-teams.exe, so accept either host.
-        var isTeamsHost =
-            processName.Equals("ms-teams", StringComparison.OrdinalIgnoreCase)
-            || processName.Equals("teams", StringComparison.OrdinalIgnoreCase)
-            || processName.Equals("msedgewebview2", StringComparison.OrdinalIgnoreCase);
+        return string.Equals(GetClassNameSafe(hwnd), "TeamsWebView", StringComparison.OrdinalIgnoreCase);
+    }
 
-        if (!isTeamsHost)
+    // True only once a Teams surface is identifiable as Live Captions / a pinned
+    // overlay: it is always-on-top (WS_EX_TOPMOST), or its title/class names a caption
+    // surface. Chat message pop-outs and the meeting window are never topmost and
+    // never carry these caption markers.
+    private static bool IsTeamsCaptionWindow(nint hwnd)
+    {
+        if (!TryGetProcessName(hwnd, out var processName) || !IsTeamsHost(processName))
         {
             return false;
+        }
+
+        // Captions / pinned overlays are created as always-on-top windows; chat
+        // pop-outs and the main window are not. The flag is set shortly after the
+        // window appears, so it is the reliable differentiator once the surface
+        // settles.
+        var exStyle = GetWindowLongPtr(hwnd, GWL_EXSTYLE).ToInt64();
+        if ((exStyle & WS_EX_TOPMOST) != 0)
+        {
+            return true;
         }
 
         var title = GetWindowTitle(hwnd);
-        if (!string.IsNullOrWhiteSpace(title))
-        {
-            if (title.Contains("caption", StringComparison.OrdinalIgnoreCase)
+        if (!string.IsNullOrWhiteSpace(title)
+            && (title.Contains("caption", StringComparison.OrdinalIgnoreCase)
                 || title.Contains("subtitle", StringComparison.OrdinalIgnoreCase)
-                || title.Contains("transcript", StringComparison.OrdinalIgnoreCase))
-            {
-                return true;
-            }
+                || title.Contains("transcript", StringComparison.OrdinalIgnoreCase)
+                || title.Contains("pinned window", StringComparison.OrdinalIgnoreCase)))
+        {
+            return true;
         }
 
-        // When EVENT_OBJECT_SHOW fires the title may not be set yet, so also accept
-        // a Teams-hosted window whose class name is a known caption surface.
         var className = GetClassNameSafe(hwnd);
         if (!string.IsNullOrEmpty(className)
             && className.Contains("caption", StringComparison.OrdinalIgnoreCase))
@@ -538,19 +579,59 @@ internal sealed class MaximizeApplicationContext : ApplicationContext
             return true;
         }
 
-        // Popped-out Live Captions in new Teams use class 'TeamsWebView' with an
-        // empty title when EVENT_OBJECT_SHOW fires. The main meeting window uses
-        // the same class but always has a non-empty title ('Microsoft Teams' or
-        // the meeting name) at SHOW time, so an empty title on a TeamsWebView is
-        // a reliable signal of an auxiliary surface (captions/notes/popout). Skip
-        // it now; the FOREGROUND hook will re-evaluate after the title is set.
-        if (string.IsNullOrWhiteSpace(title)
-            && string.Equals(className, "TeamsWebView", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-
         return false;
+    }
+
+    // A new Teams WebView surface looks identical to captions at show time, so wait
+    // for it to settle: if it becomes a captions/pinned overlay (topmost or caption
+    // title) leave it alone; once it has a real, non-caption title (a chat pop-out or
+    // the meeting window) maximize it.
+    private void ScheduleTeamsCaptionRecheck(nint hwnd, int attempt)
+    {
+        const int maxAttempts = 8;
+        const int delayMs = 200;
+
+        var timer = new System.Windows.Forms.Timer { Interval = delayMs };
+        timer.Tick += (_, _) =>
+        {
+            timer.Stop();
+            timer.Dispose();
+
+            if (_isExiting
+                || !IsWindowVisible(hwnd)
+                || IsIconic(hwnd)
+                || IsZoomed(hwnd)
+                || _userRestoredWindows.ContainsKey(hwnd))
+            {
+                _teamsRecheckPending.TryRemove(hwnd, out _);
+                return;
+            }
+
+            if (IsTeamsCaptionWindow(hwnd))
+            {
+                // Now identifiable as captions / pinned overlay: never maximize.
+                _teamsRecheckPending.TryRemove(hwnd, out _);
+                return;
+            }
+
+            var title = GetWindowTitle(hwnd);
+            var hasRealTitle = !string.IsNullOrWhiteSpace(title)
+                && !title.Equals("Microsoft Teams", StringComparison.OrdinalIgnoreCase);
+
+            if (hasRealTitle || attempt + 1 >= maxAttempts)
+            {
+                // A chat message pop-out or the meeting window (real, non-caption
+                // title), or we waited long enough without it becoming a captions
+                // overlay: maximize it if it otherwise qualifies.
+                _teamsRecheckPending.TryRemove(hwnd, out _);
+                EvaluateWindow(hwnd, deferTeams: false);
+                return;
+            }
+
+            ScheduleTeamsCaptionRecheck(hwnd, attempt + 1);
+        };
+
+        timer.Start();
     }
 
     private static string GetClassNameSafe(nint hwnd)
