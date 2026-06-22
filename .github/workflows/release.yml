@@ -56,9 +56,9 @@ jobs:
           $tag = $env:GITHUB_REF_NAME
           gh release view $tag *> $null
           if ($LASTEXITCODE -eq 0) {
-            gh release upload $tag "publish/MaximizeAllWindows.exe" --clobber
+            gh release upload $tag "publish/MaximizeAllWindows.exe" "publish/README.txt" --clobber
           } else {
-            gh release create $tag "publish/MaximizeAllWindows.exe" --title "Maximize All Windows $tag" --notes "Self-contained Windows x64 build - no .NET install required. Download MaximizeAllWindows.exe below and see the README for install steps."
+            gh release create $tag "publish/MaximizeAllWindows.exe" "publish/README.txt" --title "Maximize All Windows $tag" --notes "Self-contained Windows x64 build - no .NET install required. Download MaximizeAllWindows.exe below and see the README for install steps."
           }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
