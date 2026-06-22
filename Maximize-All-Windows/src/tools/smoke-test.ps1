@@ -29,7 +29,13 @@ function Assert-True {
 Get-Process -Name MaximizeAllWindows -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 Start-Sleep -Milliseconds 300
 
-# 2. Pre-seed settings (taskbar mode, first-run done, startup off so registry isn't touched).
+# 2. Pre-seed settings (taskbar mode, first-run done). Also temporarily disable any existing startup Run entry so the app doesn't repair/modify it during the test.
+$runKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
+$runValueName = 'MaximizeAllWindows'
+$script:originalRunValue = $null
+try { $script:originalRunValue = (Get-ItemProperty -Path $runKey -Name $runValueName -ErrorAction SilentlyContinue).$runValueName } catch {}
+if ($script:originalRunValue) { Remove-ItemProperty -Path $runKey -Name $runValueName -ErrorAction SilentlyContinue }
+
 $settingsDir = Join-Path $env:LocalAppData 'MaximizeAllWindows'
 New-Item -ItemType Directory -Path $settingsDir -Force | Out-Null
 @{
