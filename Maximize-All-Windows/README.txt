@@ -10,9 +10,9 @@ Download the latest self-contained Windows x64 build (no .NET install required):
 
   https://github.com/microsoft/Microsoft-Accessibility/releases/latest/download/MaximizeAllWindows.exe
 
-Or browse all releases:
+Or browse Maximize-All-Windows releases:
 
-  https://github.com/microsoft/Microsoft-Accessibility/releases
+  https://github.com/microsoft/Microsoft-Accessibility/releases?q=maximize-all-windows-v&expanded=true
 
 After downloading, right-click the file > Properties > check Unblock > OK (only
 needed for files downloaded from the internet), then run it. See "Install and
