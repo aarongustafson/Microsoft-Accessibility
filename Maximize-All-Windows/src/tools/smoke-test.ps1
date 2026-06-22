@@ -136,6 +136,12 @@ finally {
     if ($proc -and -not $proc.HasExited) {
         Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue
     }
+
+    if ($script:originalRunValue) {
+        try {
+            New-ItemProperty -Path $runKey -Name $runValueName -Value $script:originalRunValue -PropertyType String -Force | Out-Null
+        } catch {}
+    }
 }
 
 Write-Host ""
