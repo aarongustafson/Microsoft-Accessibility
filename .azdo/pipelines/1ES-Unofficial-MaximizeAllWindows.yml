@@ -117,6 +117,8 @@ extends:
                     --runtime $(targetRuntime) `
                     --self-contained true `
                     -p:PublishSingleFile=true `
+                    -p:IncludeNativeLibrariesForSelfExtract=true `
+                    -p:EnableCompressionInSingleFile=true `
                     --no-restore `
                     --output $(Build.ArtifactStagingDirectory)/publish
                 displayName: 'Publish (self-contained, $(targetRuntime))'
