@@ -132,11 +132,3 @@ Features:
 ### A window keeps getting maximized when I don't want it to
 
 Restore the window once (click the **Restore** button in the title bar, or drag it off the maximize state). The app will remember that for the rest of the session and leave it alone.
-
-### File Explorer context menu does not open while app is running
-
-Resolved in 1.0.
-
-### New Outlook link right-click context menu does not open
-
-Resolved in 1.0.
