@@ -17,7 +17,7 @@ using System.Windows.Forms;
 internal static class AppInfo
 {
     // User-facing version label shown in the Settings window.
-    public const string DisplayVersion = "RC3";
+    public const string DisplayVersion = "1.0";
 }
 
 internal static class Program

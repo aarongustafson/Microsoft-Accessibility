@@ -14,10 +14,6 @@ Or browse Maximize-All-Windows releases:
 
   https://github.com/microsoft/Microsoft-Accessibility/releases?q=maximize-all-windows-v&expanded=true
 
-After downloading, right-click the file > Properties > check Unblock > OK (only
-needed for files downloaded from the internet), then run it. See "Install and
-uninstall" below for putting it in Add/Remove Programs.
-
 ## How it works
 
 - The app installs Windows event hooks and listens for new top-level windows.
@@ -38,7 +34,7 @@ The settings window is the primary UI. It is **resizable and maximizable** and o
 - **OK** — applies any changes and dismisses the settings window (hide in tray mode, minimize in taskbar mode).
 - **Cancel** — discards changes and dismisses the window.
 - **Exit App** — quits the application entirely.
-- **Version** label in the bottom-left corner shows the current release (for example `Version RC3`). The detailed build number is recorded in the executable's file properties.
+- **Version** label in the bottom-left corner shows the current release (for example `Version 1.0`). The detailed build number is recorded in the executable's file properties.
 
 In **system tray** mode you can also right-click the tray icon for:
 
@@ -98,103 +94,23 @@ Toggle **Start with Windows** in the settings window or the tray menu. This writ
 
 so the app starts automatically on next sign-in. If the registered path no longer matches the current EXE (for example after a re-install to a new location), the app repairs it on next launch.
 
-## Sharing this build with other users
-
-This build is **not yet code-signed**, so Windows SmartScreen and Edge/Outlook attachment filters will warn the recipient. To run it on a fresh machine:
-
-1. Save `MaximizeAllWindows.exe` to a folder (e.g. `Downloads`).
-2. **Right-click** the file → **Properties** → check **Unblock** → **OK**. (This is only needed for files downloaded from the internet.)
-3. Double-click `MaximizeAllWindows.exe`. If SmartScreen shows *"Windows protected your PC"*, click **More info** → **Run anyway**.
-4. The app opens its settings window. Use the **Install** option (or run `MaximizeAllWindows.exe --install-silent` from a terminal) to put it under `%LocalAppData%\Programs\MaximizeAllWindows` and register it in **Add/Remove Programs**.
-5. (Optional) Enable **Start with Windows** so it launches at sign-in.
-
-A signed pipeline build is planned for general distribution.
-
 ## Release notes
 
-### RC3
+### 1.0
 
-This is the **RC3** release. The user-visible version label reads `RC3`; detailed build metadata (`2.0.2.1`, RC3 build 1) is recorded in the executable's file properties (right-click the EXE → **Properties** → **Details**).
+This is the **1.0** general release. The user-visible version label reads `1.0`; detailed build metadata (`1.0.0.0`) is recorded in the executable's file properties (right-click the EXE → **Properties** → **Details**).
 
-Highlights since RC2:
+Features:
 
-- **Dark mode support.** The app now detects the Windows app theme and applies matching light/dark palettes throughout the settings window, including the title bar (via DWM) and the tray context menu. The theme updates live when you switch Windows between light and dark.
-- **New two-pane settings layout.** The settings window uses a Windows 11-style sidebar with **Settings** and **About** pages. The selected sidebar item is drawn with a rounded accent highlight.
-- **Hero illustration.** The settings window's right column now shows a hero illustration that reinforces the "maximize" concept.
-- **Improved keyboard navigation and accessibility.** Sidebar selection follows the Windows 11 accessible pattern, the **System tray** / **Taskbar** radios are grouped so Up/Down arrows cycle only between them, and controls expose proper `AccessibleName` values (e.g. "System tray, 1 of 2") for screen readers.
-
----
-
-### RC2
-
-This is the consolidated **RC2** release. The user-visible version label has been simplified to just `RC2`; detailed build metadata is recorded in the executable's file properties (right-click the EXE → **Properties** → **Details**).
-
-Highlights since RC1:
-
-- **Teams Live Captions are no longer auto-maximized.** Popped-out Live Captions in new Teams are hosted by `msedgewebview2.exe` and appear with an empty title under class `TeamsWebView`. The filter now recognizes the WebView2 host process, title patterns (`captions`, `subtitles`, `transcript`), the `TeamsWebView` class with an empty title at show-time, and additional class-name fallbacks. The main meeting window is unaffected.
-- **Restored windows stay restored.** If you restore a window manually, the app remembers and will not re-maximize that window again for the rest of the session — regardless of whether you or the app originally maximized it.
-- **Better filtering of transient surfaces.** Tooltips, popups, owned dialogs, tool windows, and small flyouts are excluded, so things like the **New Outlook** right-click context menu open correctly.
-- **Settings window is resizable and maximizable** and opens **maximized** by default. Minimize/restore preserves the previous Maximized/Normal state.
-- **Clean install behavior.** `--install` performs a true replace: the existing install directory is removed before the new files are copied. User settings are preserved across upgrades.
-- **Diagnostics.** Auto-maximize actions log the target process name, window class, and title to `%LocalAppData%\MaximizeAllWindows\startup.log` to make unexpected behavior easier to diagnose.
-- **Tray icon promotion.** On startup (and after Explorer restarts) the app attempts to set its tray icon to "always visible" via `HKCU\Control Panel\NotifyIconSettings\<id>\IsPromoted = 1`.
-
----
-
-### Historical pre-RC2 build notes
-
-The following entries cover the iterative builds (`RC2 0.50` … `RC2 0.56`) that led to this release. They are kept for reference only — all changes are rolled up under **RC2** above.
-
-#### RC2 0.56
-
-- Fixed: popped-out **Live Captions** in new Teams were still getting auto-maximized. The caption window uses class `TeamsWebView` (same as the main meeting window) but appears with an **empty title** when first shown, so neither the title-based nor the class-based filter caught it. The check now treats any `TeamsWebView` window with an empty title at show-time as an auxiliary Teams surface and skips it. The main meeting window is unaffected because it always has a title (`Microsoft Teams` or the meeting name) set by the time it appears.
-
-#### RC2 0.55
-
-- Improved Microsoft Teams **Live Captions** suppression: popped-out caption windows in **new Teams** are hosted by `msedgewebview2.exe` (not `ms-teams.exe`), so the previous filter let them through and they got auto-maximized. The check now recognizes the WebView2 host process, additional title patterns (`captions`, `subtitles`, `transcript`), and class-name fallbacks for the case where the title is not set yet when the window first appears.
-- Auto-maximize actions now log the target process name, window class, and title to `%LocalAppData%\MaximizeAllWindows\startup.log` to make it easier to diagnose unexpected maximize behavior.
-
-#### RC2 0.54
-
-- Settings window is now **resizable and maximizable** and opens **maximized** by default. Restoring from a minimized state returns to the previous Maximized/Normal state instead of forcing Normal.
-- **User-restore is sticky for any window**: if you restore a window manually — regardless of whether the app or you maximized it — the app will not re-maximize it again for the rest of the session.
-- Confirmed Microsoft Teams "caption" windows are excluded from auto-maximize.
-
-#### RC2 0.53
-
-- Fixed Taskbar radio button focus rectangle being clipped at the bottom of the `Show in` group box.
-
-#### RC2 0.52
-
-- Fixed a bug where clicking **OK** in taskbar mode required two clicks to dismiss the window.
-- Fixed the `Show in` group box caption not rendering (caused by `AutoSize=true` collapsing the group).
-
-#### RC2 0.51
-
-- Mode-aware dismiss: **OK** / **Cancel** now hide the window in system-tray mode and minimize it in taskbar mode (so a taskbar entry remains).
-- Closing the settings window in taskbar mode exits the app (it is the only window); in tray mode it hides.
-
-#### RC2 0.50
-
-- Renamed `Run in` group to **Show in**.
-- Replaced the **Run in system tray** checkbox with the **System tray** / **Taskbar** radio group.
-- Added **OK**, **Cancel**, and **Exit App** buttons.
-- Added a **Version** label in the corner of the settings window.
-- Fixed slow startup in tray mode (no longer forces settings-window handle creation on the critical path).
-- Fixed taskbar mode "OK closes but nothing in taskbar" by not hiding the only window in taskbar mode.
-
-### RC2 (initial)
-
-- New Outlook link right-click context menu no longer fails to open (popup/owned/transient surfaces are excluded from maximize handling).
-- Improved tray icon reliability: longer re-registration attempts, plus Explorer `TaskbarCreated` watcher that re-registers the icon after shell restarts.
-- First-run prompt for **Start with Windows**.
-- Startup diagnostics log at `%LocalAppData%\MaximizeAllWindows\startup.log`.
-- Single-instance detection: launching the EXE while it is already running shows an "already running" dialog.
-- Install/uninstall flow with **Add/Remove Programs** entry.
-
-### RC1
-
-- File Explorer context menu no longer fails to open while app is running (popup/menu windows are filtered from maximize handling).
+- **Automatic window maximizing.** Newly opened top-level application windows are maximized automatically. Tooltips, menus, popups, owned dialogs, tool windows, and small transient surfaces are ignored.
+- **Sticky manual restore.** If you restore a window manually, the app remembers and will not re-maximize that window again for the rest of the session.
+- **Teams captions excluded.** Microsoft Teams "caption" windows (live/closed captions) — including popped-out captions hosted by WebView2 — are explicitly excluded so they are not maximized over the meeting window.
+- **Respects elevated apps.** Windows belonging to apps running as administrator are left alone (by design, due to Windows UIPI).
+- **Taskbar or system tray.** Runs from the taskbar by default with a settings window, or in the notification area if you prefer. The settings window is resizable, maximizable, and opens maximized.
+- **Dark mode support.** The app detects the Windows app theme and applies matching light/dark palettes throughout the settings window, including the title bar (via DWM) and the tray context menu, updating live when you switch Windows between light and dark.
+- **Windows 11-style settings layout.** A two-pane sidebar with **Settings** and **About** pages, a hero illustration, and accessible keyboard navigation with proper `AccessibleName` values for screen readers.
+- **Install and uninstall.** Per-user install registers the app in **Add/Remove Programs**; `--install` performs a clean replace while preserving user settings.
+- **Reliability.** Tray icon promotion and re-registration after Explorer restarts, single-instance detection, first-run **Start with Windows** prompt, and startup diagnostics at `%LocalAppData%\MaximizeAllWindows\startup.log`.
 
 ## Troubleshooting
 
@@ -216,11 +132,3 @@ The following entries cover the iterative builds (`RC2 0.50` … `RC2 0.56`) tha
 ### A window keeps getting maximized when I don't want it to
 
 Restore the window once (click the **Restore** button in the title bar, or drag it off the maximize state). The app will remember that for the rest of the session and leave it alone.
-
-### File Explorer context menu does not open while app is running
-
-Fixed in RC1.
-
-### New Outlook link right-click context menu does not open
-
-Fixed in RC2.

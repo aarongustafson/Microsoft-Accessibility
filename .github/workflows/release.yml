@@ -4,8 +4,8 @@ name: Maximize-All-Windows Release
 # required by end users) and publishes it as a GitHub Release asset.
 #
 # To cut a release, push a tag like:
-#   git tag maximize-all-windows-v2.0.2
-#   git push origin maximize-all-windows-v2.0.2
+#   git tag maximize-all-windows-v1.0.0
+#   git push origin maximize-all-windows-v1.0.0
 #
 # The built MaximizeAllWindows.exe is always also available as a workflow
 # artifact (e.g. when run manually via "Run workflow").
