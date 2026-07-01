@@ -139,6 +139,8 @@ extends:
                         "KeyCode": "CP-230012",
                         "OperationCode": "SigntoolSign",
                         "Parameters": {
+                          "OpusName": "Maximize All Windows",
+                          "OpusInfo": "https://github.com/microsoft/Microsoft-Accessibility",
                           "FileDigest": "/fd SHA256",
                           "PageHash": "/NPH",
                           "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
