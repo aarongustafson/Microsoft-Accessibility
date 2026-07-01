@@ -54,6 +54,8 @@ variables:
 extends:
   template: v1/1ES.Unofficial.PipelineTemplate.yml@1ESPipelineTemplates
   parameters:
+    settings:
+      networkIsolationPolicy: permissive,CFSClean
     pool:
       name: 1ES-BuildPool
       os: windows
