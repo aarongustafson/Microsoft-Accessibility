@@ -116,6 +116,7 @@ extends:
                     --configuration $(buildConfiguration) `
                     --runtime $(targetRuntime) `
                     --self-contained true `
+                    -p:PublishSingleFile=true `
                     --no-restore `
                     --output $(Build.ArtifactStagingDirectory)/publish
                 displayName: 'Publish (self-contained, $(targetRuntime))'
@@ -131,7 +132,7 @@ extends:
                   AuthCertName: '$(esrpCertName)'
                   AuthSignCertName: '$(esrpSignCertName)'
                   FolderPath: '$(Build.ArtifactStagingDirectory)/publish'
-                  Pattern: '*.msi, *.exe'
+                  Pattern: '*.msi, *MaximizeAllWindows*.exe'
                   signConfigType: 'inlineSignParams'
                   inlineOperation: |
                     [
