@@ -1,8 +1,9 @@
 # =====================================================================
 # Maximize All Windows — 1ES Unofficial build pipeline
 # =====================================================================
-# Builds the .NET 8 WinForms application and publishes a self-contained
-# win-x64 binary as a pipeline artifact.
+# Builds the .NET 8 WinForms application from
+# Microsoft-Accessibility/Maximize-All-Windows/src and publishes a
+# self-contained win-x64 binary as a pipeline artifact.
 #
 # Scope: BUILD-ONLY. No Provision/Deploy stages.
 #        No Azure service connection required.
@@ -34,6 +35,7 @@ variables:
   appName: 'MaximizeAllWindows'
   buildConfiguration: 'Release'
   targetRuntime: 'win-x64'
+  projectPath: 'Microsoft-Accessibility/Maximize-All-Windows/src/MaximizeAllWindows.csproj'
   # ESRP signing – configure these in ADO pipeline variables (secret)
   esrpServiceConnection: 'cn-MaximizeAllWindows-CodeSign'
   esrpCertName: 'esrp-authentication-certificate'
@@ -73,10 +75,10 @@ extends:
         submodules: false
     stages:
       - stage: Build
-        displayName: 'Build'
+        displayName: 'Build (Microsoft-Accessibility/src)'
         jobs:
           - job: BuildJob
-            displayName: 'Build & Publish MaximizeAllWindows (win-x64 self-contained)'
+            displayName: 'Build & Publish MaximizeAllWindows from Microsoft-Accessibility/src (win-x64 self-contained)'
             templateContext:
               outputs:
                 - output: pipelineArtifact
@@ -107,14 +109,14 @@ extends:
                 displayName: 'Authenticate with CFS package feed'
 
               - pwsh: |
-                  dotnet restore MaximizeAllWindows.csproj --runtime $(targetRuntime)
+                  dotnet restore "$(projectPath)" --runtime $(targetRuntime)
                 displayName: 'Restore dependencies'
 
               # Self-contained, single-runtime publish.
               # 'dotnet publish -r ... --self-contained true' performs its own build
               # for the target runtime, so no separate 'dotnet build' step is needed.
               - pwsh: |
-                  dotnet publish MaximizeAllWindows.csproj `
+                  dotnet publish "$(projectPath)" `
                     --configuration $(buildConfiguration) `
                     --runtime $(targetRuntime) `
                     --self-contained true `
