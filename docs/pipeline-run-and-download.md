@@ -21,6 +21,30 @@ The pipeline builds and publishes a self-contained Windows x64 release.
 Azure Artifacts feed URL:
 - https://dev.azure.com/oneCELA/CELA_Demos_and_POCs/_artifacts/feed/CELADemosAndPOCs
 
+## Refresh submodule with latest code
+
+Before running the pipeline, update the `Microsoft-Accessibility` submodule so the build uses the latest upstream code.
+
+Run from repository root:
+
+```powershell
+git submodule sync -- Microsoft-Accessibility
+git submodule update --init Microsoft-Accessibility
+git submodule update --remote Microsoft-Accessibility
+```
+
+Then commit the updated submodule pointer in this repo and push your branch:
+
+```powershell
+git add Microsoft-Accessibility
+git commit -m "Update Microsoft-Accessibility submodule"
+git push
+```
+
+Notes:
+- `git submodule update --remote Microsoft-Accessibility` pulls the latest commit from the submodule's default branch.
+- If no new submodule commit is available, `git commit` will report nothing to commit.
+
 ## Run the pipeline in Azure DevOps
 
 1. Open your Azure DevOps project:

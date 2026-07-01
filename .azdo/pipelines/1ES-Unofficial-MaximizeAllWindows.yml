@@ -63,7 +63,7 @@ extends:
       os: windows
     sdl:
       git:
-        submodules: false
+        submodules: true
       sourceAnalysisPool:
         name: 1ES-BuildPool
         os: windows
