@@ -37,5 +37,10 @@
       "approve": true,
       "matchCommandLine": true
     }
-    }
+    },
+    "python.analysis.extraPaths": [
+      "c:\\Users\\seguriluvan\\.vscode\\extensions\\ms-security.ms-sentinel-1.3.0\\python",
+      "c:\\Users\\seguriluvan\\.vscode\\extensions\\ms-security.ms-sentinel-2.1.0\\python",
+      "c:\\Users\\seguriluvan\\.vscode\\extensions\\ms-security.ms-sentinel-2.3.0\\python"
+    ]
 }
