@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 860" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="desktopBg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#1f3a5f"/>
+      <stop offset="1" stop-color="#0a1b2e"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <text x="40" y="34" font-size="20" font-weight="700" fill="#111">Concept A — Centered content column (max-width ~640 px)</text>
+  <text x="40" y="58" font-size="14" fill="#555">Cap content width and center it inside the surface. Symmetric whitespace puts every control near the screen's center — exactly where a Magnifier viewport tends to sit.</text>
+
+  <rect x="40" y="80" width="1200" height="720" fill="url(#desktopBg)" rx="6"/>
+
+  <g filter="url(#shadow)">
+    <!-- title bar -->
+    <rect x="40" y="80" width="1200" height="36" fill="#fafafa"/>
+    <text x="60" y="103" font-size="13" fill="#222">Maximize All Windows</text>
+    <g transform="translate(1145,80)" fill="#444">
+      <text x="0"  y="23" font-size="16">—</text>
+      <rect x="38" y="11" width="14" height="14" fill="none" stroke="#444"/>
+      <text x="78" y="23" font-size="16">✕</text>
+    </g>
+
+    <!-- sidebar -->
+    <rect x="40" y="116" width="220" height="628" fill="#f3f3f3"/>
+    <rect x="40" y="132" width="3"  height="36"  fill="#0078d4"/>
+    <text x="64" y="156" font-size="14" font-weight="600" fill="#111">Settings</text>
+    <text x="64" y="196" font-size="14" fill="#333">About</text>
+
+    <!-- content surface -->
+    <rect x="260" y="116" width="980" height="628" fill="#ffffff"/>
+
+    <!-- centered column guides (subtle) -->
+    <rect x="510" y="140" width="640" height="580" fill="#fafbfc" stroke="#eee" stroke-dasharray="4 4"/>
+
+    <!-- centered content -->
+    <text x="530" y="180" font-size="28" font-weight="700" fill="#111">Settings</text>
+    <text x="530" y="206" font-size="13" fill="#666">Configure how Maximize All Windows behaves.</text>
+
+    <text x="530" y="256" font-size="11" font-weight="700" fill="#666" letter-spacing="0.5">GENERAL</text>
+    <rect x="530" y="272" width="16" height="16" rx="2" fill="#fff" stroke="#666"/>
+    <polyline points="534,280 540,286 550,276" fill="none" stroke="#0078d4" stroke-width="2"/>
+    <text x="556" y="286" font-size="14" fill="#111">Start with Windows</text>
+
+    <text x="530" y="334" font-size="11" font-weight="700" fill="#666" letter-spacing="0.5">APPEARANCE</text>
+    <text x="530" y="358" font-size="13" fill="#111">Show in</text>
+    <circle cx="538" cy="380" r="8" fill="#fff" stroke="#666"/>
+    <circle cx="538" cy="380" r="4" fill="#0078d4"/>
+    <text x="554" y="384" font-size="14" fill="#111">System tray</text>
+    <circle cx="538" cy="404" r="8" fill="#fff" stroke="#666"/>
+    <text x="554" y="408" font-size="14" fill="#111">Taskbar</text>
+
+    <!-- footer -->
+    <rect x="40" y="744" width="1200" height="56" fill="#f9f9f9"/>
+    <text x="60" y="778" font-size="12" fill="#666">Version RC2 build 59 (dark-tray-menu)</text>
+    <g transform="translate(960,756)">
+      <rect x="0"   y="0" width="80" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="32"  y="20" font-size="13" fill="#111">OK</text>
+      <rect x="92"  y="0" width="80" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="116" y="20" font-size="13" fill="#111">Cancel</text>
+      <rect x="184" y="0" width="84" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="200" y="20" font-size="13" fill="#111">Exit App</text>
+    </g>
+  </g>
+
+  <!-- Magnifier viewport centered on screen — now finds content immediately -->
+  <g>
+    <rect x="470" y="240" width="380" height="260" fill="none" stroke="#ffd633" stroke-width="3" stroke-dasharray="10 6"/>
+    <rect x="470" y="206" width="220" height="28" fill="#222"/>
+    <text x="480" y="226" font-size="13" font-weight="600" fill="#ffd633">Magnifier view @ ~3×</text>
+  </g>
+
+  <g transform="translate(40,820)">
+    <rect x="0" y="0" width="14" height="14" fill="#fafbfc" stroke="#aaa" stroke-dasharray="4 4"/>
+    <text x="22" y="12" font-size="12" fill="#222">Reading column (max 640 px) — symmetric margins, content lands under the viewport</text>
+  </g>
+</svg>

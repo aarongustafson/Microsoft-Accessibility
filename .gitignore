@@ -3,8 +3,6 @@
 Thumbs.db
 *.log
 
-# VibeShield state (traces, eval output, timestamps)
-.vibeshield/
 # Environment and secrets
 .env
 .env.*
@@ -12,14 +10,42 @@ Thumbs.db
 *.secret
 *.key
 *.pfx
+
 # Build outputs
-bin/
-obj/
-out/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
 artifacts/
-# IDE/editor
+publish/
+publish-*/
+
+# IDE / editor
 .vs/
 .vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET / build intermediates
+TestResults/
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+*.pdb
+*.dll
+*.exe
+*.so
+*.dylib
+*.o
+*.a
+*.rpm
+*.deb
+*.zip
+*.tar
+*.tar.gz
+
 # Node.js
 node_modules/
 dist/
@@ -27,6 +53,7 @@ coverage/
 .npm/
 npm-debug.log*
 yarn-error.log*
+
 # Python
 __pycache__/
 *.py[cod]
@@ -34,41 +61,7 @@ __pycache__/
 venv/
 .pytest_cache/
 .mypy_cache/
-# .NET
-TestResults/
-*.user
-*.suo
-*.dll
-*.exe
-*.so
-*.rpm
-*.deb
-*.zip
-*.tar
-*.tar.gz
-*.pdb
-*.o
-*.a
-*.dylib
-.codeql-db/
-.codeql-results.sarif
-.codeql-results-*.sarif
-.github/codeql/.scan-lock
-.github/codeql/status.json
 
-# vibeshield-deploy-start
-# VibeShield-Deploy — track required files, exclude runtime artifacts
-# Un-ignore directories so git descends into them for per-file rules
-!.vibeshield/
-!.vibeshield/results/
-!.vscode/
-# Required files — MUST be committed
-!.vibeshield/deploy-integrity-manifest.json
-!.vibeshield/project-config.json
-!.vibeshield/team-preferences.yaml
-!.vibeshield/results/workspace-manifest.json
-!.vscode/mcp.json
-# Runtime artifacts — NEVER commit (regenerated each session)
-.vibeshield/deploy-state.json
-.vibeshield/results/*.sarif
-# vibeshield-deploy-end
+# SARIF scan results
+*.sarif
+**/*.sarif
