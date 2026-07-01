@@ -41,6 +41,10 @@ variables:
   esrpTenantId: '975f013f-7f24-47e8-a7d3-abc4752bf346'
   esrpKeyVaultName: 'kv-sparrow-esrp-prd'
   esrpSignCertName: 'esrp-request-signing-certificate'
+  artifactsFeed: 'CELA_Demos_and_POCs/CELADemosAndPOCs'
+  # Build output Universal Package
+  buildPackageName: 'MaximizeAllWindows-win-x64'
+  buildPackageVersion: '1.0.$(Build.BuildId)'
   # SDK versions:
   #   - Target framework runtime (8.x) — shared frameworks for net8.0-windows
   #   - Build SDK (9.x) — matches local 'dotnet --version' (9.0.314)
@@ -127,7 +131,7 @@ extends:
                   AuthCertName: '$(esrpCertName)'
                   AuthSignCertName: '$(esrpSignCertName)'
                   FolderPath: '$(Build.ArtifactStagingDirectory)/publish'
-                  Pattern: '*.msi, *.exe, *.dll'
+                  Pattern: '*.msi, *.exe'
                   signConfigType: 'inlineSignParams'
                   inlineOperation: |
                     [
@@ -135,8 +139,6 @@ extends:
                         "KeyCode": "CP-230012",
                         "OperationCode": "SigntoolSign",
                         "Parameters": {
-                          "OpusName": "SPARROW Studio",
-                          "OpusInfo": "https://github.com/microsoft/CameraTraps",
                           "FileDigest": "/fd SHA256",
                           "PageHash": "/NPH",
                           "TimeStamp": "/tr \"http://rfc3161.gtm.corp.microsoft.com/TSS/HttpTspServer\" /td sha256"
