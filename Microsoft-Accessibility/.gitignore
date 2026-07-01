@@ -1,0 +1,67 @@
+# General
+.DS_Store
+Thumbs.db
+*.log
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.secret
+*.key
+*.pfx
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+artifacts/
+publish/
+publish-*/
+
+# IDE / editor
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET / build intermediates
+TestResults/
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+*.pdb
+*.dll
+*.exe
+*.so
+*.dylib
+*.o
+*.a
+*.rpm
+*.deb
+*.zip
+*.tar
+*.tar.gz
+
+# Node.js
+node_modules/
+dist/
+coverage/
+.npm/
+npm-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+
+# SARIF scan results
+*.sarif
+**/*.sarif

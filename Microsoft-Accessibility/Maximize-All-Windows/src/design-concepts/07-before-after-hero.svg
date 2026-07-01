@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 860" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <linearGradient id="desktopBg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#1f3a5f"/>
+      <stop offset="1" stop-color="#0a1b2e"/>
+    </linearGradient>
+    <linearGradient id="heroBg2" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#0a4978"/>
+      <stop offset="1" stop-color="#0078d4"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+    <filter id="softShadow2" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <text x="40" y="34" font-size="20" font-weight="700" fill="#111">Concept G — Before / after split illustration on the right</text>
+  <text x="40" y="58" font-size="14" fill="#555">Simpler, bolder variant of Concept F. The right column is one image: cluttered desktop on top → clean maximized window on bottom, with a giant up-arrow between them. Communicates "what this app does" in one glance.</text>
+
+  <rect x="40" y="80" width="1200" height="720" fill="url(#desktopBg)" rx="6"/>
+
+  <g filter="url(#shadow)">
+    <!-- title bar -->
+    <rect x="40" y="80" width="1200" height="36" fill="#fafafa"/>
+    <text x="60" y="103" font-size="13" fill="#222">Maximize All Windows</text>
+    <g transform="translate(1145,80)" fill="#444">
+      <text x="0"  y="23" font-size="16">—</text>
+      <rect x="38" y="11" width="14" height="14" fill="none" stroke="#444"/>
+      <text x="78" y="23" font-size="16">✕</text>
+    </g>
+
+    <!-- sidebar -->
+    <rect x="40" y="116" width="220" height="628" fill="#f3f3f3"/>
+    <rect x="40" y="132" width="3"  height="36"  fill="#0078d4"/>
+    <text x="64" y="156" font-size="14" font-weight="600" fill="#111">Settings</text>
+    <text x="64" y="196" font-size="14" fill="#333">About</text>
+
+    <!-- content surface (left half) -->
+    <rect x="260" y="116" width="580" height="628" fill="#ffffff"/>
+
+    <text x="292" y="170" font-size="28" font-weight="700" fill="#111">Settings</text>
+    <text x="292" y="196" font-size="13" fill="#666">Configure how Maximize All Windows behaves.</text>
+
+    <text x="292" y="246" font-size="11" font-weight="700" fill="#666" letter-spacing="0.5">GENERAL</text>
+    <rect x="292" y="262" width="16" height="16" rx="2" fill="#fff" stroke="#666"/>
+    <polyline points="296,270 302,276 312,266" fill="none" stroke="#0078d4" stroke-width="2"/>
+    <text x="318" y="276" font-size="14" fill="#111">Start with Windows</text>
+
+    <text x="292" y="324" font-size="11" font-weight="700" fill="#666" letter-spacing="0.5">APPEARANCE</text>
+    <text x="292" y="348" font-size="13" fill="#111">Show in</text>
+    <circle cx="300" cy="370" r="8" fill="#fff" stroke="#666"/>
+    <circle cx="300" cy="370" r="4" fill="#0078d4"/>
+    <text x="316" y="374" font-size="14" fill="#111">System tray</text>
+    <circle cx="300" cy="394" r="8" fill="#fff" stroke="#666"/>
+    <text x="316" y="398" font-size="14" fill="#111">Taskbar</text>
+
+    <!-- ===== bold hero panel ===== -->
+    <rect x="840" y="116" width="400" height="628" fill="url(#heroBg2)"/>
+
+    <!-- caption -->
+    <text x="1040" y="166" font-size="20" font-weight="700" fill="#fff" text-anchor="middle">Every window, full screen.</text>
+    <text x="1040" y="190" font-size="13" fill="#cfe3f5" text-anchor="middle">Automatically.</text>
+
+    <!-- "before" mini-desktop with scattered small windows -->
+    <g transform="translate(880,210)" filter="url(#softShadow2)">
+      <rect x="0" y="0" width="320" height="180" rx="6" fill="#1f3a5f" stroke="#274a76"/>
+      <!-- taskbar -->
+      <rect x="0" y="160" width="320" height="20" fill="#0f1f33"/>
+      <rect x="120" y="164" width="14" height="12" fill="#0078d4"/>
+      <rect x="138" y="164" width="14" height="12" fill="#3a5a82"/>
+      <rect x="156" y="164" width="14" height="12" fill="#3a5a82"/>
+      <!-- scattered tiny windows -->
+      <g filter="url(#softShadow2)">
+        <rect x="18" y="22" width="100" height="64" rx="3" fill="#fff" stroke="#aac0d8"/>
+        <rect x="18" y="22" width="100" height="10" fill="#dde6f0"/>
+        <rect x="26" y="42" width="60" height="4" fill="#cfd8e3"/>
+        <rect x="26" y="52" width="80" height="3" fill="#e1e8f0"/>
+        <rect x="26" y="60" width="70" height="3" fill="#e1e8f0"/>
+        <rect x="26" y="68" width="50" height="3" fill="#e1e8f0"/>
+      </g>
+      <g filter="url(#softShadow2)">
+        <rect x="150" y="50" width="120" height="72" rx="3" fill="#fff" stroke="#aac0d8"/>
+        <rect x="150" y="50" width="120" height="10" fill="#dde6f0"/>
+        <rect x="158" y="70" width="70" height="4" fill="#cfd8e3"/>
+        <rect x="158" y="82" width="100" height="3" fill="#e1e8f0"/>
+        <rect x="158" y="90" width="90"  height="3" fill="#e1e8f0"/>
+        <rect x="158" y="98" width="60"  height="3" fill="#e1e8f0"/>
+      </g>
+      <g filter="url(#softShadow2)">
+        <rect x="60" y="100" width="110" height="46" rx="3" fill="#fff" stroke="#aac0d8"/>
+        <rect x="60" y="100" width="110" height="10" fill="#dde6f0"/>
+        <rect x="68" y="120" width="60" height="3" fill="#e1e8f0"/>
+        <rect x="68" y="128" width="80" height="3" fill="#e1e8f0"/>
+      </g>
+    </g>
+
+    <!-- giant arrow -->
+    <g transform="translate(1010,418)">
+      <circle cx="30" cy="30" r="30" fill="#fff" opacity="0.18"/>
+      <path d="M 30 12 L 50 36 L 38 36 L 38 52 L 22 52 L 22 36 L 10 36 Z" fill="#ffffff"/>
+    </g>
+
+    <!-- "after" mini-desktop with one maximized window -->
+    <g transform="translate(880,510)" filter="url(#softShadow2)">
+      <rect x="0" y="0" width="320" height="180" rx="6" fill="#1f3a5f" stroke="#274a76"/>
+      <!-- taskbar -->
+      <rect x="0" y="160" width="320" height="20" fill="#0f1f33"/>
+      <rect x="120" y="164" width="14" height="12" fill="#0078d4"/>
+      <rect x="138" y="164" width="14" height="12" fill="#3a5a82"/>
+      <rect x="156" y="164" width="14" height="12" fill="#3a5a82"/>
+      <!-- maximized window filling the workarea -->
+      <rect x="6" y="6" width="308" height="150" rx="3" fill="#fff" stroke="#0078d4" stroke-width="1.5"/>
+      <rect x="6" y="6" width="308" height="14" fill="#0078d4"/>
+      <text x="14" y="17" font-size="9" fill="#fff">Maximized</text>
+      <text x="306" y="17" font-size="9" fill="#fff" text-anchor="end">— ▢ ✕</text>
+      <rect x="18" y="30" width="120" height="6" fill="#b6c4d4"/>
+      <rect x="18" y="44" width="280" height="4" fill="#dde6f0"/>
+      <rect x="18" y="54" width="260" height="4" fill="#dde6f0"/>
+      <rect x="18" y="64" width="240" height="4" fill="#dde6f0"/>
+      <rect x="18" y="74" width="270" height="4" fill="#dde6f0"/>
+      <rect x="18" y="84" width="230" height="4" fill="#dde6f0"/>
+      <rect x="18" y="94" width="260" height="4" fill="#dde6f0"/>
+      <rect x="18" y="104" width="200" height="4" fill="#dde6f0"/>
+      <rect x="18" y="114" width="250" height="4" fill="#dde6f0"/>
+      <rect x="18" y="124" width="220" height="4" fill="#dde6f0"/>
+      <rect x="18" y="134" width="180" height="4" fill="#dde6f0"/>
+    </g>
+
+    <!-- footer -->
+    <rect x="40" y="744" width="1200" height="56" fill="#f9f9f9"/>
+    <text x="60" y="778" font-size="12" fill="#666">Version RC2 build 59 (dark-tray-menu)</text>
+    <g transform="translate(960,756)">
+      <rect x="0"   y="0" width="80" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="32"  y="20" font-size="13" fill="#111">OK</text>
+      <rect x="92"  y="0" width="80" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="116" y="20" font-size="13" fill="#111">Cancel</text>
+      <rect x="184" y="0" width="84" height="30" fill="#fff" stroke="#bbb" rx="2"/>
+      <text x="200" y="20" font-size="13" fill="#111">Exit App</text>
+    </g>
+  </g>
+
+  <!-- magnifier viewport parked on the right hero panel -->
+  <g>
+    <rect x="820" y="200" width="420" height="500" fill="none" stroke="#ffd633" stroke-width="3" stroke-dasharray="10 6"/>
+    <rect x="820" y="166" width="280" height="28" fill="#222"/>
+    <text x="830" y="186" font-size="13" font-weight="600" fill="#ffd633">Magnifier panned right — content</text>
+  </g>
+
+  <g transform="translate(40,820)">
+    <text x="0" y="12" font-size="12" fill="#222"><tspan font-weight="700">Why this works:</tspan> high color contrast against the white settings panel, so even at low zoom a user can tell "there's something over there." No detection logic; one static asset.</text>
+  </g>
+</svg>
