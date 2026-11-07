@@ -1,0 +1,33 @@
+# Default eval suite configuration.
+# Override any value with the matching EVAL_* environment variable
+# (see _providers.py).
+
+# All models route through the GitHub Copilot SDK provider.
+# Prerequisites: @github/copilot CLI on PATH, `copilot login` done.
+# See tests/evals/copilot_provider/ for implementation details.
+
+# Model matrix under test. Pilot runs target the primary model only;
+# expansion phases iterate over multiple. All model IDs use the
+# ``copilot/<model>`` convention and authenticate via the Copilot CLI.
+models:
+  primary: copilot/gpt-5-mini
+  secondary: copilot/claude-haiku-4.5
+  claude: copilot/claude-sonnet-4.5
+
+# Judge model for LLM-as-judge rubric scoring. Held constant across
+# the matrix so judgements are comparable.
+judge: copilot/gpt-5-mini
+
+# Default rubric pass threshold. A task scores between 0.0 and 1.0
+# (weighted across criteria); a score >= threshold passes.
+rubric:
+  default_threshold: 0.8
+
+# Generation defaults applied to task model calls.
+generation:
+  temperature: 0.0
+  max_tokens: 2048
+
+# When true, parameterized tasks subset to one sample for fast local
+# iteration. Toggled by EVAL_QUICK=1.
+quick: false

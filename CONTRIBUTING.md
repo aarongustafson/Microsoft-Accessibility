@@ -14,6 +14,25 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Building from source
 
+### Accessibility Considerations Toolkit (Act)
+
+The toolkit is reference content, with Python tooling for offline validation and optional
+model evaluations. See its [README](Accessibility-Considerations-Toolkit/README.md#development-and-offline-validation)
+for setup and its [contribution guide](Accessibility-Considerations-Toolkit/CONTRIBUTING.md) for
+access-topic authoring, propagation of shared guidance, provenance, and human review.
+
+From the repository root, change to `Accessibility-Considerations-Toolkit` before running toolkit commands.
+Its [validation workflow](.github/workflows/act-validate.yml) is path-filtered to toolkit content
+and its supporting configuration; it does not build or release the Windows utility.
+Markdown formatting uses the resource's pinned Prettier installation: run `npm ci` and
+`npm run format:md:check` from `Accessibility-Considerations-Toolkit`. The formatting check
+covers the resource and its scoped root instructions/skill, not other projects' Markdown.
+Do not make this path-filtered job an unconditional required check for unrelated project changes.
+
+The toolkit's AI-consumed content and governance changes require CODEOWNER review and the
+Act-specific sections of the pull request checklist. These sections do not apply to
+Windows-only changes.
+
 ### Maximize-All-Windows
 
 **Prerequisites**

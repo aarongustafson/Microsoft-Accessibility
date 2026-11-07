@@ -1,0 +1,149 @@
+# yaml-language-server: $schema=consideration.schema.json
+
+clause: "4.2.10"
+title: "Usage with limited cognition, language or learning (memory, attention, and executive function)"
+alias: memory-attention-and-executive-function
+status: elaborated
+fps_statement: "The ICT provides features and/or presentation that makes it simpler and easier to understand, operate, and use."
+device_context: all
+shared_excludes: []
+provenance:
+  source_urls:
+    - https://www.w3.org/TR/coga-usable/
+    - https://www.w3.org/TR/2026/DNOTE-coga-research-modules-20260205/
+  upstream_license: W3C Software and Document License
+  repository_license: MIT
+  required_notice: considerations/cognitive-accessibility-sources.LICENSE.md
+  adaptation: true
+  reviewed_on: "2026-10-12"
+
+evaluation:
+  scope: "Evaluate holding information, sustaining/recovering attention, planning/sequencing tasks, and learning/recalling interface patterns. Requirements vary and may overlap with sensory, motor, language, or numeracy requirements; do not simulate a person or assume unrelated capabilities unaffected. Test reduced memory demands, with 1 to 3 items as an illustration, not a universal limit. Cross-screen code transcription, choices from two steps earlier, and password recall may be barriers; notifications, moving banners, or interruptions may disrupt context. New patterns may require repeated learning or remain inaccessible in some contexts; assess conventions and re-orientation rather than predict learning capacity."
+  access_constraints: []
+  contexts: []
+  checklist:
+    - "ORIENT: Show where the user is, the page purpose, prior context, and persistent headings, breadcrumbs, or step indicators after distraction."
+    - "HOLD: Keep codes, choices, and instructions available at the point of use instead of requiring memory across steps or screens."
+    - "FOCUS: Let users pause, dismiss, or turn off interruptions, autoplay, movement, layout shifts, and clutter."
+    - "SEQUENCE: Break processes into clear minimal steps, show progress, and separate optional from required steps."
+    - "CONFIRM: Give immediate unambiguous success or failure feedback after every action."
+    - "RECOVER: Support predictable Back, undo, correction without data loss, and no timeout or a generous advance warning."
+    - "LEARN: Use familiar conventional patterns and keep controls, terms, and layouts consistent."
+
+assistive_tech:
+  - id: reminder-and-calendar-tools
+    category: reminder-tool
+    platforms: [Windows, macOS, iOS, Android, Web]
+    model: "Calendar apps, task managers, and notification/reminder systems offload dates, deadlines, and steps on All device contexts. Evaluate user-requested add-to-calendar, downloadable .ics events, or standard reminder/notification hooks. Forced manual appointment copying may introduce transcription errors."
+  - id: password-managers
+    category: credential-manager
+    platforms: [Windows, macOS, iOS, Android, "browser extensions"]
+    model: "Password managers store and autofill credentials without recall, invention, or transcription on All device contexts, possibly an essential independent-login path. Permit paste/autofill; paste blocking, fragmented code fields, memorized strings, hand-copied one-time codes, or multi-step recall can defeat access."
+  - id: reading-de-clutter-and-focus-extensions
+    category: simplification
+    platforms: [Chrome, Edge, Firefox, "Safari (desktop and mobile)"]
+    model: "Desktop/Mobile reader/de-clutter extensions strip advertisements, movement, and secondary content; focus tools mute notifications. These may support attention or reduce competing choices. Test reader mode, regenerated clutter, and unreachable custom widgets; preferences/effectiveness vary."
+  - id: form-autofill-and-autocomplete
+    category: form-autofill
+    platforms: [Browsers, "OS-level autofill (Windows, macOS, iOS, Android)"]
+    model: "Browser/platform autofill re-enters name, address, phone, and email on All device contexts, reducing recall/retyping demands. Test standard HTML autocomplete semantics and conventional field names; custom/mislabeled fields may prevent recognition and force manual entry."
+  - id: text-to-speech-read-aloud
+    category: read-aloud
+    platforms: [Windows, macOS, iOS, Android, "browser extensions"]
+    model: "Read-aloud speaks content, sometimes with synchronized highlighting, on All device contexts and may reduce repeated reading or memory demand. Evaluate comprehension/re-orientation without treating tool use as evidence about vision; purposes may overlap. Test real selectable text in logical order, not images or scattered fragments."
+  - id: considerationlization-and-simplification-semantics
+    category: personalization
+    platforms: [Browser, extensions, "OS preferences"]
+    model: "Personalization and simplification can apply saved simplified versions, fewer features, spacing, familiar layouts, or symbols via exposed semantics on All device contexts. Users or chosen supporters, including caregivers, may configure preferences once for reuse. Evaluate adaptation hooks and simpler modes preserving the critical path."
+  - id: built-in-platform-memory-aids
+    category: platform-feature
+    platforms: [All]
+    model: "Evaluate Back/history, undo, autosave/drafts, recent-item lists, focus modes, and system notifications as possible memory aids on All device contexts. Overridden conventions, data-losing Back, missing undo/autosave, or unresumable processes may remove supports."
+
+strategies:
+  - id: orientation-and-re-orientation
+    mechanisms: [visual-reading, read-aloud, browser-history-back]
+    behavior: "Test orientation and return after interruptions using page titles, purpose headings, breadcrumbs, step indicators, and 'how did I get here' or summary affordances. Missing signposts may prevent resumption where context is hard to retain; effects of interruption vary."
+    reqs: "Give every screen a descriptive purpose heading; show completed, current, and remaining steps plus location. Preserve and display all context needed to resume."
+  - id: chunked-task-progression
+    mechanisms: [visual-reading, form-autofill, reminder-tools]
+    behavior: "Evaluate small-step progression with needed information per step, visible progress, and short critical paths. Later steps assuming remembered values or many bundled steps may overload memory or disrupt sequencing. Do not declare a fixed capacity for holding an entire task."
+    reqs: "Use clear minimal labeled steps, carry needed information forward, show progress, and separate optional steps from the required critical path."
+  - id: recognition-over-recall-navigation
+    mechanisms: [visual-scanning, mouse-pointer, touch]
+    behavior: "Evaluate recognition paths using conventional search/home/menu placement and persistent labels instead of required recall of routes, shortcuts, or gestures. Custom navigation, hover-only features, and memorized routes may add discovery/learning barriers; familiarity varies."
+    reqs: "Use conventional consistently placed navigation and visibly labeled important actions. Essential functions must have a visible alternative to memorized shortcuts or gestures."
+  - id: distraction-management
+    mechanisms: [reading-focus-extensions, os-focus-modes]
+    behavior: "Test pausing carousels/autoplay, blocking or muting notifications, and reader/focus modes. Competing stimuli may displace context or prevent completion in some circumstances. Evaluate control without assuming a common attention pattern."
+    reqs: "Allow movement, interruptions, and notifications to be paused, dismissed, or turned off except for genuine emergencies. Avoid unrequested animation, autoplay, shifts, and non-essential competition with the task."
+  - id: offloading-to-external-aids
+    mechanisms: [reminder-tools, password-managers, form-autofill]
+    behavior: "Test dates/steps in reminders/calendars, routine data in autofill/password managers, and choices/context in notes. Check add-to-calendar/autocomplete hooks, paste, and persistence. Required recall or regenerated/invalidated data can defeat supports."
+    reqs: "Provide calendar and reminder hooks, HTML autocomplete, and paste in all fields; preserve and autosave data. Never require recall of information the system knows or can carry forward."
+  - id: feedback-confirmed-action
+    mechanisms: [visual-reading, read-aloud, audio-cues]
+    behavior: "Evaluate acknowledgement after actions via confirmation messages, changed button states, or step checkmarks. Where completion is difficult to recall, missing feedback may cause uncertainty, duplicate submission, or abandonment."
+    reqs: "Give every action immediate recognizable success or failure feedback in the content's primary modality. Mark completed steps and keep confirmation visible long enough to notice."
+
+interaction_contexts:
+  - id: working-memory-limited-user
+    behavior: "Evaluate 1 to 3 items held at once as an illustration, not a fixed cognitive ceiling. Cross-screen verification codes/choices, transcription, and re-entry after Back may increase errors. Test autofill, password managers, reminders, and carried-forward data; requirements and supports vary."
+    uses_at: [form-autofill-and-autocomplete, password-managers, reminder-and-calendar-tools]
+    uses_strategies: [chunked-task-progression, offloading-to-external-aids, feedback-confirmed-action]
+    expects:
+      - "Nothing essential must be remembered across steps; each step provides what it needs."
+      - "Codes, choices, and entered data persist and remain visible at the point of use."
+      - "Authentication does not require recalling or transcribing strings."
+      - "Going back never deletes entered work."
+  - id: attention-and-distraction-sensitive-user
+    behavior: "Evaluate notifications, autoplay, interruptions, movement, or shifts that may disrupt context. Calmer paths, signposts, reader mode, or focus mode may support resumption. Sensitivity/preferences/tools vary; distraction does not establish diagnosis or overall attention capability."
+    uses_at: [reading-de-clutter-and-focus-extensions, built-in-platform-memory-aids]
+    uses_strategies: [distraction-management, orientation-and-re-orientation, recognition-over-recall-navigation]
+    expects:
+      - "Interruptions, animations, and notifications can be paused, dismissed, or turned off."
+      - "Content does not move, autoplay, or shift without user initiation."
+      - "Headings and breadcrumbs support re-orientation after lost focus."
+      - "The critical path is short and excludes non-essential content."
+  - id: executive-function-and-processing-speed-impaired-user
+    behavior: "Evaluate planning, organization, sequencing, and additional processing/decision time. Up-front steps, expected time, materials, and visible progress may help. Pressure, hidden complexity, or tight limits can block a flow even when individual steps are operable."
+    uses_at: [reminder-and-calendar-tools, text-to-speech-read-aloud, considerationlization-and-simplification-semantics]
+    uses_strategies: [chunked-task-progression, orientation-and-re-orientation, offloading-to-external-aids]
+    expects:
+      - "State the steps, expected time, and required materials before the task begins."
+      - "Separate and order steps with visible progress."
+      - "Avoid timeouts or make them generously extendable without data loss."
+      - "Separate optional and promotional steps from the required path."
+  - id: progressive-memory-decline-user
+    behavior: "Evaluate familiar conventions where new patterns are difficult to learn/retain, including progressive-memory-decline research contexts. New terms, moved controls, or redesigned flows may remove usable paths. Check user/caregiver-configured simplification, stable setups, and retention/rollback to familiar versions without predicting learning ability from diagnosis."
+    uses_at: [considerationlization-and-simplification-semantics]
+    uses_strategies: [recognition-over-recall-navigation, orientation-and-re-orientation, feedback-confirmed-action]
+    expects:
+      - "Use familiar conventional patterns and terms for routine tasks."
+      - "Keep controls and labels stable; do not force changes."
+      - "Offer a simpler stable presentation that can be the default."
+      - "Use common words and one consistent label for each concept."
+
+learning:
+  - id: relearning-cost-is-ongoing-not-one-time
+    facts: "Relearning may recur; unfamiliar controls may need repeated learning or remain inaccessible in some contexts, including progressive decline. Evaluate familiar conventions and retention of learned interfaces without assigning universal learning capacity."
+  - id: working-memory-is-the-ceiling
+    facts: "Remembered values, vanished instructions, and transcribed codes may introduce failure points. Evaluate point-of-use information and carry-forward support without declaring a fixed working-memory ceiling."
+  - id: distraction-and-re-entry
+    facts: "Interruptions can make resumption difficult. Evaluate headings, breadcrumbs, and preserved drafts as re-entry signposts; missing context may slow or prevent completion."
+  - id: fatigue-accumulates
+    facts: "Cognitive effort/fatigue vary over a session; errors or abandonment may increase and a manageable task may become difficult or unavailable. Evaluate breaks/resumption without timeouts or data loss."
+  - id: confidence-and-self-blame
+    facts: "Repeated errors and confusing recovery can erode confidence and cause self-blame and service abandonment. Forgiving recovery and clear reassuring feedback protect current and future use."
+
+heuristic_overrides:
+  "1": "Evaluate immediate explicit persistent messages, changed states, or completed-step checkmarks; flashes may be missed. Show done/current/remaining work for re-entry. Silent success, e.g. email sent without acknowledgement, may cause uncertainty or repetition where completion is hard to recall."
+  "2": "Evaluate familiar literal terms/patterns relative to actual audience and domain, not a universal simplest-word floor. Kubernetes resource/namespace names or scientific instrument/parameter names may be necessary and familiar. Their presence is not a defect: require stable consistent point-of-use labels and support through on-demand definitions/one-click explanations. Flag gratuitous jargon, unsupported acronyms, coined terms, vanishing instructions, shifting terminology, or inconsistent naming."
+  "3": "Back, undo, cancel, and reopening must be predictable and preserve entered work. Do not change context, open windows, reroute, or submit without user initiation, and always provide a labeled route back."
+  "4": "Keep controls, terminology, placement, and behavior consistent across screens so recognition transfers. Prefer platform and design-system conventions; moving controls or changing a concept's name or behavior forces repeated learning."
+  "5": "Prevent memory-driven errors with autofill, flexible formats, carried-forward values, and authentication that does not require recall. Confirm destructive actions with consequences visible, state fees and requirements before starting, and avoid punitive timeouts."
+  "6": "Everything needed to act must remain visible at the point of use, including field instructions, prior choices, and current-step context. Labels and instructions must not vanish on focus, and codes, selections, locations, or shortcuts must not depend on recall."
+  "7": "Efficiency means fewer items to track: short critical paths, minimal required steps, and optional content outside the path. Prefer memory-offloading accelerators such as add-to-calendar, autosave and resume, recent items, and autofill; never require memorized commands or gestures."
+  "8": "Clutter or excess choice may contribute to overload, lost focus, or abandonment. Evaluate clear prioritized choices, white space, secondary content outside the path, and fewer competing animations/autoplay/noisy backgrounds without removing orientation headings, steps, or landmarks."
+  "9": "Place plain-language error messages at the error and state exactly how to fix it. Preserve entered data, allow review of earlier entries, and return in one labeled step without losing other work."
+  "10": "Make help available at the point of difficulty in few steps, with an unburied route to a human rather than a complex menu or voice-response tree. Give step-by-step examples and state task steps, time, and materials up front while applying the same audience-aware language boundary as the interface."

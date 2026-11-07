@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <title>Synthetic colour-reliant workshop schedule</title>
+  <metadata>Original evaluation fixture. Copyright (c) Microsoft Corporation. MIT License; see ../../../LICENSE.txt.</metadata>
+  <rect width="960" height="600" fill="#ccff00"/>
+  <text x="24" y="36" font-family="Arial, sans-serif" font-size="25" font-weight="bold">Workshop schedule</text>
+  <text x="24" y="60" font-family="Arial, sans-serif" font-size="14">Synthetic example: session groups are separated only by background colour.</text>
+  <g font-family="Arial, sans-serif" font-size="11" fill="#ffffff" text-anchor="middle">
+    <rect x="16" y="82" width="928" height="46" fill="#ee00dd"/>
+    <text x="480" y="100">Morning workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="117">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="128" width="928" height="46" fill="#3333ff"/>
+    <text x="480" y="146">Morning workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="163">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="174" width="928" height="46" fill="#00dd00"/>
+    <text x="480" y="192">Morning workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="209">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="220" width="928" height="46" fill="#ffff00"/>
+    <text x="480" y="238">Afternoon workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="255">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="266" width="928" height="46" fill="#ff9900"/>
+    <text x="480" y="284">Afternoon workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="301">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="312" width="928" height="46" fill="#ff0000"/>
+    <text x="480" y="330">Afternoon workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="347">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="358" width="928" height="46" fill="#880088"/>
+    <text x="480" y="376">Evening workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="393">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="404" width="928" height="46" fill="#00cccc"/>
+    <text x="480" y="422">Evening workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="439">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+    <rect x="16" y="450" width="928" height="46" fill="#cc00ff"/>
+    <text x="480" y="468">Evening workshop: introduction, activities, practice, questions, notes, resources and next steps.</text>
+    <text x="480" y="485">Bring a notebook. Review the session guide before starting. Choose a table and begin the first activity.</text>
+  </g>
+  <text x="480" y="536" text-anchor="middle" font-family="Arial, sans-serif" font-size="12">Group boundaries have no headings, spacing, numbering or icons.</text>
+</svg>

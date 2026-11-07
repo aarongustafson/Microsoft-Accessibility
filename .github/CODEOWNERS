@@ -1,0 +1,22 @@
+# Accessibility Considerations Toolkit (Act) content and its governance.
+# These entries do not assign ownership of the Windows utility or its release workflow.
+/Accessibility-Considerations-Toolkit/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/schemas/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/considerations/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/heuristics/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/methodology/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/standards/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/provenance.json @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/LICENSE.txt @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/tests/validate_structure.py @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/tests/evals/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/tests/fixtures/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/scripts/ @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/AGENTS.md @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/README.md @aarongustafson @ferbonnin
+/Accessibility-Considerations-Toolkit/CONTRIBUTING.md @aarongustafson @ferbonnin
+/.github/workflows/act-validate.yml @aarongustafson @ferbonnin
+/.github/instructions/act.instructions.md @aarongustafson @ferbonnin
+/.github/skills/consideration-to-schema/ @aarongustafson @ferbonnin
+/.github/CODEOWNERS @aarongustafson @ferbonnin
+/.github/PULL_REQUEST_TEMPLATE.md @aarongustafson @ferbonnin

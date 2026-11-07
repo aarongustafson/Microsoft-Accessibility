@@ -1,0 +1,528 @@
+{
+	"at_categories": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "browser_zoom",
+				"matches": [
+					"browser zoom",
+					"page zoom"
+				]
+			},
+			{
+				"id": "screen_magnifier",
+				"matches": [
+					"screen magnifier",
+					"screen magnification",
+					"windows magnifier",
+					"zoomtext",
+					"macos zoom"
+				]
+			},
+			{
+				"id": "dpi_scaling",
+				"matches": [
+					"dpi scaling",
+					"display scaling",
+					"os level text size",
+					"text size scaling"
+				]
+			},
+			{
+				"id": "high_contrast",
+				"matches": [
+					"high contrast",
+					"forced colours",
+					"forced colors"
+				]
+			},
+			{
+				"id": "dual_channel",
+				"matches": [
+					"combined magnification and screen reader",
+					"magnification and screen reader",
+					"dual channel",
+					"fusion",
+					"zoomtext and jaws"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "os_text_size_dpi_scaling",
+				"matches": [
+					"os text size / dpi scaling",
+					"os text size",
+					"dpi scaling"
+				]
+			},
+			{
+				"id": "browser_zoom",
+				"matches": [
+					"browser zoom"
+				]
+			},
+			{
+				"id": "zoomtext",
+				"matches": [
+					"zoomtext"
+				]
+			},
+			{
+				"id": "windows_magnifier",
+				"matches": [
+					"windows magnifier"
+				]
+			},
+			{
+				"id": "macos_zoom",
+				"matches": [
+					"macos zoom"
+				]
+			},
+			{
+				"id": "windows_high_contrast_mode",
+				"matches": [
+					"windows high contrast mode",
+					"high contrast mode"
+				]
+			},
+			{
+				"id": "fusion",
+				"matches": [
+					"fusion (zoomtext + jaws)",
+					"fusion",
+					"zoomtext + jaws"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "zoomed_reading_reflow",
+				"matches": [
+					"zoomed reading and text reflow",
+					"text reflow",
+					"zoomed reading",
+					"browser zoom and reflow"
+				]
+			},
+			{
+				"id": "magnified_viewport_panning",
+				"matches": [
+					"magnified viewport panning",
+					"viewport panning",
+					"magnifier panning"
+				]
+			},
+			{
+				"id": "focus_cursor_tracking",
+				"matches": [
+					"focus and cursor tracking",
+					"focus cursor tracking",
+					"focus tracking",
+					"cursor tracking"
+				]
+			},
+			{
+				"id": "high_contrast_scanning",
+				"matches": [
+					"high contrast scanning",
+					"forced colours scanning",
+					"forced colors scanning",
+					"scanning under high contrast"
+				]
+			},
+			{
+				"id": "dual_channel_reading",
+				"matches": [
+					"dual channel reading",
+					"dual-channel reading",
+					"magnification and speech",
+					"magnification plus speech"
+				]
+			}
+		]
+	},
+	"contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "moderate_zoom_user",
+				"matches": [
+					"user with increased text size and moderate zoom",
+					"moderate zoom",
+					"user with moderate zoom",
+					"browser zoom up to 200%",
+					"platform level enlargement"
+				]
+			},
+			{
+				"id": "screen_magnifier_user",
+				"matches": [
+					"screen magnifier user",
+					"screen magnifier user zoomtext windows magnifier macos zoom at 3 8",
+					"zoomtext",
+					"windows magnifier",
+					"macos zoom"
+				]
+			},
+			{
+				"id": "contrast_sensitivity_user",
+				"matches": [
+					"contrast sensitivity",
+					"user with contrast sensitivity",
+					"user with contrast sensitivity relying on high contrast themes",
+					"high contrast mode",
+					"forced colours",
+					"forced colors"
+				]
+			},
+			{
+				"id": "dual_channel_user",
+				"matches": [
+					"dual channel user",
+					"dual-channel user",
+					"low vision user combining magnification with screen reader",
+					"combining magnification with screen reader",
+					"screen magnification with a screen reader",
+					"magnification with a screen reader"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "moderate_zoom_variant",
+				"matches": [
+					"user with increased text size and moderate zoom",
+					"increased text size and moderate zoom",
+					"moderate zoom",
+					"browser zoom up to 200%"
+				]
+			},
+			{
+				"id": "screen_magnifier_variant",
+				"matches": [
+					"screen magnifier user",
+					"screen magnifier variant",
+					"zoomtext",
+					"windows magnifier",
+					"macos zoom"
+				]
+			},
+			{
+				"id": "high_contrast_variant",
+				"matches": [
+					"user with contrast sensitivity relying on high contrast themes",
+					"contrast sensitivity",
+					"high contrast themes",
+					"forced colours"
+				]
+			},
+			{
+				"id": "dual_channel_variant",
+				"matches": [
+					"low vision user combining magnification with screen reader",
+					"combining magnification with screen reader",
+					"dual channel user",
+					"dual-channel user"
+				]
+			}
+		]
+	},
+	"behavior_zoomed_reading_reflow": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "zoom_or_text_enlargement",
+				"matches": [
+					"browser zoom",
+					"text size",
+					"200% zoom",
+					"increase text size",
+					"enlarged text",
+					"increased size",
+					"new zoom level",
+					"zoom level",
+					"larger size"
+				]
+			},
+			{
+				"id": "reflow_without_horizontal_scroll",
+				"matches": [
+					"reflow",
+					"horizontal scrolling",
+					"one direction",
+					"text wraps",
+					"fit within the viewport",
+					"line length"
+				]
+			},
+			{
+				"id": "scaled_controls_or_overlays",
+				"matches": [
+					"dropdown",
+					"dropdowns",
+					"autocomplete",
+					"tooltip",
+					"tooltips",
+					"menus",
+					"scale with the text",
+					"default size",
+					"stuck at default size",
+					"clipping",
+					"truncation",
+					"overlap"
+				]
+			}
+		]
+	},
+	"behavior_magnified_viewport_orientation": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "layout_landmarks_and_panning",
+				"matches": [
+					"pan",
+					"panning",
+					"landmarks",
+					"section boundaries",
+					"left justified",
+					"spatial mental model"
+				]
+			},
+			{
+				"id": "focus_or_cursor_tracking",
+				"matches": [
+					"focus tracking",
+					"cursor tracking",
+					"focus moves",
+					"keep the focused element visible",
+					"viewport follows focus",
+					"focus highlights",
+					"track interactive elements",
+					"moves the viewport predictably"
+				]
+			},
+			{
+				"id": "stable_popups_or_nearby_dynamic_content",
+				"matches": [
+					"tooltip",
+					"popup",
+					"hover",
+					"appears near the trigger",
+					"off screen",
+					"unexpected location",
+					"modal",
+					"spatially grouped",
+					"visible together",
+					"context cues",
+					"breadcrumb",
+					"section indicator",
+					"near the viewport",
+					"messages appear near"
+				]
+			}
+		]
+	},
+	"behavior_high_contrast_visibility": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "forced_colours_or_high_contrast_mode",
+				"matches": [
+					"forced colours",
+					"forced colors",
+					"high contrast",
+					"high contrast mode",
+					"system palette"
+				]
+			},
+			{
+				"id": "focus_borders_and_states_visible",
+				"matches": [
+					"focus indicator",
+					"focus indicators",
+					"outline",
+					"borders",
+					"selection states",
+					"selected states",
+					"active inactive",
+					"state changes"
+				]
+			},
+			{
+				"id": "icons_controls_or_meaning_survive",
+				"matches": [
+					"icons",
+					"images",
+					"distinguishable",
+					"interactive element boundaries",
+					"not colour alone",
+					"not solely through colour",
+					"text labels"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "zoom_reflow_and_readability",
+				"matches": [
+					"browser zoom",
+					"text size",
+					"reflow",
+					"horizontal scrolling",
+					"text wraps",
+					"fit within the viewport",
+					"readable at 200%"
+				]
+			},
+			{
+				"id": "magnifier_orientation_and_panning",
+				"matches": [
+					"pan",
+					"panning",
+					"spatial mental model",
+					"section boundaries",
+					"left justified",
+					"stay oriented",
+					"viewport"
+				]
+			},
+			{
+				"id": "focus_and_dynamic_content_tracking",
+				"matches": [
+					"focus tracking",
+					"cursor tracking",
+					"focus moves",
+					"keep the focused element visible",
+					"toast",
+					"error messages",
+					"moves the viewport predictably"
+				]
+			},
+			{
+				"id": "scaled_controls_and_popups",
+				"matches": [
+					"autocomplete",
+					"dropdown",
+					"tooltips",
+					"menus",
+					"scale with the text",
+					"default size",
+					"clipping",
+					"overlap"
+				]
+			},
+			{
+				"id": "high_contrast_or_forced_colours_survival",
+				"matches": [
+					"forced colours",
+					"forced colors",
+					"high contrast",
+					"focus indicator",
+					"borders",
+					"selection states",
+					"distinguishable"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "default_view_only",
+				"matches": [
+					"looks fine at default size",
+					"no need to zoom",
+					"default page is readable enough",
+					"just use the default view"
+				]
+			}
+		]
+	},
+	"behavior_review_chart_heavy_analytics_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "chart_text_and_labels_readable",
+				"matches": [
+					"legend",
+					"labels",
+					"axis labels",
+					"numeric labels",
+					"summary cards",
+					"readable",
+					"text size"
+				]
+			},
+			{
+				"id": "zoom_reflow_and_controls_scale",
+				"matches": [
+					"browser zoom",
+					"reflow",
+					"fit within the viewport",
+					"filter controls",
+					"dropdown",
+					"scale with the text",
+					"horizontal scrolling"
+				]
+			},
+			{
+				"id": "magnifier_orientation_on_charts",
+				"matches": [
+					"pan",
+					"panning",
+					"spatial mental model",
+					"section boundaries",
+					"tooltip",
+					"off screen",
+					"near the viewport"
+				]
+			},
+			{
+				"id": "forced_colours_or_contrast_visibility",
+				"matches": [
+					"forced colours",
+					"forced colors",
+					"high contrast",
+					"borders",
+					"focus indicator",
+					"icons",
+					"distinguishable"
+				]
+			},
+			{
+				"id": "dual_channel_or_screen_reader_backup",
+				"matches": [
+					"screen reader",
+					"speech output",
+					"dual channel",
+					"magnification with screen reader",
+					"accessibility tree",
+					"focus remains synchronized"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "visual_precision_only",
+				"matches": [
+					"just look more closely",
+					"read the tiny labels as is",
+					"the chart is fine at default size",
+					"no need for magnification"
+				]
+			}
+		]
+	}
+}

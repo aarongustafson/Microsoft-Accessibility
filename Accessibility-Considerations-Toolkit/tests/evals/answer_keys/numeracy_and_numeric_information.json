@@ -1,0 +1,333 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "calculator_conversion",
+				"matches": [
+					"calculator",
+					"conversion",
+					"calculator and conversion tools",
+					"calculator / conversion tools"
+				]
+			},
+			{
+				"id": "tts_for_numbers",
+				"matches": [
+					"text-to-speech",
+					"tts",
+					"tts for numbers",
+					"read numbers aloud"
+				]
+			},
+			{
+				"id": "spreadsheet_visual_aids",
+				"matches": [
+					"spreadsheet",
+					"visual aids",
+					"spreadsheet / visual aids",
+					"spreadsheet visual aids"
+				]
+			},
+			{
+				"id": "considerationlization_non_numeric",
+				"matches": [
+					"considerationlization",
+					"non-numeric",
+					"considerationlization non-numeric",
+					"considerationlization / non-numeric alternatives"
+				]
+			},
+			{
+				"id": "platform_locale_settings",
+				"matches": [
+					"platform locale",
+					"locale settings",
+					"platform locale settings",
+					"regional settings"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "calculator_conversion_tools",
+				"matches": [
+					"calculator / conversion tools",
+					"calculator and conversion tools",
+					"calculator tools",
+					"unit conversion tools"
+				]
+			},
+			{
+				"id": "tts_for_numbers",
+				"matches": [
+					"TTS for numbers",
+					"text-to-speech for numbers",
+					"tts for numbers",
+					"read numbers aloud"
+				]
+			},
+			{
+				"id": "spreadsheet_visual_aids",
+				"matches": [
+					"spreadsheet / visual aids",
+					"spreadsheet visual aids",
+					"visual calculation aids",
+					"spreadsheet aids"
+				]
+			},
+			{
+				"id": "considerationlization_non_numeric",
+				"matches": [
+					"considerationlization / non-numeric alternatives",
+					"considerationlization non-numeric",
+					"non-numeric alternatives",
+					"non-numeric considerationlization"
+				]
+			},
+			{
+				"id": "platform_locale_settings",
+				"matches": [
+					"platform locale settings",
+					"locale settings",
+					"regional number format",
+					"locale number formatting"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "concept_over_number",
+				"matches": [
+					"concept over number",
+					"concept-over-number",
+					"meaning over number",
+					"conceptual understanding"
+				]
+			},
+			{
+				"id": "offloading_calculation",
+				"matches": [
+					"offloading calculation",
+					"offloading-calculation",
+					"external calculation",
+					"calculator offloading"
+				]
+			},
+			{
+				"id": "magnitude_by_proxy",
+				"matches": [
+					"magnitude by proxy",
+					"magnitude-by-proxy",
+					"proxy for magnitude",
+					"comparative magnitude"
+				]
+			},
+			{
+				"id": "verification_double_checking",
+				"matches": [
+					"verification and double-checking",
+					"verification double checking",
+					"double-checking",
+					"double checking",
+					"verification"
+				]
+			},
+			{
+				"id": "format_unit_normalization",
+				"matches": [
+					"format and unit normalization",
+					"format unit normalization",
+					"unit normalization",
+					"format normalization"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "number_and_calculation",
+				"matches": [
+					"number and calculation",
+					"number-and-calculation",
+					"dyscalculia",
+					"calculation difficulty"
+				]
+			},
+			{
+				"id": "quantity_and_magnitude",
+				"matches": [
+					"quantity and magnitude",
+					"quantity-and-magnitude",
+					"magnitude estimation",
+					"quantity estimation"
+				]
+			},
+			{
+				"id": "time_and_sequence",
+				"matches": [
+					"time and sequence",
+					"time-and-sequence",
+					"temporal reasoning",
+					"sequence difficulty"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse / pointer interaction",
+					"mouse pointer interaction",
+					"pointer interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch / pointer interaction",
+					"touch pointer interaction",
+					"touch interaction"
+				]
+			}
+		]
+	},
+	"behavior_pricing_comparison": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "currency_and_unit_labels",
+				"matches": [
+					"currency",
+					"unit",
+					"label",
+					"currency symbol",
+					"labelled units"
+				]
+			},
+			{
+				"id": "pre_calculated_totals",
+				"matches": [
+					"total",
+					"pre-calculated",
+					"running total",
+					"calculated for them",
+					"no mental math"
+				]
+			},
+			{
+				"id": "visual_comparison_aid",
+				"matches": [
+					"visual comparison",
+					"bar chart",
+					"graph",
+					"visual aid",
+					"color coding",
+					"relative size"
+				]
+			},
+			{
+				"id": "familiar_format",
+				"matches": [
+					"locale",
+					"familiar format",
+					"local currency",
+					"decimal comma",
+					"number format"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "requires_mental_calculation",
+				"matches": [
+					"calculate the difference",
+					"divide by",
+					"multiply to compare",
+					"do the math"
+				]
+			}
+		]
+	},
+	"behavior_date_time_selection": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "clear_date_format",
+				"matches": [
+					"date format",
+					"format labelled",
+					"day month year",
+					"unambiguous date",
+					"named month"
+				]
+			},
+			{
+				"id": "visual_calendar_picker",
+				"matches": [
+					"calendar",
+					"date picker",
+					"visual picker",
+					"clickable calendar"
+				]
+			},
+			{
+				"id": "duration_shown_explicitly",
+				"matches": [
+					"duration",
+					"number of nights",
+					"how long",
+					"length of stay",
+					"calculated duration"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "requires_date_arithmetic",
+				"matches": [
+					"count the days yourself",
+					"calculate how many nights",
+					"subtract the dates"
+				]
+			}
+		]
+	}
+}

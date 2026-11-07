@@ -1,0 +1,553 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "captioning",
+				"matches": [
+					"captioning",
+					"auto captions and live captioning",
+					"live captioning",
+					"captions"
+				]
+			},
+			{
+				"id": "system_alerts",
+				"matches": [
+					"system alerts",
+					"system_alerts",
+					"visual and haptic alerts",
+					"visual alerts"
+				]
+			},
+			{
+				"id": "relay_services",
+				"matches": [
+					"relay services",
+					"relay_services",
+					"video relay services",
+					"text relay"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "auto_captions_and_live_captioning",
+				"matches": [
+					"auto-captions and live captioning",
+					"auto captions and live captioning",
+					"live captioning"
+				]
+			},
+			{
+				"id": "visual_and_haptic_alerts",
+				"matches": [
+					"visual and haptic alerts",
+					"visual alerts",
+					"haptic alerts"
+				]
+			},
+			{
+				"id": "video_relay_services_and_text_relay",
+				"matches": [
+					"video relay services (vrs) and text relay",
+					"video relay services and text relay",
+					"video relay services",
+					"text relay"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse pointer interaction",
+					"mouse / pointer interaction",
+					"mouse interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch pointer interaction",
+					"touch / pointer interaction",
+					"touch interaction"
+				]
+			},
+			{
+				"id": "no_excluded_shared_strategies",
+				"matches": [
+					"excluded shared exploration strategies none",
+					"excluded shared strategies none",
+					"shared exclusions none"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "excluded_keyboard_navigation",
+				"matches": [
+					"keyboard navigation and focus management",
+					"keyboard navigation",
+					"focus management"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "scanning_for_caption_controls_on_media",
+				"matches": [
+					"scanning for caption controls on media",
+					"caption controls on media",
+					"scanning for caption controls"
+				]
+			},
+			{
+				"id": "checking_for_visual_alternatives_to_audio_cues",
+				"matches": [
+					"checking for visual alternatives to audio cues",
+					"visual alternatives to audio cues",
+					"visual alternatives to audio"
+				]
+			},
+			{
+				"id": "verifying_text_channels_for_phone_voice_features",
+				"matches": [
+					"verifying text channels for phone voice features",
+					"text channels for phone voice features",
+					"text channels for phone features",
+					"text alternatives to phone features"
+				]
+			},
+			{
+				"id": "evaluating_communication_features_for_sign_language_support",
+				"matches": [
+					"evaluating communication features for sign language support",
+					"sign language support",
+					"communication features for sign language"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "audio_alternatives_sign_language_user",
+				"matches": [
+					"deaf sign language user",
+					"sign language user",
+					"signing user"
+				]
+			},
+			{
+				"id": "audio_alternatives_non_signing_user",
+				"matches": [
+					"deaf non signing user",
+					"deaf non-signing user",
+					"non signing user",
+					"non-signing user"
+				]
+			}
+		]
+	},
+	"behavior_interaction_video_captions": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "caption_or_subtitle_controls",
+				"matches": [
+					"captions",
+					"caption control",
+					"cc button",
+					"subtitle",
+					"subtitle toggle",
+					"captions can be toggled"
+				]
+			},
+			{
+				"id": "captions_visible_or_available",
+				"matches": [
+					"captions are on",
+					"captions are already on",
+					"captions are already visible",
+					"on by default",
+					"captions visible",
+					"captions displayed",
+					"captions already displayed",
+					"captions already displaying",
+					"captions available",
+					"live captions",
+					"captioning available",
+					"turn captions on"
+				]
+			},
+			{
+				"id": "transcript_or_textual_alternative",
+				"matches": [
+					"transcript",
+					"speaker labels",
+					"speaker identification",
+					"text alternative",
+					"written summary"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "audio_only_access",
+				"matches": [
+					"listen to the audio",
+					"turn the sound up",
+					"hear the dialogue",
+					"audio alone"
+				]
+			}
+		]
+	},
+	"behavior_feedback_audio_alerts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visible_notification",
+				"matches": [
+					"notification banner",
+					"toast",
+					"visible notification",
+					"badge",
+					"banner"
+				]
+			},
+			{
+				"id": "status_text_or_message",
+				"matches": [
+					"status text",
+					"confirmation text",
+					"error message",
+					"success message",
+					"on screen message"
+				]
+			},
+			{
+				"id": "icon_or_visual_state_change",
+				"matches": [
+					"icon change",
+					"icon changes",
+					"visual indicator",
+					"visual indicators",
+					"progress update",
+					"progress bar",
+					"progress bars",
+					"animation",
+					"animations",
+					"state change"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "sound_only_feedback",
+				"matches": [
+					"listen for the chime",
+					"wait for the sound",
+					"hear the alert",
+					"audio cue only"
+				]
+			}
+		]
+	},
+	"behavior_review_web_page_audio_barriers": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "media_needs_captions_or_transcript",
+				"matches": [
+					"captions",
+					"subtitles",
+					"transcript",
+					"video without captions",
+					"audio only content"
+				]
+			},
+			{
+				"id": "audio_alerts_need_visual_equivalent",
+				"matches": [
+					"visual notification",
+					"visual equivalent",
+					"visual equivalents",
+					"visual indicator",
+					"visual indicators",
+					"also visual",
+					"show visually",
+					"visual parallels",
+					"notification banner",
+					"banners",
+					"badges",
+					"flashes",
+					"notification sounds",
+					"visible alert",
+					"error tones",
+					"status text",
+					"audio alerts without visual"
+				]
+			},
+			{
+				"id": "phone_or_voice_features_need_text_alternative",
+				"matches": [
+					"phone only support",
+					"text alternative",
+					"text alternatives",
+					"text alternatives to phone numbers",
+					"phone numbers",
+					"chat",
+					"email",
+					"sms",
+					"voice only path"
+				]
+			},
+			{
+				"id": "audio_only_verification_or_instructions",
+				"matches": [
+					"captcha",
+					"captcha implementations",
+					"audio captcha",
+					"audio based test",
+					"audio based tests",
+					"audio-based test",
+					"audio-based tests",
+					"spoken instructions",
+					"audio based tutorial",
+					"voice instructions",
+					"audio only verification"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "hearing_required_response",
+				"matches": [
+					"listen for the instructions",
+					"hear the alert",
+					"call the phone number",
+					"use the audio captcha"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "media_needs_captions_or_transcript",
+				"matches": [
+					"captions",
+					"caption control",
+					"cc button",
+					"subtitles",
+					"transcript",
+					"written summary",
+					"text alternative"
+				]
+			},
+			{
+				"id": "audio_alerts_need_visual_feedback",
+				"matches": [
+					"visible notification",
+					"notification banner",
+					"banners",
+					"toast",
+					"toasts",
+					"badge",
+					"status text",
+					"success message",
+					"error message",
+					"visual indicator",
+					"icons",
+					"appear visually"
+				]
+			},
+			{
+				"id": "webinar_or_live_content_needs_live_captions",
+				"matches": [
+					"live captions",
+					"live captioning",
+					"captioning available",
+					"captioning is mentioned",
+					"captions before joining",
+					"sign language",
+					"interpreter",
+					"request an interpreter"
+				]
+			},
+			{
+				"id": "phone_support_needs_text_channel",
+				"matches": [
+					"chat",
+					"email",
+					"sms",
+					"web form",
+					"text alternative",
+					"text-based alternative",
+					"not phone only"
+				]
+			},
+			{
+				"id": "form_and_status_not_sound_only",
+				"matches": [
+					"confirmation text",
+					"visible confirmation",
+					"visible feedback",
+					"success message",
+					"success error feedback",
+					"error message",
+					"on screen message",
+					"visual notification",
+					"state change",
+					"progress update",
+					"message banner",
+					"not just a sound"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "audio_only_reliance",
+				"matches": [
+					"listen for the sound",
+					"hear the alert",
+					"turn the volume up",
+					"audio alone",
+					"listen to the webinar"
+				]
+			},
+			{
+				"id": "phone_only_support_ok",
+				"matches": [
+					"call the phone number",
+					"phone support is fine",
+					"use the phone line",
+					"voice call is the solution"
+				]
+			}
+		]
+	},
+	"behavior_review_communication_heavy_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "meeting_needs_live_captions",
+				"matches": [
+					"live captions",
+					"captions",
+					"enable captions before joining",
+					"caption controls",
+					"captioning available"
+				]
+			},
+			{
+				"id": "join_alerts_need_visual_equivalent",
+				"matches": [
+					"notification banner",
+					"banner",
+					"banners",
+					"visible notification",
+					"status text",
+					"on screen message",
+					"visual indicator",
+					"participant joined",
+					"participants join",
+					"list update",
+					"join alerts are visually indicated"
+				]
+			},
+			{
+				"id": "sign_language_support_when_relevant",
+				"matches": [
+					"sign language",
+					"interpreter",
+					"request an interpreter",
+					"pin interpreter",
+					"spotlight interpreter",
+					"side by side"
+				]
+			},
+			{
+				"id": "video_quality_or_face_visibility",
+				"matches": [
+					"video quality",
+					"resolution",
+					"frame rate",
+					"latency",
+					"speaker face visible",
+					"lip reading"
+				]
+			},
+			{
+				"id": "support_needs_text_path",
+				"matches": [
+					"chat",
+					"email",
+					"sms",
+					"web form",
+					"text-based alternative",
+					"text channel"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "audio_announcements_enough",
+				"matches": [
+					"listen for announcements",
+					"hear who joined",
+					"audio notification is enough",
+					"voice prompt alone"
+				]
+			},
+			{
+				"id": "phone_first_assumption",
+				"matches": [
+					"call support",
+					"use the phone number",
+					"phone is the main path",
+					"voice support is required"
+				]
+			}
+		]
+	}
+}

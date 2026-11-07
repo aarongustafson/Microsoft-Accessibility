@@ -1,0 +1,93 @@
+strategies:
+  - id: visual-scanning-and-layout-comprehension
+    mechanisms: [visual-perception]
+    context: all
+    behavior:
+      - "When visual scanning is available and preferred, page regions may help establish layout."
+      - "Control affordances and hierarchy through headings, spacing, colour, and size may help locate actions; do not assume visual access or that these cues work alone."
+    reqs:
+      - "Provide clear visual hierarchy through headings, spacing, and grouping."
+      - "Interactive elements must look interactive through visible borders, underlines, or other affordances; primary actions should be visually prominent."
+  - id: mouse-pointer-interaction
+    mechanisms: [mouse, trackpad, touchscreen]
+    context: desktop
+    behavior:
+      - "Mouse, trackpad, or touch-pointer interaction may include clicking, selecting text, dragging, hovering, and context menus."
+      - "Evaluate supported actions; hover and sustained dragging are not available in every pointer context."
+    reqs:
+      - "Pointer target size and spacing must support easy activation without accidentally activating adjacent controls."
+      - "Hover states should indicate interactivity; drag-and-drop should have clear affordances."
+  - id: reading-and-scrolling
+    mechanisms: [visual-reading, mouse-wheel-scroll-gesture]
+    context: all
+    behavior:
+      - "Visual reading may proceed sequentially or through heading scans, with scrolling beyond the viewport."
+      - "Evaluate flow appropriate to the writing system, including top-to-bottom and left-to-right in LTR content; do not assume one direction or scrolling method."
+    reqs:
+      - "Text must have sufficient contrast, reasonable font size, and adequate line spacing."
+      - "Avoid horizontal scrolling at standard viewport widths; long pages should provide navigation aids such as a table of contents or back-to-top control."
+  - id: form-interaction
+    mechanisms: [keyboard-typing, mouse-clicking-fields, visual-reading-labels]
+    context: all
+    behavior:
+      - "Form tasks may involve reaching fields, typing, selecting options, checking boxes, and submitting through different input methods."
+      - "Evaluate clear labels, placeholder text that does not replace labels, and actionable error feedback without assuming pointer access."
+    reqs:
+      - "Every form field must have a visible label, and required fields must be clearly indicated."
+      - "Error messages must be specific, adjacent to the field, and visible without scrolling; successful submission must be clearly confirmed."
+  - id: navigation-and-wayfinding
+    mechanisms: [visual-scanning, mouse-clicking, browser-controls]
+    context: all
+    behavior:
+      - "Menus, breadcrumbs, links, and browser back/forward can support movement between pages and views."
+      - "Evaluate current location, available destinations, and return paths through the access strategies in scope."
+    reqs:
+      - "Keep navigation consistent across pages and clearly indicate current location through an active navigation item or breadcrumbs."
+      - "Important actions must be reachable from any page; the browser back button should work predictably."
+  - id: touch-pointer-interaction
+    mechanisms: [touchscreen-tap, swipe-gestures, pinch-zoom]
+    context: mobile
+    behavior:
+      - "Touch interaction may include taps, swipes, pinch-zoom, and long presses depending on device and access method; direct touch has no hover preview."
+      - "Evaluate discoverable controls, target size, and gesture alternatives; do not assume every pattern is available to the same person."
+    reqs:
+      - "Touch targets must be easy to activate without hitting adjacent controls; essential information must not rely on hover."
+      - "Custom gestures must have single-pointer alternatives; drag-and-drop must have tap-based alternatives; scroll gestures must not cause accidental activation."
+interaction_contexts:
+  - id: new-infrequent-user
+    context: all
+    uses_strategies: [visual-scanning-and-layout-comprehension, navigation-and-wayfinding, form-interaction]
+    behavior:
+      - "First-time or infrequent interaction may require rediscovering controls and workflows."
+      - "Labels, accessible affordances, and progressive disclosure can support learning without prior knowledge of shortcuts or hidden features."
+    expects:
+      - "Interface is learnable without documentation."
+      - "Primary actions are visually obvious."
+      - "Error messages guide toward resolution."
+      - "Navigation structure is understandable."
+  - id: expert-frequent-user
+    context: all
+    uses_strategies: [mouse-pointer-interaction, navigation-and-wayfinding]
+    behavior:
+      - "Frequent interaction may build familiarity with layouts, shortcuts, and workflows."
+      - "Consistency supports established strategies; changes may require relearning. Task expertise does not establish expertise with every assistive technology."
+    expects:
+      - "Keyboard shortcuts for common tasks."
+      - "Consistent layout across sessions and pages."
+      - "Efficient paths to frequently used features."
+      - "Changes to familiar workflows are clearly communicated."
+learning:
+  - id: first-visit
+    facts:
+      - "Familiar web, desktop, and mobile conventions may support learning, but recognition of hamburger menus, search icons, tabs, or modals is not guaranteed."
+      - "Explain unfamiliar patterns through accessible labels and feedback."
+  - id: mental-models
+    facts:
+      - "Early interactions may establish expectations; inconsistent behavior, such as a button that sometimes navigates and sometimes submits, can undermine confidence and require checking."
+  - id: error-recovery
+    facts:
+      - "Support recovery through undo, appropriate confirmation dialogs, and clear error messages."
+      - "Make consequences of irreversible actions clear rather than assuming every mistake can be avoided."
+  - id: cognitive-load
+    facts:
+      - "Clutter, excessive options, and unclear hierarchy can increase attention and memory demands; evaluate task demands without inferring cognitive capability."

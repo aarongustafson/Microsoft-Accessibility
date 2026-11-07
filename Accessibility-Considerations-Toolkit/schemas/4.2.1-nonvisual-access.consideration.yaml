@@ -1,0 +1,149 @@
+# yaml-language-server: $schema=consideration.schema.json
+
+clause: "4.2.1"
+title: "Usage without vision"
+alias: nonvisual-access
+status: elaborated
+fps_statement: "Where ICT provides visual modes of operation, the ICT provides at least one mode of operation that does not require vision."
+device_context: all
+shared_excludes: [visual-scanning-and-layout-comprehension, mouse-pointer-interaction]
+
+evaluation:
+  scope: "Evaluate task completion without visual output through screen-reader speech and/or braille. Check logical sequential access and structural discovery; distinguish desktop keyboard and virtual representations from mobile touch with no hover or physical keyboard assumed. Screenshots alone cannot verify semantics or interaction."
+  access_constraints: [vision]
+  contexts: []
+  checklist:
+    - "Discover: Do headings, landmarks, element lists, and tab order reveal structure?"
+    - "Understand: Do accessible names, roles, and structure convey visual relationships?"
+    - "Operate: Do desktop modes and mobile touch alternatives support every control?"
+    - "Know: Are status, confirmations, and errors announced, not only visual?"
+    - "Recover: Can the user dismiss, undo, and re-orient after changes?"
+
+assistive_tech:
+  - id: jaws
+    category: screen_reader
+    platforms: [Windows]
+    model: "JAWS uses a virtual buffer: PC Cursor follows the caret, Virtual PC Cursor reads, JAWS Cursor tracks the mouse, and Insert+Z toggles the virtual cursor. Browse mode uses H headings, R landmarks, T tables, F fields, B buttons, U links, and Shift to reverse; forms mode auto-switches and passes keys, Insert+F3 lists elements, and Ctrl+Alt+Arrow moves table cells with headers."
+  - id: nvda
+    category: screen_reader
+    platforms: [Windows]
+    model: "NVDA uses Insert/Caps Lock; browse mode uses H headings, D landmarks, K links, F fields, and B buttons, while focus mode passes keys; Insert+Space toggles and controls auto-switch. Insert+F7 lists elements; arrows read lines, Ctrl+Left/Right words, Left/Right characters, Alt+Up/Down sentences, Ctrl+Up/Down paragraphs, Insert+Down continuously, and Insert+1 teaches keys."
+  - id: voiceover-macos
+    category: screen_reader
+    platforms: [macOS]
+    model: "VoiceOver uses Ctrl+Option, lockable with VO+;, and has no browse/focus switch; VO+Space activates, while VO+Cmd+H/L/J/T/G navigates headings, links, forms, tables, or graphics, with Shift reversing. VO+U opens the filterable Rotor; Left/Right selects categories, Up/Down selects items, Enter jumps, and VO+Shift+Down/Up enters/exits objects."
+  - id: narrator
+    category: screen_reader
+    platforms: [Windows]
+    model: "Narrator uses Caps Lock or Insert as the Narrator key and scan mode for structural navigation. It is a secondary or fallback screen reader and can have gaps with complex interactive interfaces compared with JAWS/NVDA."
+  - id: voiceover-ios
+    category: screen_reader
+    platforms: [iOS]
+    model: "VoiceOver uses touch exploration, right/left swipes, and double-tap activation. A two-finger-twist Rotor selects element types; typing uses touch-type or standard on-screen modes, with no physical keyboard assumed."
+  - id: talkback
+    category: screen_reader
+    platforms: [Android]
+    model: "TalkBack uses right/left swipes and double-tap activation; swipe up then right opens reading controls for headings, links, and controls. Two-finger swipe scrolls, and two-finger tap pauses."
+  - id: refreshable-braille-display
+    category: braille_display
+    platforms: [Cross-platform, "paired with screen reader"]
+    model: "Displays one braille line, commonly 40 cells (~40 characters) or 14 portable cells (~14 characters), with routing buttons. Speech may accompany braille; in braille-only contexts, including some Deaf-blind contexts, all information must reach braille without speech or audio."
+
+strategies:
+  - id: heading-navigation
+    mechanisms: [h-shift-h-jaws-nvda, vo-cmd-h-voiceover-macos, rotor-headings-mobile, jaws-insert-f6-nvda-insert-f7-voiceover-rotor]
+    behavior: "Check heading jumps and lists for a structural outline. This can be a primary path when commands are familiar or remain undiscovered when they are not; experience does not establish preference."
+    reqs: "Headings must be descriptive and properly nested; every visually distinct section should have one. One primary heading should identify each page or view; skipped levels confuse structure."
+  - id: find-search
+    mechanisms: [ctrl-f-system, nvda-ctrl-f, jaws-virtual-find]
+    behavior: "Check keyword find when text is known but its location is not; it bypasses structure and can supplement unfamiliar shortcuts or inadequate headings."
+    reqs: "Content must be real rendered text, including lazy-loaded content before search; results must be navigable and focus must move to the match."
+  - id: landmark-navigation
+    mechanisms: [d-shift-d-nvda, r-shift-r-jaws, rotor-landmarks-voiceover]
+    behavior: "Check jumps among named regions for orientation; landmarks may supplement headings or provide a primary path depending on task and command familiarity."
+    reqs: "Distinct regions must be identifiable as landmarks. Duplicate landmark types should have unique accessible names, and main content should be the primary landmark."
+  - id: tab-through-interactive-elements
+    mechanisms: [tab-shift-tab-desktop, swipe-right-left-mobile, f-form-fields-jaws-nvda]
+    behavior: "Check Tab through focusable controls, which skips static content, including when other commands are unfamiliar. Mobile swipes provide sequential discovery through all elements, including static content."
+    reqs: "Tab order must match visual flow; all controls must be focusable, and custom controls must have appropriate roles. Manage focus when dynamic content appears, changes, or is dismissed."
+  - id: screen-reader-elements-list
+    mechanisms: [insert-f7-nvda, insert-f3-jaws, rotor-voiceover]
+    behavior: "Check isolated lists of links, headings, form fields, or landmarks for rapid discovery. Repeated 'click here' names can make different actions indistinguishable."
+    reqs: "Links and buttons need descriptive accessible names that convey purpose in isolation; avoid duplicate names for different destinations or actions."
+  - id: sequential-reading
+    mechanisms: [down-up-arrow-desktop-browse-mode, swipe-right-left-mobile]
+    behavior: "Check linear reading for body text, instructions, and unfamiliar content. It can be a primary or fallback strategy, not a universal preference."
+    reqs: "Reading order must match logical content order and remain meaningful linearly; visual reordering must not diverge from underlying order."
+  - id: touch-exploration
+    mechanisms: [touch-and-drag-voiceover-talkback, double-tap, swipe-navigation, rotor-reading-controls]
+    behavior: "Check touch-and-drag speech for spatial orientation, double-tap activation, swipes, and element-type controls. Repeat visits may support approximate positional memory; unfamiliar layouts still need discoverable targets."
+    reqs: "Provide labelled, discoverable touch targets, single-pointer alternatives for custom gestures, accessible drag-and-drop alternatives, and no hover-only information."
+
+interaction_contexts:
+  - id: desktop-screen-reader-user
+    behavior: "When headings, landmarks, lists, and quick-nav keys are used on desktop, check efficient structure and standard widget patterns. Switching JAWS at work and NVDA at home may expose inconsistency; redundancy can impede high speech rates, but rates and strategies vary."
+    uses_at: [jaws, nvda, voiceover-macos]
+    uses_strategies: [heading-navigation, landmark-navigation, screen-reader-elements-list]
+    expects:
+      - "Fast navigation through a well-structured heading hierarchy."
+      - "Predictable interaction patterns across pages and screen readers."
+      - "Minimal verbosity: no redundant role announcements or excessive decorative content."
+      - "Keyboard shortcuts that do not conflict with screen reader commands."
+      - "Dynamic content announced appropriately, not intrusively."
+  - id: mobile-screen-reader-user
+    behavior: "When access uses swipes, rotor/reading controls, and touch exploration, check coherent responsive layouts rather than shrunken desktop complexity. No hover or physical keyboard is assumed for this context."
+    uses_at: [voiceover-ios, talkback]
+    uses_strategies: [touch-exploration, sequential-reading, heading-navigation]
+    expects:
+      - "Touch targets large enough for touch exploration."
+      - "Swipe navigation follows a logical order."
+      - "No reliance on hover interactions."
+      - "Responsive layouts preserve mobile screen reader navigation."
+      - "Custom gestures have single-pointer alternatives."
+  - id: beginner-screen-reader-user
+    behavior: "When commands are unfamiliar, Tab, sequential reading, and find may be available paths. Recent vision loss, ageing, or first learning AT does not establish skill or speech rate; check explicit instructions and orientation, including at lower rates."
+    uses_at: [nvda, narrator]
+    uses_strategies: [tab-through-interactive-elements, sequential-reading, find-search]
+    expects:
+      - "Simple linear content flow that makes sense top to bottom."
+      - "Clear labels and instructions before form fields."
+      - "Controls announce what they do."
+      - "Errors explain what happened and how to resolve it."
+      - "Forgiving interactions with undo and confirmation before destructive actions."
+  - id: braille-display-user
+    behavior: "When braille is read character by character, check exact spelling, punctuation, and formatting. Evaluate speech-plus-braille and braille-only access separately; some Deaf-blind contexts require all information without audio."
+    uses_at: [refreshable-braille-display, jaws, nvda, voiceover-macos]
+    uses_strategies: [sequential-reading, heading-navigation]
+    expects:
+      - "Clean text without decorative Unicode characters or excessive emoji."
+      - "Correct punctuation and formatting."
+      - "Tables with proper header associations for cell-by-cell reading."
+      - "All interactive feedback available as text, not only audio."
+
+learning:
+  - id: first-visit
+    facts: "Check first-visit orientation through headings and landmarks without assuming command familiarity; poor headings can hide sections, and sequential discovery can require more navigation than visual scanning."
+  - id: habituating
+    facts: "Check whether remembered locations and interactions remain reliable on repeat visits; an action alternating between first and last in tab order can require relearning."
+  - id: mode-switching-desktop
+    facts: "Check browse versus forms/focus modes where supported, notably JAWS/NVDA, not macOS VoiceOver. Automatic field-entry switching changes commands; poor form structure can trigger confusing switches or hide instructions."
+  - id: recovery-from-disorientation
+    facts: "Check reorientation after overlays, lost focus, or dynamic changes. Unannounced updates and unexpected controls can conceal results and recovery paths."
+  - id: cognitive-load-of-sequential-access
+    facts: "Piece-by-piece layout discovery can add navigation and memory demands even with familiar commands; check whether simple, clear structure reduces those demands without inferring cognitive capacity."
+  - id: desktop-vs-mobile-mental-models
+    facts: "Check coherent access across mobile swipes/rotor and desktop keyboard/modes where applicable. Layout may adapt, but lost information or mobile access fails."
+  - id: multi-screen-reader-context-switching
+    facts: "When switching screen readers with different commands and behaviours, check standard semantics and platform conventions instead of relying on product-specific workarounds."
+
+heuristic_overrides:
+  1: "Expose status through screen-reader speech and/or braille, programmatic updates, or appropriate focus movement; visual colour changes, bars, and spinners alone do not satisfy this lens. Avoid silent updates and mutually interrupting announcements."
+  2: "Language must work without visual referents. Icon controls need accessible names meaningful in element lists; pair spatial instructions with structural references."
+  3: "Overlays, undo, back, authentication, and destructive confirmation must work without vision. Return focus after dismissal and support the standard mobile dismiss gesture."
+  4: "Check consistent headings, landmarks, and standard widget keyboard patterns. Changing Arrow versus Tab can invalidate learned interaction; verify standard semantics and controls across screen readers rather than assuming consistency."
+  5: "Prevent form re-reading with constraints, format hints, and required indicators before input. Required status and destructive confirmation must be associated, announced, and focusable."
+  6: "Associate labels, instructions, and context programmatically; visual proximity is unavailable. Use titles, breadcrumbs, region labels, and persistent form labels."
+  7: "Support headings, landmarks, shortcuts, skip links, and mobile Rotor navigation together. Long Tab or swipe sequences to primary content are barriers."
+  8: "Minimise redundant roles, verbose status, excessive links, and announced decoration that add listening, braille reading, or swiping time. Preserve task information while hiding purely decorative content and keeping names descriptive."
+  9: "Check errors associated with fields, actionable, and available through speech and/or braille. Summaries should navigate to fields; validation must explain what failed, where, and how to fix it sequentially."
+  10: "Help must use real text, headings, and navigable contents. Provide orientation, progress announcements, search, and mobile access without complex gestures."

@@ -1,0 +1,141 @@
+# yaml-language-server: $schema=consideration.schema.json
+
+clause: "4.2.8"
+title: "Usage with limited reach"
+alias: pointer-interaction
+status: elaborated
+fps_statement: "Where ICT products are freestanding or installed, the operational elements shall be within reach of all users."
+device_context: all
+
+evaluation:
+  scope: "Evaluate pointing-device paths with slower or imprecise acquisition, difficult or unavailable holding while moving, or accidental activation. Include touchscreen, trackball, adapted mouse, head pointer, eye-gaze, mouth/head stick, switch-driven pointer, and fixed-mounted devices. Do not simulate a person or assume clear vision, comprehension, or keyboard/voice fallback. This adjacent software lens is relevant to 4.2.7 manipulation/strength but is NOT the normative EN 301 549 4.2.8 physical reach requirement for freestanding/installed hardware (kiosks, ATMs, mounted screens, physical buttons) and cannot establish that compliance. Both keyboard-interaction and voice-control companions cite 4.2.7."
+  access_constraints: []
+  contexts:
+    - "Low-precision trackball or adapted-mouse input: tremor or spasticity may cause overshoot, drift, or double activation"
+    - "Head-pointer or eye-gaze dwell configuration without path-based, multipoint, or press-and-hold dragging; resting targets may activate"
+    - "Fixed-mounted device, e.g. on a power wheelchair, unavailable for tilt, shake, or rotation in the tested setup"
+  checklist:
+    - "Target acquisition: Are controls large and separated enough to avoid neighbouring targets?"
+    - "Gesture alternatives: Do path-based and multipoint gestures have single-tap or click alternatives?"
+    - "Drag alternatives: Can drag, slider, reorder, and dismiss actions be completed without dragging?"
+    - "Accidental activation: Do actions use up-event activation with abort or undo rather than unavoidable down-event completion?"
+    - "Motion actuation: Do motion functions have on-screen equivalents and a disable option?"
+    - "Orientation: Does content work without rotating a fixed-mounted device?"
+    - "Transient content: Is hover or focus content dismissible, hoverable, and persistent?"
+    - "Time limits: Do transient controls and timeouts allow slow, deliberate pointer use?"
+
+assistive_tech:
+  - id: touchscreen-operated-with-limited-dexterity
+    category: touch
+    platforms: [iOS, Android, Windows]
+    model: "Test direct touchscreen single taps on Mobile or Desktop with reduced precision and possible overshoot, double taps, or release drift with tremor, spasticity, or weakness. Multi-finger pinch/two-finger rotate, path-based swipes, press-and-hold, and dragging may be difficult or unavailable. Direct touch has no hover preview."
+  - id: trackball-or-adapted-oversized-mouse
+    category: pointer
+    platforms: [Windows, macOS, Linux]
+    model: "Desktop trackballs, joystick mice, oversized ergonomic mice, and button-separated devices can reduce strength/fine-motor demands by separating movement and clicking to limit accidental drag. Test holding while moving, small/close-target overshoot, and possible declining accuracy with fatigue; constraints vary by setup."
+  - id: head-tracking-pointer-head-pointer
+    category: pointer
+    platforms: [Windows, macOS, iOS, Android]
+    model: "Desktop/Mobile camera or reflective-dot tracking maps head motion to pointer position. Activation is typically dwell (resting for a set time) or a separate switch. Path-based gestures or press-and-hold dragging may be unavailable in the tested setup; resting on controls may activate them. Test small-target head-movement effort."
+  - id: eye-gaze-pointer
+    category: pointer
+    platforms: [Windows, iOS, Android]
+    model: "Desktop/Mobile eye-tracking cameras map gaze to coordinates with dwell or separate-switch activation. Tracked points can jitter around gaze targets and complicate small/close-target acquisition. Test setups without dragging or multipoint gestures and transient content as gaze moves; these boundaries do not describe every gaze system."
+  - id: mouth-stick-head-stick
+    category: touch
+    platforms: [iOS, Android, Windows]
+    model: "Mobile/Desktop mouth-held or head-mounted sticks contact touchscreen controls or physical keys at a single point. Multi-finger gestures are unavailable through that method; dragging may be fatiguing or imprecise. Test comfortable reach and distant clusters without treating screen geometry as physical reach compliance."
+  - id: switch-driven-pointer-scanning
+    category: switch
+    platforms: [Windows, macOS, iOS, Android]
+    model: "Desktop/Mobile one- or two-switch scanning pointers or directional cursors step highlights or move through regions/targets before switch selection. Test single-point step-based setups without path-based, multipoint, or press-and-hold dragging. Multiple activations per selection may make dense layouts or long sequences slow or tiring."
+  - id: wheelchair-mounted-device-fixed-orientation
+    category: mounting
+    platforms: [iOS, Android, Windows]
+    model: "The mounted device cannot be picked up, tilted, shaken, or rotated and remains fixed, often in landscape. Motion-only input and content locked to another orientation are unusable."
+
+strategies:
+  - id: single-pointer-activation-without-complex-gestures
+    mechanisms: [single-tap-click, double-tap-click, long-press, dwell-activation]
+    behavior: "Test available tap, click, double-tap/click, long-press, click-and-hold, and dwell paths; these are not equally usable in every setup. Path-based swipe/flick/draw-a-shape and multipoint pinch/rotate/split-tap may be unavailable for head, gaze, switch, or single-stick input, completely blocking gesture-only functions."
+    reqs: "Every multipoint or path-based gesture needs a no-path single-pointer alternative, such as +/- zoom or previous/next buttons. Gesture-only operation is allowed only when the gesture is genuinely essential, such as a freehand signature."
+  - id: avoiding-and-replacing-dragging
+    mechanisms: [tap-select-then-target, slider-track-click, reorder-buttons, numeric-entry]
+    behavior: "Test press-hold-move-release coordination and non-drag alternatives: tap-select then destination, up/down reorder buttons, slider track clicks, or numeric input beside sliders/color wheels. Dragging may be difficult or unavailable in low-precision, head, gaze, switch, or stick setups."
+    reqs: "All drag functions need a pointer-clickable non-drag path; keyboard equivalence alone is insufficient. Sliders accept track clicks, reorder and drop actions offer buttons or menus, and drag-to-dismiss has a close control."
+  - id: acquiring-small-and-closely-spaced-targets
+    mechanisms: [pointer-acquisition, dwell-activation, scanning-highlight]
+    behavior: "Evaluate effort and neighbour risk for tiny close controls, icon-only toolbars, compact dropdown rows, and dense clusters. Low-precision or gaze input may overshoot; each extra target adds switch-scan steps. Size and spacing can reduce retries or mis-activation."
+    reqs: "Targets are at least 24x24 CSS pixels, or undersized targets have non-overlapping centered 24px-diameter circles. Critical or frequent controls should be larger; separate tiny destructive controls."
+  - id: recovering-from-accidental-activation
+    mechanisms: [up-event-release, move-off-to-cancel, undo-abort]
+    behavior: "Test accidental activation with imprecise pointing, dwell, and switches. Down-event completion removes pre-release move-off cancellation; up-event may provide it where supported. Evaluate multi-step abort/undo without assuming every setup supports move-off cancellation."
+    reqs: "Complete on up-event with pre-completion abort or later undo, except when down-event timing is genuinely essential, such as an on-screen piano key. Confirm or reverse destructive actions; releasing outside a drop target aborts dragging."
+  - id: operating-without-device-motion
+    mechanisms: [on-screen-control-equivalent, motion-input-disable]
+    behavior: "Test shake-to-undo, tilt-to-scroll, and camera gestures where device/user motion is unavailable, including fixed mounts. Tremor may cause unintended actuation; check on-screen equivalents and motion disable."
+    reqs: "Motion functions need standard UI equivalents and motion response must be disableable, including through OS settings. Motion-only functions are barriers unless motion is genuinely essential."
+  - id: working-with-fixed-device-orientation
+    mechanisms: [responsive-layout, device-orientation-setting]
+    behavior: "Test fixed mounts, often landscape on a wheelchair arm, without rotation. Opposite-orientation locks or 'please rotate your device' gates may block the setup; movement limits differ among mounts."
+    reqs: "Content must operate in portrait and landscape and never require rotation unless one orientation is essential."
+  - id: managing-transient-hover-or-focus-content
+    mechanisms: [pointer-hover, dwell, dismiss-control]
+    behavior: "Test tooltips, sub-menus, and popovers with large/jittering head/gaze pointers. Movement may obscure, retrigger, or dismiss content; crossing triggers may summon unwanted overlays. Evaluate stable reachable dismissible content without precise choreography."
+    reqs: "Hover/focus content must be dismissible without pointer movement (e.g. Escape), hoverable, and persistent until trigger removal, dismissal, or invalidation. Essential information must not be hover-only."
+
+interaction_contexts:
+  - id: low-precision-pointer-user
+    behavior: "Evaluate trackball, adapted-mouse, or direct-touch overshoot, release drift, and double activation. Essential tremor, cerebral palsy, multiple sclerosis, or Parkinson's may be relevant but do not determine patterns. Check size/spacing, up-event move-off cancellation, and non-drag alternatives."
+    uses_at: [trackball-or-adapted-oversized-mouse]
+    uses_strategies: [acquiring-small-and-closely-spaced-targets, recovering-from-accidental-activation, avoiding-and-replacing-dragging]
+    expects:
+      - "Targets are large and separated enough to avoid a neighbor"
+      - "Actions fire on release and can be aborted by moving off"
+      - "No function depends only on dragging, pinching, or path-based swipes"
+      - "Destructive actions are confirmed or reversible"
+      - "Accidental double activation is tolerated"
+  - id: head-pointer-eye-gaze-dwell-user
+    behavior: "Evaluate head/gaze dwell with no manual pointing fallback. In setups without path-based or multipoint gestures or press-and-hold dragging, test single-dwell alternatives. Resting targets may activate; check separated controls and stable overlays."
+    uses_at: [head-tracking-pointer-head-pointer, eye-gaze-pointer]
+    uses_strategies: [single-pointer-activation-without-complex-gestures, acquiring-small-and-closely-spaced-targets, managing-transient-hover-or-focus-content]
+    expects:
+      - "Every function works by single dwell activation without gestures or dragging"
+      - "Targets isolate the intended dwell location"
+      - "Hover and focus content is persistent, hoverable, and dismissible"
+      - "No reliance on device motion"
+      - "Activation tolerates jitter around the intended target"
+  - id: mounted-device-wheelchair-user
+    behavior: "Evaluate a power-wheelchair-mounted device through stick, switch, or limited-range touch. The fixed setup cannot be picked up, tilted, shaken, or rotated; some regions may be outside comfortable reach. Check orientation, motion equivalents, and placement, reserving physical reach compliance for hardware assessment."
+    uses_at: [wheelchair-mounted-device-fixed-orientation, switch-driven-pointer-scanning]
+    uses_strategies: [working-with-fixed-device-orientation, operating-without-device-motion, single-pointer-activation-without-complex-gestures]
+    expects:
+      - "Content works in the fixed orientation without a rotate-device block"
+      - "Motion functions have on-screen equivalents and can be disabled"
+      - "Important controls are not clustered in far corners"
+      - "All operation supports a single pointer or switch"
+      - "No time pressure penalizes slow selection"
+
+learning:
+  - id: pointer-acquisition-physical-cost
+    facts: "Every target may require careful head movement, trackball stabilization, dwell time, or multiple switch steps. Small, dense, long action sequences accumulate fatigue and errors."
+  - id: dwell-positional-false-triggers
+    facts: "In dwell configurations, resting on controls or overlays under the pointer may trigger activation. Evaluate spacing, generous targets, and persistent rather than auto-appearing content to reduce risk."
+  - id: abort-and-undo-safety-nets
+    facts: "Accidental activation may recur with imprecise input. Test supported up-event move-off cancellation, destructive confirmation, and undo. Down-event completion removes pre-release cancellation, not necessarily every recovery option."
+  - id: dragging-and-gestures-hard-dead-ends
+    facts: "When drag, reorder, slider, or pinch is the only path, some users are stopped rather than slowed. A no-path single-pointer alternative determines whether the function is possible."
+  - id: mounted-setups-remove-input-channels
+    facts: "Tilt, shake, or rotation may be unavailable in fixed wheelchair-mounted setups. Motion-only functions or incompatible orientation locks may completely block operation; assess the setup rather than all mounted devices."
+
+heuristic_overrides:
+  1: "Evaluate immediate nearby feedback after tap, dwell, switch scan, or careful pointer movement, especially when activation is slower or uncertain. Selected/loading states may reduce retries. Distant feedback may be outside gaze- or magnification-attended regions; perception varies."
+  2: "Evaluate familiar slider track clicks, carousel prev/next buttons, and list move controls, with simple tap/click paths for buttons/links. Hidden swipe-to-reveal or pinch-to-act demands may conflict with visible affordances; do not assume hidden-gesture knowledge."
+  3: "Evaluate up-event move-off cancellation, large dismiss controls, abort, and undo after accidental activation. Dragging must abort outside a drop zone; motion response must be disableable. Recovery should avoid precise follow-up. Retain genuinely essential down-event exceptions."
+  4: "Evaluate consistent single-pointer alternatives and sizing. Sliders alternating track clicks/drag-only, or lists alternating move buttons/drag-only paths, may require risky trial or block components. Up-event/dismiss/sizing consistency can support learned operation without assuming uniform motor routines."
+  5: "Evaluate targets at least 24x24 CSS pixels or non-overlapping 24px spacing circles to reduce neighbour risk, not guarantee error-free activation. Separate destructive controls, offer single-pointer drag/gesture alternatives, and confirm irreversible outcomes; inspect tiny close controls and dense rows/toolbars."
+  6: "Evaluate persistent buttons/labels and gesture/motion equivalents. Swipe-, long-press-, or shake-only paths may require recall and unavailable movement; visible alternatives should offer a recognizable path without that motor sequence."
+  7: "Evaluate track clicks, numeric entry, and select-then-place, fewer larger forgiving targets, and shorter sequences against varied effort budgets. Keyboard shortcuts alone do not address a pointer-only path, though they may help elsewhere."
+  8: "Evaluate density as activation/scanning burden: extra controls add neighbour targets and switch-scan steps. Spacing, fewer competing targets, and separation of primary/destructive controls may reduce mis-activation. Compact layouts should not depend on high precision."
+  9: "Recovery controls must tolerate the same imprecision that caused the error: large, separated, labeled Undo and Cancel actions without drag or gesture requirements."
+  10: "Documentation and hints should identify single-pointer alternatives for gestures, drags, and motion. Help and overlays must work with one pointer and have a large dismiss control."

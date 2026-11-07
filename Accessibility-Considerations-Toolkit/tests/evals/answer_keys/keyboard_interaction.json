@@ -1,0 +1,437 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "keyboard",
+				"matches": [
+					"standard keyboard",
+					"keyboard",
+					"standard keyboard no mouse"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "standard_keyboard_no_mouse",
+				"matches": [
+					"standard keyboard (no mouse)",
+					"standard keyboard no mouse",
+					"standard keyboard"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "pointer_interaction_excluded",
+				"matches": [
+					"mouse pointer interaction excluded",
+					"mouse / pointer interaction excluded",
+					"mouse interaction excluded",
+					"excludes mouse pointer interaction",
+					"mouse pointer interaction does not apply",
+					"touch pointer interaction excluded",
+					"touch / pointer interaction excluded",
+					"touch interaction excluded",
+					"cannot use a mouse trackpad or touchscreen"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "tab_through_interactive_elements",
+				"matches": [
+					"tab through interactive elements",
+					"tab-through interactive elements",
+					"tab through focusable elements"
+				]
+			},
+			{
+				"id": "focus_indicator_tracking",
+				"matches": [
+					"focus indicator tracking",
+					"tracking the focus indicator",
+					"visible focus indicator",
+					"verify visible focus indicator tracking"
+				]
+			},
+			{
+				"id": "arrow_key_navigation_within_widgets",
+				"matches": [
+					"arrow key navigation within widgets",
+					"arrow key navigation",
+					"arrow-key navigation within widgets",
+					"arrow keys within widgets"
+				]
+			},
+			{
+				"id": "keyboard_shortcuts_and_access_keys",
+				"matches": [
+					"keyboard shortcuts and access keys",
+					"keyboard shortcuts",
+					"access keys",
+					"assess keyboard shortcuts and access keys"
+				]
+			},
+			{
+				"id": "application_specific_keyboard_shortcuts",
+				"matches": [
+					"application specific keyboard shortcuts",
+					"application-specific keyboard shortcuts",
+					"application shortcuts",
+					"explore application specific keyboard shortcuts",
+					"application specific shortcuts"
+				]
+			},
+			{
+				"id": "page_structure_scanning_visual",
+				"matches": [
+					"page structure scanning visual",
+					"page structure scanning",
+					"visual page structure scanning",
+					"page structure scanning to assess keystroke economy",
+					"page structure scanning to assess tab stop efficiency",
+					"keystroke economy and tab stop efficiency"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "limited_fine_motor_control_user",
+				"matches": [
+					"user with limited fine motor control",
+					"limited fine motor control",
+					"fine motor control"
+				]
+			},
+			{
+				"id": "one_handed_keyboard_user",
+				"matches": [
+					"one handed keyboard user",
+					"one-handed keyboard user",
+					"one handed user",
+					"one-handed user"
+				]
+			}
+		]
+	},
+	"behavior_navigation_primary_action": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "tab_or_shift_tab_path",
+				"matches": [
+					"tab",
+					"shift tab",
+					"tab through interactive elements",
+					"tab order",
+					"focusable"
+				]
+			},
+			{
+				"id": "focus_indicator_tracking",
+				"matches": [
+					"focus indicator",
+					"visible focus",
+					"focus ring",
+					"outline"
+				]
+			},
+			{
+				"id": "efficiency_skip_or_shortcut",
+				"matches": [
+					"skip link",
+					"keyboard shortcut",
+					"access key",
+					"f6",
+					"reasonable number of tab stops",
+					"tab stop efficiency",
+					"keystroke economy"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "mouse_only_path",
+				"matches": [
+					"click it",
+					"use the mouse",
+					"hover over",
+					"drag the pointer"
+				]
+			}
+		]
+	},
+	"behavior_interaction_custom_widget": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "widget_focusable_by_keyboard",
+				"matches": [
+					"tab to it",
+					"focusable",
+					"receives focus",
+					"keyboard focus"
+				]
+			},
+			{
+				"id": "expected_widget_keys",
+				"matches": [
+					"arrow keys",
+					"arrow key navigation",
+					"home end",
+					"enter",
+					"space"
+				]
+			},
+			{
+				"id": "escape_or_close_behavior",
+				"matches": [
+					"escape",
+					"esc",
+					"close the widget",
+					"close it with keyboard"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "mouse_widget_operation",
+				"matches": [
+					"click to open",
+					"drag to select",
+					"hover to reveal",
+					"right click"
+				]
+			}
+		]
+	},
+	"behavior_escape_overlay": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "escape_or_close_control",
+				"matches": [
+					"escape",
+					"esc",
+					"close button",
+					"cancel button"
+				]
+			},
+			{
+				"id": "tab_order_without_trap",
+				"matches": [
+					"tab",
+					"shift tab",
+					"tab order",
+					"keyboard trap",
+					"not get trapped",
+					"move through controls"
+				]
+			},
+			{
+				"id": "focus_return_or_location",
+				"matches": [
+					"focus returns",
+					"return focus",
+					"return to the trigger",
+					"button link that opened it",
+					"back to the triggering element",
+					"where focus goes",
+					"lose their place"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "pointer_escape_only",
+				"matches": [
+					"click outside",
+					"tap outside",
+					"move the mouse away"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "tab_path_and_reasonable_tab_order",
+				"matches": [
+					"tab",
+					"shift tab",
+					"tab order",
+					"focusable",
+					"reasonable number of tab stops",
+					"tab stop efficiency",
+					"keystroke economy"
+				]
+			},
+			{
+				"id": "visible_focus_indicator",
+				"matches": [
+					"focus indicator",
+					"visible focus",
+					"focus ring",
+					"outline",
+					"track focus"
+				]
+			},
+			{
+				"id": "skip_link_or_efficient_bypass",
+				"matches": [
+					"skip link",
+					"bypass repetitive navigation",
+					"f6",
+					"shortcut",
+					"access key",
+					"reach the main content"
+				]
+			},
+			{
+				"id": "forms_tables_and_controls_keyboard_operable",
+				"matches": [
+					"enter",
+					"space",
+					"arrow keys",
+					"comparison table",
+					"form interaction",
+					"keyboard operable",
+					"focusable controls"
+				]
+			},
+			{
+				"id": "overlay_escape_and_focus_return",
+				"matches": [
+					"escape",
+					"esc",
+					"keyboard trap",
+					"return focus",
+					"focus returns",
+					"back to the trigger"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "mouse_or_hover_path",
+				"matches": [
+					"click it",
+					"use the mouse",
+					"hover over",
+					"drag the pointer"
+				]
+			}
+		]
+	},
+	"behavior_review_interaction_heavy_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "region_navigation_or_shortcuts",
+				"matches": [
+					"f6",
+					"ctrl f6",
+					"keyboard shortcuts",
+					"shortcut help",
+					"command palette",
+					"application shortcuts"
+				]
+			},
+			{
+				"id": "custom_widgets_expected_keys",
+				"matches": [
+					"arrow keys",
+					"home end",
+					"enter",
+					"space",
+					"tablist",
+					"dropdown",
+					"date picker"
+				]
+			},
+			{
+				"id": "visible_focus_and_focus_management",
+				"matches": [
+					"focus indicator",
+					"visible focus",
+					"focus management",
+					"focus ring",
+					"where focus goes"
+				]
+			},
+			{
+				"id": "escape_close_and_no_keyboard_trap",
+				"matches": [
+					"escape",
+					"esc",
+					"close the dialog",
+					"keyboard trap",
+					"not get trapped",
+					"return focus"
+				]
+			},
+			{
+				"id": "no_pointer_only_or_drag_only_requirement",
+				"matches": [
+					"keyboard alternative",
+					"no drag and drop only",
+					"hover information on focus",
+					"no hover only",
+					"operable without a mouse"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "pointer_only_interaction",
+				"matches": [
+					"click to open",
+					"drag to select",
+					"hover to reveal",
+					"right click",
+					"use the mouse"
+				]
+			}
+		]
+	}
+}

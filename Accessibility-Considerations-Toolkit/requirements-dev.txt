@@ -1,0 +1,9 @@
+inspect-ai>=0.3.50
+openai>=1.50.0
+pyyaml>=6.0
+python-dotenv>=1.0.1
+pytest>=8.0
+jsonschema>=4.23
+# Optional: required only for `copilot/*` model IDs (run via
+# tests/evals/run_copilot_eval.py). Wraps the @github/copilot CLI.
+github-copilot-sdk>=1.0.0

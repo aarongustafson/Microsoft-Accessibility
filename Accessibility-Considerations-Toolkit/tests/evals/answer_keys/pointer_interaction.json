@@ -1,0 +1,360 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "touch",
+				"matches": [
+					"touch",
+					"touchscreen",
+					"touchscreen limited dexterity"
+				]
+			},
+			{
+				"id": "pointer",
+				"matches": [
+					"pointer",
+					"adapted pointer",
+					"trackball",
+					"head tracking",
+					"eye gaze",
+					"head pointer",
+					"eye-gaze pointer"
+				]
+			},
+			{
+				"id": "switch",
+				"matches": [
+					"switch",
+					"switch-driven pointer",
+					"switch scanning",
+					"scanning"
+				]
+			},
+			{
+				"id": "mounting",
+				"matches": [
+					"mounting",
+					"wheelchair mounted",
+					"wheelchair-mounted",
+					"fixed orientation",
+					"mounted device"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "touchscreen_limited_dexterity",
+				"matches": [
+					"touchscreen operated with limited dexterity",
+					"touchscreen limited dexterity",
+					"touchscreen with limited dexterity"
+				]
+			},
+			{
+				"id": "trackball_adapted_mouse",
+				"matches": [
+					"trackball",
+					"adapted mouse",
+					"oversized mouse",
+					"trackball or adapted mouse",
+					"trackball or adapted / oversized mouse"
+				]
+			},
+			{
+				"id": "head_tracking_pointer",
+				"matches": [
+					"head tracking pointer",
+					"head pointer",
+					"head-tracking pointer",
+					"head tracking"
+				]
+			},
+			{
+				"id": "eye_gaze_pointer",
+				"matches": [
+					"eye gaze pointer",
+					"eye-gaze pointer",
+					"eye gaze",
+					"eye tracking"
+				]
+			},
+			{
+				"id": "mouth_head_stick",
+				"matches": [
+					"mouth stick",
+					"head stick",
+					"mouth / head stick",
+					"mouth-stick",
+					"head-stick"
+				]
+			},
+			{
+				"id": "switch_driven_pointer",
+				"matches": [
+					"switch-driven pointer",
+					"switch driven pointer",
+					"switch scanning",
+					"switch-driven pointer / scanning"
+				]
+			},
+			{
+				"id": "wheelchair_mounted_device",
+				"matches": [
+					"wheelchair-mounted device",
+					"wheelchair mounted device",
+					"mounted device",
+					"fixed orientation device"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "single_pointer_activation",
+				"matches": [
+					"single-pointer activation",
+					"single pointer activation",
+					"single pointer without complex gestures",
+					"single-pointer activation without complex gestures"
+				]
+			},
+			{
+				"id": "avoiding_replacing_dragging",
+				"matches": [
+					"avoiding and replacing dragging",
+					"avoiding dragging",
+					"replacing dragging",
+					"drag alternatives"
+				]
+			},
+			{
+				"id": "acquiring_small_spaced_targets",
+				"matches": [
+					"acquiring small and closely-spaced targets",
+					"acquiring small and closely spaced targets",
+					"small targets",
+					"target size and spacing",
+					"target acquisition"
+				]
+			},
+			{
+				"id": "recovering_from_accidental_activation",
+				"matches": [
+					"recovering from accidental activation",
+					"accidental activation",
+					"up-event activation",
+					"up event activation",
+					"move-off-to-cancel"
+				]
+			},
+			{
+				"id": "operating_without_device_motion",
+				"matches": [
+					"operating without device motion",
+					"without device motion",
+					"device motion",
+					"motion independence"
+				]
+			},
+			{
+				"id": "fixed_device_orientation",
+				"matches": [
+					"fixed device orientation",
+					"working with a fixed device orientation",
+					"orientation lock",
+					"orientation independence"
+				]
+			},
+			{
+				"id": "managing_transient_hover_focus_content",
+				"matches": [
+					"managing transient hover or focus content",
+					"transient hover content",
+					"hover or focus content",
+					"transient content",
+					"hover content persistent hoverable dismissible"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "low_precision_pointer_user",
+				"matches": [
+					"low-precision pointer user",
+					"low precision pointer user",
+					"tremor",
+					"spasticity",
+					"trackball user"
+				]
+			},
+			{
+				"id": "head_pointer_eye_gaze_dwell_user",
+				"matches": [
+					"head-pointer / eye-gaze dwell user",
+					"head pointer eye gaze dwell user",
+					"head pointer user",
+					"eye-gaze dwell user",
+					"eye gaze user",
+					"dwell user"
+				]
+			},
+			{
+				"id": "mounted_device_wheelchair_user",
+				"matches": [
+					"mounted-device wheelchair user",
+					"mounted device wheelchair user",
+					"wheelchair user",
+					"fixed orientation user",
+					"mounted device user"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse / pointer interaction",
+					"mouse pointer interaction",
+					"pointer interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch / pointer interaction",
+					"touch pointer interaction",
+					"touch interaction"
+				]
+			}
+		]
+	},
+	"behavior_target_assessment": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "target_size_minimum",
+				"matches": [
+					"24",
+					"target size",
+					"24 css px",
+					"24x24",
+					"minimum size"
+				]
+			},
+			{
+				"id": "spacing_between_targets",
+				"matches": [
+					"spacing",
+					"gap",
+					"adjacent",
+					"overlap",
+					"closely spaced"
+				]
+			},
+			{
+				"id": "destructive_controls_placement",
+				"matches": [
+					"destructive",
+					"delete",
+					"close",
+					"remove",
+					"away from other targets"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "keyboard_interaction_path",
+				"matches": [
+					"tab to it",
+					"focus ring",
+					"keyboard shortcut"
+				]
+			}
+		]
+	},
+	"behavior_drag_alternative": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "identifies_drag_barrier",
+				"matches": [
+					"drag",
+					"press and hold",
+					"hold and move",
+					"cannot drag"
+				]
+			},
+			{
+				"id": "single_pointer_alternative",
+				"matches": [
+					"single pointer",
+					"single tap",
+					"click alternative",
+					"tap alternative",
+					"button alternative",
+					"move buttons",
+					"reorder buttons"
+				]
+			},
+			{
+				"id": "track_click_or_numeric_input",
+				"matches": [
+					"click on track",
+					"track click",
+					"numeric input",
+					"numeric entry",
+					"type a value"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "keyboard_drag_alternative_only",
+				"matches": [
+					"use keyboard instead",
+					"tab and enter",
+					"arrow keys to reorder"
+				]
+			}
+		]
+	}
+}

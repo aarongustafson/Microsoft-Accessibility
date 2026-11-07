@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "consideration.schema.json",
+  "title": "Accessibility Consideration (compact)",
+  "description": "Schema for EN 301 549 FPS accessibility consideration files. Machine-oriented, LLM-agnostic format. For stub considerations, use consideration-stub.schema.json.",
+  "type": "object",
+  "required": ["clause", "title", "alias", "status", "fps_statement", "evaluation", "assistive_tech", "strategies", "interaction_contexts", "learning", "heuristic_overrides"],
+  "additionalProperties": false,
+  "properties": {
+    "clause": {
+      "type": "string",
+      "pattern": "^4\\.2\\.\\d+$",
+      "description": "EN 301 549 FPS clause number."
+    },
+    "title": {
+      "type": "string",
+      "description": "Official EN 301 549 FPS clause title."
+    },
+    "fps_statement": {
+      "type": "string",
+      "description": "The full EN 301 549 Functional Performance Statement text for this clause."
+    },
+    "alias": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Short kebab-case identifier."
+    },
+    "status": {
+      "const": "elaborated"
+    },
+    "device_context": {
+      "type": "string",
+      "enum": ["desktop", "mobile", "all"],
+      "description": "Default device context for all items in this consideration."
+    },
+    "shared_excludes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "Shared item IDs to omit from this consideration."
+    },
+    "provenance": {
+      "$ref": "#/$defs/provenance"
+    },
+    "evaluation": {
+      "$ref": "#/$defs/evaluation"
+    },
+    "assistive_tech": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/assistive_tech" },
+      "minItems": 1
+    },
+    "strategies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/strategy" },
+      "minItems": 1,
+      "description": "Consideration-specific strategies. Shared merged at render time."
+    },
+    "interaction_contexts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/interaction_context" },
+      "minItems": 1,
+      "description": "Consideration-specific variants. Shared merged at render time."
+    },
+    "learning": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/learning_item" },
+      "minItems": 1,
+      "description": "Consideration-specific learning guidance. Shared merged at render time."
+    },
+    "heuristic_overrides": {
+      "type": "object",
+      "description": "Map of heuristic number (1-10) to consideration-specific lens override text.",
+      "propertyNames": { "pattern": "^([1-9]|10)$" },
+      "additionalProperties": { "type": "string" },
+      "minProperties": 10,
+      "maxProperties": 10
+    }
+  },
+
+  "$defs": {
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_urls",
+        "upstream_license",
+        "repository_license",
+        "required_notice",
+        "adaptation",
+        "reviewed_on"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_urls": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "upstream_license": { "type": "string" },
+        "repository_license": { "type": "string" },
+        "required_notice": { "type": "string" },
+        "adaptation": { "const": true },
+        "reviewed_on": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+
+    "evaluation": {
+      "type": "object",
+      "required": ["scope", "access_constraints", "contexts", "checklist"],
+      "additionalProperties": false,
+      "properties": {
+        "scope": { "type": "string", "description": "Access conditions and interface requirements to examine; not a simulated identity." },
+        "access_constraints": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Input/output dependencies excluded from this evaluation scope; not claims about a person's overall capabilities."
+        },
+        "contexts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Possible device, assistive-technology, or task contexts to evaluate; not fixed community profiles."
+        },
+        "checklist": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Evaluation criteria as 'Label: criteria' strings."
+        }
+      }
+    },
+
+    "assistive_tech": {
+      "type": "object",
+      "required": ["id", "category", "platforms", "model"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "Kebab-case identifier." },
+        "category": { "type": "string" },
+        "platforms": { "type": "array", "items": { "type": "string" } },
+        "model": { "type": "string", "description": "Interaction model summary." }
+      }
+    },
+
+    "strategy": {
+      "type": "object",
+      "required": ["id", "mechanisms", "reqs"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "Kebab-case identifier; used for shared filtering." },
+        "mechanisms": { "type": "array", "items": { "type": "string" } },
+        "behavior": { "type": "string", "description": "What the user does." },
+        "reqs": { "type": "string", "description": "What the UI must provide." }
+      }
+    },
+
+    "interaction_context": {
+      "type": "object",
+      "required": ["id", "uses_at", "expects"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "Kebab-case identifier." },
+        "behavior": { "type": "string", "description": "Possible interaction conditions and access strategies; preserve variation." },
+        "uses_at": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true,
+          "description": "Assistive technology ids used by this variant. Empty when the source specifies no assistive technology."
+        },
+        "uses_strategies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true,
+          "description": "Consideration-specific strategy ids this variant relies on. Shared strategies are inherited separately."
+        },
+        "expects": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "learning_item": {
+      "type": "object",
+      "required": ["id", "facts"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "Kebab-case identifier." },
+        "facts": { "type": "string", "description": "Learning guidance for this scenario." }
+      }
+    }
+  }
+}

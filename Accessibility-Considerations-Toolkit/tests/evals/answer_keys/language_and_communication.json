@@ -1,0 +1,386 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "text_to_speech_highlighting",
+				"matches": [
+					"text-to-speech",
+					"text to speech",
+					"tts",
+					"highlighting",
+					"text-to-speech with highlighting"
+				]
+			},
+			{
+				"id": "reading_simplification",
+				"matches": [
+					"reading simplification",
+					"simplification toolbar",
+					"reading-simplification toolbars",
+					"reading toolbars"
+				]
+			},
+			{
+				"id": "symbol_aac",
+				"matches": [
+					"symbol",
+					"aac",
+					"symbol-aac",
+					"symbol AAC systems",
+					"augmentative and alternative communication"
+				]
+			},
+			{
+				"id": "spell_grammar_prediction",
+				"matches": [
+					"spell",
+					"grammar",
+					"prediction",
+					"spell / grammar / prediction",
+					"spelling and grammar"
+				]
+			},
+			{
+				"id": "dictionary_glossary",
+				"matches": [
+					"dictionary",
+					"glossary",
+					"dictionary / glossary popups",
+					"glossary popups"
+				]
+			},
+			{
+				"id": "translation_phonetic",
+				"matches": [
+					"translation",
+					"phonetic",
+					"translation / phonetic readers",
+					"phonetic readers"
+				]
+			},
+			{
+				"id": "considerationlization_semantics",
+				"matches": [
+					"considerationlization",
+					"semantics",
+					"considerationlization semantics",
+					"considerationlization / semantics"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "text_to_speech_highlighting",
+				"matches": [
+					"text-to-speech with highlighting",
+					"text-to-speech / highlighting",
+					"tts highlighting",
+					"text to speech highlighting"
+				]
+			},
+			{
+				"id": "reading_simplification_toolbars",
+				"matches": [
+					"reading-simplification toolbars",
+					"reading simplification toolbars",
+					"simplification toolbars",
+					"reading toolbar"
+				]
+			},
+			{
+				"id": "symbol_aac_systems",
+				"matches": [
+					"symbol-AAC systems",
+					"symbol AAC systems",
+					"symbol-aac systems",
+					"AAC systems"
+				]
+			},
+			{
+				"id": "spell_grammar_prediction",
+				"matches": [
+					"spell / grammar / prediction",
+					"spell grammar prediction",
+					"spelling and grammar aids",
+					"word prediction"
+				]
+			},
+			{
+				"id": "dictionary_glossary_popups",
+				"matches": [
+					"dictionary / glossary popups",
+					"dictionary glossary popups",
+					"glossary popups",
+					"dictionary popups"
+				]
+			},
+			{
+				"id": "translation_phonetic_readers",
+				"matches": [
+					"translation / phonetic readers",
+					"translation phonetic readers",
+					"phonetic readers",
+					"translation readers"
+				]
+			},
+			{
+				"id": "considerationlization_semantics",
+				"matches": [
+					"considerationlization / semantics",
+					"considerationlization semantics",
+					"semantic considerationlization",
+					"content considerationlization"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "decoding_supported_reading",
+				"matches": [
+					"decoding-supported reading",
+					"decoding supported reading",
+					"supported reading",
+					"reading with decoding support"
+				]
+			},
+			{
+				"id": "skim_for_structure",
+				"matches": [
+					"skim for structure",
+					"skimming for structure",
+					"structural skimming",
+					"skim headings"
+				]
+			},
+			{
+				"id": "symbol_icon_led_navigation",
+				"matches": [
+					"symbol / icon-led navigation",
+					"symbol icon led navigation",
+					"icon-led navigation",
+					"symbol navigation"
+				]
+			},
+			{
+				"id": "literal_interpretation",
+				"matches": [
+					"literal interpretation",
+					"literal-interpretation filter",
+					"literal language interpretation"
+				]
+			},
+			{
+				"id": "alternative_format_substitution",
+				"matches": [
+					"alternative format substitution",
+					"alternative-format substitution",
+					"format substitution",
+					"alternative formats"
+				]
+			},
+			{
+				"id": "assisted_expression",
+				"matches": [
+					"assisted expression",
+					"assisted-expression",
+					"expression assistance",
+					"writing assistance"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "reading_disability",
+				"matches": [
+					"reading disability",
+					"reading-disability",
+					"dyslexia",
+					"reading difficulty"
+				]
+			},
+			{
+				"id": "language_processing",
+				"matches": [
+					"language processing",
+					"language-processing",
+					"language processing difficulty",
+					"receptive language"
+				]
+			},
+			{
+				"id": "symbol_aac_dependent",
+				"matches": [
+					"symbol-AAC-dependent",
+					"symbol AAC dependent",
+					"symbol-aac-dependent",
+					"aac dependent"
+				]
+			},
+			{
+				"id": "literal_language",
+				"matches": [
+					"literal language",
+					"literal-language",
+					"literal language user",
+					"concrete language"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse / pointer interaction",
+					"mouse pointer interaction",
+					"pointer interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch / pointer interaction",
+					"touch pointer interaction",
+					"touch interaction"
+				]
+			}
+		]
+	},
+	"behavior_reading_dense_text": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "tts_or_read_aloud",
+				"matches": [
+					"text-to-speech",
+					"tts",
+					"read aloud",
+					"listening",
+					"have it read"
+				]
+			},
+			{
+				"id": "heading_structure_skimming",
+				"matches": [
+					"headings",
+					"structure",
+					"skim",
+					"scan for headings",
+					"heading hierarchy"
+				]
+			},
+			{
+				"id": "plain_language_or_simplification",
+				"matches": [
+					"plain language",
+					"simplify",
+					"simplification",
+					"jargon",
+					"complex vocabulary"
+				]
+			},
+			{
+				"id": "icons_symbols_supplement",
+				"matches": [
+					"icon",
+					"symbol",
+					"visual cue",
+					"pictograph",
+					"image supplement"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "assumes_fluent_reading",
+				"matches": [
+					"just read it carefully",
+					"read the paragraph",
+					"scan the fine print"
+				]
+			}
+		]
+	},
+	"behavior_form_text_input": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "spelling_grammar_support",
+				"matches": [
+					"spell check",
+					"spelling",
+					"grammar",
+					"autocorrect",
+					"word prediction"
+				]
+			},
+			{
+				"id": "paste_allowed",
+				"matches": [
+					"paste",
+					"copy paste",
+					"clipboard",
+					"paste from external"
+				]
+			},
+			{
+				"id": "clear_labels_instructions",
+				"matches": [
+					"label",
+					"instruction",
+					"placeholder",
+					"example",
+					"hint text"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "requires_freeform_composition",
+				"matches": [
+					"write a paragraph",
+					"compose from scratch",
+					"free text essay required"
+				]
+			}
+		]
+	}
+}

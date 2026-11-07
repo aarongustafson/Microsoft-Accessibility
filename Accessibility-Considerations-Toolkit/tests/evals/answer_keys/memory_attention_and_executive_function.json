@@ -1,0 +1,391 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "reminder_calendar",
+				"matches": [
+					"reminder",
+					"calendar",
+					"reminder and calendar tools",
+					"scheduling"
+				]
+			},
+			{
+				"id": "password_manager",
+				"matches": [
+					"password manager",
+					"password managers",
+					"credential management"
+				]
+			},
+			{
+				"id": "reading_focus",
+				"matches": [
+					"reading focus",
+					"focus extensions",
+					"reading-focus extensions",
+					"reading focus extension"
+				]
+			},
+			{
+				"id": "autofill",
+				"matches": [
+					"autofill",
+					"form autofill",
+					"auto-fill",
+					"auto fill"
+				]
+			},
+			{
+				"id": "text_to_speech",
+				"matches": [
+					"text-to-speech",
+					"text to speech",
+					"tts",
+					"read aloud"
+				]
+			},
+			{
+				"id": "considerationlization_simplification",
+				"matches": [
+					"considerationlization",
+					"simplification",
+					"considerationlization and simplification",
+					"considerationlization / simplification"
+				]
+			},
+			{
+				"id": "platform_aids",
+				"matches": [
+					"platform aids",
+					"built-in platform aids",
+					"built in platform aids",
+					"platform accessibility features"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "reminder_calendar_tools",
+				"matches": [
+					"reminder / calendar tools",
+					"reminder and calendar tools",
+					"reminder calendar tools",
+					"calendar reminders"
+				]
+			},
+			{
+				"id": "password_managers",
+				"matches": [
+					"password managers",
+					"password manager",
+					"credential managers"
+				]
+			},
+			{
+				"id": "reading_focus_extensions",
+				"matches": [
+					"reading-focus extensions",
+					"reading focus extensions",
+					"focus mode extensions",
+					"reading-focus browser extensions"
+				]
+			},
+			{
+				"id": "form_autofill",
+				"matches": [
+					"form autofill",
+					"form auto-fill",
+					"browser autofill",
+					"autofill"
+				]
+			},
+			{
+				"id": "text_to_speech",
+				"matches": [
+					"text-to-speech",
+					"text to speech",
+					"tts",
+					"read aloud",
+					"text-to-speech (read-aloud)"
+				]
+			},
+			{
+				"id": "considerationlization_simplification",
+				"matches": [
+					"considerationlization / simplification",
+					"considerationlization and simplification",
+					"considerationlization simplification",
+					"content simplification"
+				]
+			},
+			{
+				"id": "built_in_platform_aids",
+				"matches": [
+					"built-in platform aids",
+					"built in platform aids",
+					"platform aids",
+					"OS accessibility features"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "orientation_reorientation",
+				"matches": [
+					"orientation and reorientation",
+					"orientation reorientation",
+					"orientation / reorientation",
+					"reorientation",
+					"where am I"
+				]
+			},
+			{
+				"id": "chunked_task_progression",
+				"matches": [
+					"chunked task progression",
+					"chunked progression",
+					"task chunking",
+					"step-by-step progression"
+				]
+			},
+			{
+				"id": "recognition_over_recall_navigation",
+				"matches": [
+					"recognition over recall navigation",
+					"recognition over recall",
+					"recognition-over-recall navigation",
+					"recognizable navigation"
+				]
+			},
+			{
+				"id": "distraction_management",
+				"matches": [
+					"distraction management",
+					"managing distractions",
+					"distraction control",
+					"interruption management"
+				]
+			},
+			{
+				"id": "offloading_to_external_aids",
+				"matches": [
+					"offloading to external aids",
+					"offloading external aids",
+					"external aids",
+					"offloading memory to tools"
+				]
+			},
+			{
+				"id": "feedback_confirmed_action",
+				"matches": [
+					"feedback-confirmed action",
+					"feedback confirmed action",
+					"confirmation feedback",
+					"action confirmation"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "working_memory_limited",
+				"matches": [
+					"working-memory-limited",
+					"working memory limited",
+					"limited working memory",
+					"short-term memory"
+				]
+			},
+			{
+				"id": "attention_distraction_sensitive",
+				"matches": [
+					"attention / distraction-sensitive",
+					"attention distraction sensitive",
+					"distraction sensitive",
+					"easily distracted",
+					"attention deficit"
+				]
+			},
+			{
+				"id": "executive_function_impaired",
+				"matches": [
+					"executive-function-impaired",
+					"executive function impaired",
+					"executive function",
+					"planning difficulty"
+				]
+			},
+			{
+				"id": "progressive_memory_decline",
+				"matches": [
+					"progressive memory decline",
+					"progressive decline",
+					"memory decline",
+					"degenerative memory"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 0.6,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse / pointer interaction",
+					"mouse pointer interaction",
+					"pointer interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch / pointer interaction",
+					"touch pointer interaction",
+					"touch interaction"
+				]
+			}
+		]
+	},
+	"behavior_multi_step_form": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "progress_indicator",
+				"matches": [
+					"progress",
+					"step indicator",
+					"progress indicator",
+					"where am I in the process",
+					"steps remaining"
+				]
+			},
+			{
+				"id": "data_persistence_across_steps",
+				"matches": [
+					"data saved",
+					"persist",
+					"not lost",
+					"saved between steps",
+					"timeout warning",
+					"session timeout"
+				]
+			},
+			{
+				"id": "chunked_manageable_steps",
+				"matches": [
+					"chunk",
+					"manageable",
+					"short steps",
+					"broken into steps",
+					"one thing per step"
+				]
+			},
+			{
+				"id": "confirmation_before_destructive",
+				"matches": [
+					"confirm",
+					"undo",
+					"are you sure",
+					"destructive",
+					"cannot go back",
+					"irreversible"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "memorize_across_steps",
+				"matches": [
+					"remember the code",
+					"memorize this value",
+					"recall from previous step"
+				]
+			}
+		]
+	},
+	"behavior_distraction_interruption": {
+		"threshold": 0.7,
+		"items": [
+			{
+				"id": "pause_dismiss_autoplaying",
+				"matches": [
+					"pause",
+					"stop",
+					"dismiss",
+					"autoplay",
+					"auto-play",
+					"moving content"
+				]
+			},
+			{
+				"id": "notification_non_intrusive",
+				"matches": [
+					"notification",
+					"alert",
+					"popup",
+					"non-intrusive",
+					"not interrupt",
+					"does not steal focus"
+				]
+			},
+			{
+				"id": "return_to_task_after_interruption",
+				"matches": [
+					"return",
+					"resume",
+					"get back",
+					"where I was",
+					"reorientation",
+					"context preserved"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "demands_recall_after_interruption",
+				"matches": [
+					"remember what you were doing",
+					"recall your previous input",
+					"re-enter from memory"
+				]
+			}
+		]
+	}
+}

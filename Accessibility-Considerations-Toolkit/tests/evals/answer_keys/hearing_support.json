@@ -1,0 +1,525 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "hearing_device",
+				"matches": [
+					"hearing device",
+					"hearing devices",
+					"hearing_device",
+					"hearing aids and cochlear implants",
+					"hearing aids",
+					"cochlear implants"
+				]
+			},
+			{
+				"id": "audio_setting",
+				"matches": [
+					"audio setting",
+					"audio settings",
+					"audio_setting",
+					"mono audio output",
+					"enhanced audio settings",
+					"mono audio"
+				]
+			},
+			{
+				"id": "captioning",
+				"matches": [
+					"captioning",
+					"caption systems",
+					"caption systems supplementary",
+					"captions"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "hearing_aids_and_cochlear_implants",
+				"matches": [
+					"hearing aids and cochlear implants",
+					"hearing aids",
+					"cochlear implants"
+				]
+			},
+			{
+				"id": "mono_audio_output",
+				"matches": [
+					"mono audio output",
+					"mono audio"
+				]
+			},
+			{
+				"id": "caption_systems_supplementary",
+				"matches": [
+					"caption systems (supplementary)",
+					"caption systems supplementary",
+					"caption systems",
+					"supplementary captions"
+				]
+			},
+			{
+				"id": "enhanced_audio_settings",
+				"matches": [
+					"enhanced audio settings",
+					"audio enhancements"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse pointer interaction",
+					"mouse / pointer interaction",
+					"mouse interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch pointer interaction",
+					"touch / pointer interaction",
+					"touch interaction"
+				]
+			},
+			{
+				"id": "no_excluded_shared_strategies",
+				"matches": [
+					"excluded shared exploration strategies none",
+					"excluded shared strategies none",
+					"shared exclusions none"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "excluded_keyboard_navigation",
+				"matches": [
+					"keyboard navigation and focus management",
+					"keyboard navigation",
+					"focus management"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "checking_audio_quality_and_volume_controls",
+				"matches": [
+					"checking audio quality and volume controls",
+					"audio quality and volume controls",
+					"volume controls",
+					"audio quality"
+				]
+			},
+			{
+				"id": "looking_for_captions_as_supplement",
+				"matches": [
+					"looking for captions as supplement",
+					"looking for captions as a supplement",
+					"captions as supplement",
+					"captions as a supplement"
+				]
+			},
+			{
+				"id": "verifying_visual_redundancy_for_audio_cues",
+				"matches": [
+					"verifying visual redundancy for audio cues",
+					"visual redundancy for audio cues",
+					"visual redundancy",
+					"visual backups for audio cues"
+				]
+			},
+			{
+				"id": "checking_for_background_noise_separation",
+				"matches": [
+					"checking for background noise separation",
+					"background noise separation",
+					"background noise",
+					"speech separation"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "user_with_assistive_hearing_device",
+				"matches": [
+					"user with assistive hearing device",
+					"assistive hearing device user",
+					"user with hearing aid",
+					"user with cochlear implant"
+				]
+			},
+			{
+				"id": "user_without_assistive_hearing_device",
+				"matches": [
+					"user without assistive hearing device",
+					"without assistive hearing device",
+					"user without hearing aids",
+					"user without cochlear implant",
+					"non device user"
+				]
+			}
+		]
+	},
+	"behavior_media_audio_clarity": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "volume_or_audio_controls",
+				"matches": [
+					"volume controls",
+					"volume",
+					"audio settings",
+					"audio controls",
+					"boost"
+				]
+			},
+			{
+				"id": "background_noise_or_speech_separation",
+				"matches": [
+					"background noise",
+					"speech separation",
+					"noise cancellation",
+					"noise reduction",
+					"speech clarity"
+				]
+			},
+			{
+				"id": "captions_as_backup",
+				"matches": [
+					"captions",
+					"caption toggle",
+					"supplement",
+					"captions as supplement",
+					"subtitle"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "audio_always_reliable",
+				"matches": [
+					"just listen normally",
+					"audio alone is enough",
+					"no need for controls"
+				]
+			}
+		]
+	},
+	"behavior_captions_as_supplement": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "captions_available_and_toggleable",
+				"matches": [
+					"captions",
+					"caption toggle",
+					"turn captions on",
+					"subtitles",
+					"live captions"
+				]
+			},
+			{
+				"id": "caption_position_or_readability",
+				"matches": [
+					"caption positioning",
+					"caption position",
+					"readable",
+					"speaker identification",
+					"caption styling"
+				]
+			},
+			{
+				"id": "audio_and_captions_together",
+				"matches": [
+					"supplement",
+					"catch missed words",
+					"alongside audio",
+					"while listening",
+					"support the audio",
+					"current content",
+					"real time use",
+					"without pausing",
+					"mid conversation",
+					"during playback",
+					"live calls",
+					"synced correctly with the audio",
+					"sync accurately with the audio"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "captions_only_needed",
+				"matches": [
+					"replace audio entirely",
+					"only need captions",
+					"audio does not matter"
+				]
+			}
+		]
+	},
+	"behavior_audio_alert_redundancy": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visual_backup_for_sound",
+				"matches": [
+					"visual indicator",
+					"visual indicators",
+					"visual backup",
+					"notification banner",
+					"banners",
+					"icons",
+					"badge",
+					"visible alert"
+				]
+			},
+			{
+				"id": "important_audio_cues",
+				"matches": [
+					"notification sound",
+					"audio alerts",
+					"audio feedback",
+					"alert tone",
+					"quiet sounds",
+					"high frequency",
+					"frequencies and volumes",
+					"important sounds"
+				]
+			},
+			{
+				"id": "reliable_feedback_not_sound_only",
+				"matches": [
+					"not miss",
+					"reliable",
+					"audio cues with visual",
+					"visual redundancy",
+					"safety net",
+					"accompany all audio feedback",
+					"accompany audio feedback",
+					"paired with",
+					"persistent visual notifications"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "sound_only_feedback",
+				"matches": [
+					"listen for the sound",
+					"wait for the tone",
+					"audio only feedback"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "audio_quality_controls_or_volume",
+				"matches": [
+					"volume controls",
+					"audio controls",
+					"audio settings",
+					"volume boost",
+					"boost",
+					"audio quality"
+				]
+			},
+			{
+				"id": "background_noise_or_speech_separation",
+				"matches": [
+					"background noise",
+					"speech separation",
+					"noise cancellation",
+					"noise reduction",
+					"music under speech",
+					"speech clarity"
+				]
+			},
+			{
+				"id": "captions_as_supplement",
+				"matches": [
+					"captions",
+					"caption toggle",
+					"subtitles",
+					"captions as supplement",
+					"live captions",
+					"catch missed words"
+				]
+			},
+			{
+				"id": "visual_redundancy_for_alerts_and_status",
+				"matches": [
+					"visual indicator",
+					"visual indicators",
+					"notification banner",
+					"toast",
+					"badge",
+					"success message",
+					"error message",
+					"visual backup"
+				]
+			},
+			{
+				"id": "text_alternative_to_phone_or_audio_only_path",
+				"matches": [
+					"chat",
+					"email",
+					"sms",
+					"web form",
+					"text alternative",
+					"text-based alternative",
+					"not phone only"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "audio_alone_is_enough",
+				"matches": [
+					"just listen normally",
+					"audio alone is enough",
+					"no need for captions",
+					"no need for controls"
+				]
+			},
+			{
+				"id": "phone_only_support_ok",
+				"matches": [
+					"call the phone number",
+					"phone support is fine",
+					"use the phone line",
+					"voice call is the solution"
+				]
+			}
+		]
+	},
+	"behavior_review_communication_heavy_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "call_audio_settings_and_volume",
+				"matches": [
+					"volume controls",
+					"call volume",
+					"audio settings",
+					"noise suppression",
+					"noise cancellation",
+					"audio quality"
+				]
+			},
+			{
+				"id": "captions_available_as_supplement",
+				"matches": [
+					"captions",
+					"live captions",
+					"caption controls",
+					"caption toggle",
+					"catch missed words",
+					"alongside audio"
+				]
+			},
+			{
+				"id": "join_alerts_need_visual_backup",
+				"matches": [
+					"visual indicator",
+					"notification banner",
+					"toast",
+					"status text",
+					"participant joined",
+					"visible alert",
+					"participant list update",
+					"banner",
+					"badge"
+				]
+			},
+			{
+				"id": "speech_clarity_and_noise_separation",
+				"matches": [
+					"speech clarity",
+					"background noise",
+					"speech separation",
+					"noise reduction",
+					"multiple speakers",
+					"poor audio quality",
+					"garbled audio",
+					"connection quality",
+					"audio quality indicator"
+				]
+			},
+			{
+				"id": "support_needs_text_path",
+				"matches": [
+					"chat",
+					"email",
+					"sms",
+					"web form",
+					"text-based alternative",
+					"text channel"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "sound_only_reliance",
+				"matches": [
+					"listen for the sound",
+					"wait for the tone",
+					"audio only feedback",
+					"audio alone is enough"
+				]
+			},
+			{
+				"id": "captions_replace_audio_entirely",
+				"matches": [
+					"replace audio entirely",
+					"only need captions",
+					"audio does not matter"
+				]
+			}
+		]
+	}
+}

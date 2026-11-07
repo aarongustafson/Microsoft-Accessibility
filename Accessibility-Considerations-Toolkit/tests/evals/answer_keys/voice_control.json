@@ -1,0 +1,454 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "voice_control",
+				"matches": [
+					"voice control",
+					"voice_control",
+					"windows voice access",
+					"macos voice control",
+					"ios voice control",
+					"android voice access"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "windows_voice_control",
+				"matches": [
+					"windows voice access"
+				]
+			},
+			{
+				"id": "macos_voice_control",
+				"matches": [
+					"macos voice control",
+					"voice control"
+				]
+			},
+			{
+				"id": "ios_voice_control",
+				"matches": [
+					"ios voice control"
+				]
+			},
+			{
+				"id": "android_voice_control",
+				"matches": [
+					"android voice access"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch pointer interaction",
+					"touch / pointer interaction",
+					"touch interaction"
+				]
+			},
+			{
+				"id": "excluded_mouse_pointer_interaction",
+				"matches": [
+					"excluded shared strategies mouse pointer interaction",
+					"excluded shared exploration strategies mouse pointer interaction",
+					"mouse pointer interaction"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "excluded_keyboard_navigation",
+				"matches": [
+					"keyboard navigation and focus management",
+					"keyboard navigation",
+					"focus management"
+				]
+			},
+			{
+				"id": "excluded_touch_pointer_interaction",
+				"matches": [
+					"excluded shared strategies touch pointer interaction",
+					"excluded shared exploration strategies touch pointer interaction"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "speaking_visible_labels_to_activate_controls",
+				"matches": [
+					"speaking visible labels to activate controls",
+					"visible labels to activate controls",
+					"speaking visible labels",
+					"label based commands"
+				]
+			},
+			{
+				"id": "number_overlay_navigation",
+				"matches": [
+					"number overlay navigation",
+					"number overlays",
+					"show numbers"
+				]
+			},
+			{
+				"id": "grid_navigation",
+				"matches": [
+					"grid navigation",
+					"show grid"
+				]
+			},
+			{
+				"id": "dictation_for_text_input",
+				"matches": [
+					"dictation for text input",
+					"dictation",
+					"voice dictation"
+				]
+			},
+			{
+				"id": "voice_driven_scrolling_and_navigation",
+				"matches": [
+					"voice driven scrolling and navigation",
+					"voice-driven scrolling and navigation",
+					"voice driven scrolling",
+					"voice scrolling and navigation"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "user_who_cannot_use_hands",
+				"matches": [
+					"user who cannot use hands",
+					"cannot use hands",
+					"hands free user",
+					"hands-free user"
+				]
+			}
+		]
+	},
+	"behavior_activate_visible_control": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visible_label_or_spoken_label",
+				"matches": [
+					"visible label",
+					"visible text",
+					"click [label]",
+					"tap [label]",
+					"say the label",
+					"natural voice command",
+					"speak the visible label"
+				]
+			},
+			{
+				"id": "label_matches_accessible_name",
+				"matches": [
+					"label in name",
+					"accessible name",
+					"matches the visible label",
+					"visible text match",
+					"match the action",
+					"naturally call it",
+					"naturally call them",
+					"icon labels match",
+					"visual meaning match",
+					"name matches",
+					"speakable label",
+					"speakable name",
+					"guess a speakable name"
+				]
+			},
+			{
+				"id": "control_is_visibly_identifiable",
+				"matches": [
+					"icon only",
+					"not just an icon",
+					"visually distinguishable",
+					"what to say",
+					"looks interactive",
+					"text label",
+					"clear text",
+					"icon that suggests its function",
+					"clickable or tappable",
+					"look clickable",
+					"look interactive",
+					"visually styled as interactive",
+					"clickable affordance",
+					"obvious affordance",
+					"common concept",
+					"clickable vs static text",
+					"meaning obvious",
+					"platform conventions"
+				]
+			}
+		]
+	},
+	"behavior_fallback_targeting_unlabeled_control": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "number_overlays",
+				"matches": [
+					"show numbers",
+					"number overlay",
+					"numbers",
+					"speak the number",
+					"numbered labels"
+				]
+			},
+			{
+				"id": "grid_navigation_last_resort",
+				"matches": [
+					"show grid",
+					"grid navigation",
+					"last resort",
+					"narrow the grid",
+					"high friction"
+				]
+			},
+			{
+				"id": "unlabeled_or_name_mismatch_problem",
+				"matches": [
+					"unlabeled",
+					"name mismatch",
+					"visible label does not match",
+					"accessible name mismatch",
+					"fallback",
+					"less obvious term",
+					"trial and error",
+					"alternative names",
+					"requires guessing"
+				]
+			}
+		]
+	},
+	"behavior_dictation_text_input": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "dictation_or_mode_switch",
+				"matches": [
+					"dictation",
+					"dictation mode",
+					"command mode",
+					"text input",
+					"voice input becomes text",
+					"dictated text",
+					"voice command",
+					"text field"
+				]
+			},
+			{
+				"id": "editing_and_corrections",
+				"matches": [
+					"delete that",
+					"select previous word",
+					"correct",
+					"edit dictated text",
+					"cursor positioning"
+				]
+			},
+			{
+				"id": "no_interference_auto_advance_or_autocorrect",
+				"matches": [
+					"autocorrect",
+					"auto advance",
+					"character limit",
+					"interfere with dictation",
+					"move to the next field"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "visible_labels_and_label_in_name",
+				"matches": [
+					"visible label",
+					"visible labels",
+					"visible text",
+					"accessible name",
+					"accessible names",
+					"label in name",
+					"matches the visible label",
+					"matching their accessible names",
+					"speak the visible label",
+					"speakable label"
+				]
+			},
+			{
+				"id": "number_overlays_or_numbers_fallback",
+				"matches": [
+					"show numbers",
+					"number overlay",
+					"numbers",
+					"speak the number",
+					"numbered labels",
+					"fallback methods",
+					"fallback method",
+					"unlabeled controls"
+				]
+			},
+			{
+				"id": "voice_scrolling_and_navigation_efficiency",
+				"matches": [
+					"scroll down",
+					"voice driven scrolling",
+					"voice scrolling",
+					"skip links",
+					"long page",
+					"repeated scroll commands"
+				]
+			},
+			{
+				"id": "dictation_and_form_entry",
+				"matches": [
+					"dictation",
+					"text field",
+					"dictated text",
+					"autocorrect",
+					"auto advance",
+					"edit dictated text"
+				]
+			},
+			{
+				"id": "modal_escape_or_recovery",
+				"matches": [
+					"click close",
+					"click cancel",
+					"press escape",
+					"close the modal",
+					"number overlay",
+					"fallback"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "manual_input_assumption",
+				"matches": [
+					"use the mouse",
+					"click it by hand",
+					"type with keyboard",
+					"tap it"
+				]
+			}
+		]
+	},
+	"behavior_review_interaction_heavy_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "label_commands_or_name_mismatch_check",
+				"matches": [
+					"visible label",
+					"accessible name",
+					"label in name",
+					"name mismatch",
+					"say the label",
+					"speakable name"
+				]
+			},
+			{
+				"id": "icon_only_and_unlabeled_controls_need_fallback",
+				"matches": [
+					"icon only",
+					"unlabeled",
+					"show numbers",
+					"number overlay",
+					"show grid",
+					"grid navigation"
+				]
+			},
+			{
+				"id": "custom_widgets_and_dialogs_voice_operable",
+				"matches": [
+					"dropdown",
+					"date picker",
+					"command palette",
+					"modal dialogs",
+					"voice operable",
+					"click [label]"
+				]
+			},
+			{
+				"id": "dictation_and_text_editing_workflow",
+				"matches": [
+					"dictation",
+					"dictation mode",
+					"command mode",
+					"delete that",
+					"select previous word",
+					"correct"
+				]
+			},
+			{
+				"id": "no_drag_hover_only_or_pointer_only_requirement",
+				"matches": [
+					"drag and drop",
+					"hover revealed",
+					"voice operable alternative",
+					"no pointer interaction",
+					"fallback methods"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "manual_or_pointer_only_path",
+				"matches": [
+					"use the mouse",
+					"drag with the pointer",
+					"hover to reveal",
+					"type with keyboard"
+				]
+			}
+		]
+	}
+}

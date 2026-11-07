@@ -1,0 +1,512 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "keyboard_mouse_touch",
+				"matches": [
+					"keyboard mouse touch",
+					"keyboard_mouse_touch",
+					"standard input no voice",
+					"standard input",
+					"keyboard mouse and touchscreen"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "standard_input_no_voice",
+				"matches": [
+					"standard input (no voice)",
+					"standard input no voice",
+					"standard input"
+				]
+			}
+		]
+	},
+	"shared_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "visual_scanning_and_layout_comprehension",
+				"matches": [
+					"visual scanning and layout comprehension",
+					"visual scanning",
+					"layout comprehension"
+				]
+			},
+			{
+				"id": "mouse_pointer_interaction",
+				"matches": [
+					"mouse pointer interaction",
+					"mouse / pointer interaction",
+					"mouse interaction"
+				]
+			},
+			{
+				"id": "reading_and_scrolling",
+				"matches": [
+					"reading and scrolling"
+				]
+			},
+			{
+				"id": "form_interaction",
+				"matches": [
+					"form interaction"
+				]
+			},
+			{
+				"id": "navigation_and_wayfinding",
+				"matches": [
+					"navigation and wayfinding"
+				]
+			},
+			{
+				"id": "touch_pointer_interaction",
+				"matches": [
+					"touch pointer interaction",
+					"touch / pointer interaction",
+					"touch interaction"
+				]
+			},
+			{
+				"id": "no_excluded_shared_strategies",
+				"matches": [
+					"excluded shared exploration strategies none",
+					"excluded shared strategies none",
+					"shared exclusions none"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "excluded_keyboard_navigation",
+				"matches": [
+					"keyboard navigation and focus management",
+					"keyboard navigation",
+					"focus management"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "seeking_text_alternatives_to_voice_features",
+				"matches": [
+					"seeking text alternatives to voice features",
+					"text alternatives to voice features",
+					"seeking text alternatives",
+					"non voice alternatives to voice features"
+				]
+			},
+			{
+				"id": "avoiding_voice_gated_workflows",
+				"matches": [
+					"avoiding voice gated workflows",
+					"avoiding voice-gated workflows",
+					"voice gated workflows",
+					"voice-gated workflows"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "user_who_cannot_use_voice_input",
+				"matches": [
+					"user who cannot use voice input",
+					"cannot use voice input",
+					"non speaking user",
+					"user without speech"
+				]
+			}
+		]
+	},
+	"behavior_find_non_voice_alternative": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "text_keyboard_touch_alternative",
+				"matches": [
+					"text alternative",
+					"keyboard alternative",
+					"touch alternative",
+					"non voice alternative",
+					"type instead",
+					"text input"
+				]
+			},
+			{
+				"id": "same_context_or_co_located",
+				"matches": [
+					"same context",
+					"same screen",
+					"same page",
+					"same view",
+					"same ui region",
+					"co located",
+					"adjacent to or below",
+					"near the voice input prompt",
+					"alongside the voice button prompt",
+					"next to the voice button prompt",
+					"next to the voice prompt button",
+					"next to the microphone button",
+					"next to the microphone voice button",
+					"next to the voice option",
+					"alongside the voice option",
+					"alongside the microphone affordance",
+					"side by side",
+					"share space",
+					"combined input field",
+					"visible alternative"
+				]
+			},
+			{
+				"id": "voice_optional_not_required",
+				"matches": [
+					"optional",
+					"not required",
+					"non voice options",
+					"say or type",
+					"also accepted",
+					"not just voice",
+					"without losing access to the feature",
+					"dismissed or skipped",
+					"voice only",
+					"microphone icon",
+					"voice search"
+				]
+			}
+		]
+	},
+	"behavior_voice_gated_workflow": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "voice_gated_step_or_blocker",
+				"matches": [
+					"voice gated",
+					"voice dependent step",
+					"voice biometric",
+					"ivr",
+					"speak now",
+					"blocked"
+				]
+			},
+			{
+				"id": "fallback_auth_support_or_text_channel",
+				"matches": [
+					"password",
+					"security key",
+					"chat",
+					"web form",
+					"sms",
+					"text channel",
+					"alternative method"
+				]
+			},
+			{
+				"id": "continue_without_losing_progress",
+				"matches": [
+					"continue",
+					"bypass",
+					"skip",
+					"without losing progress",
+					"same task",
+					"graceful fallback"
+				]
+			}
+		]
+	},
+	"behavior_recovery_voice_prompt_failure": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "failed_voice_prompt_or_loop",
+				"matches": [
+					"i didn t catch that",
+					"try again",
+					"voice prompt",
+					"failed voice recognition",
+					"loop",
+					"speak now"
+				]
+			},
+			{
+				"id": "dismiss_skip_or_type_instead",
+				"matches": [
+					"dismiss",
+					"skip",
+					"type instead",
+					"switch to text",
+					"text fallback",
+					"bypass voice"
+				]
+			},
+			{
+				"id": "recover_without_restart",
+				"matches": [
+					"recover",
+					"without restarting",
+					"without losing information",
+					"human agent",
+					"keep progress",
+					"alternative path",
+					"alternative navigation path",
+					"visible alternative navigation path",
+					"fallback option",
+					"move focus away",
+					"return to the previous step",
+					"text input path"
+				]
+			}
+		]
+	},
+	"behavior_review_voice_captcha": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "voice_captcha_or_speak_now_identified_as_blocker",
+				"matches": [
+					"voice captcha",
+					"audio captcha",
+					"speak the phrase",
+					"microphone prompt",
+					"voice challenge",
+					"voice required"
+				]
+			},
+			{
+				"id": "text_or_visual_captcha_alternative_in_same_context",
+				"matches": [
+					"text alternative",
+					"text based captcha alternative",
+					"use text captcha instead",
+					"visual captcha",
+					"image based",
+					"text entry captcha",
+					"different challenge",
+					"type the characters",
+					"same context",
+					"visible alternative",
+					"switch captcha"
+				]
+			},
+			{
+				"id": "dismiss_skip_or_non_voice_recovery",
+				"matches": [
+					"dismiss",
+					"skip",
+					"switch to text",
+					"fallback",
+					"without speaking",
+					"bypass voice"
+				]
+			},
+			{
+				"id": "keep_form_progress",
+				"matches": [
+					"without restarting",
+					"without losing progress",
+					"without losing form data",
+					"keep progress",
+					"recover",
+					"same form",
+					"continue"
+				]
+			},
+			{
+				"id": "non_voice_verification_path_exists",
+				"matches": [
+					"alternative verification",
+					"another verification method",
+					"email code",
+					"sms code",
+					"human support",
+					"support",
+					"help link",
+					"request assistance",
+					"non voice path"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "speech_only_assumption",
+				"matches": [
+					"say the phrase",
+					"speak into the microphone",
+					"just do the voice challenge",
+					"retry speaking"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "text_keyboard_touch_alternative_in_context",
+				"matches": [
+					"text alternative",
+					"keyboard alternative",
+					"touch alternative",
+					"non voice alternative",
+					"type instead",
+					"same context",
+					"same screen",
+					"same page",
+					"visible alternative",
+					"next to the microphone",
+					"co located"
+				]
+			},
+			{
+				"id": "voice_features_optional_not_primary",
+				"matches": [
+					"optional",
+					"not required",
+					"voice requirement",
+					"voice only",
+					"voice search",
+					"microphone icon",
+					"primary path",
+					"sole path"
+				]
+			},
+			{
+				"id": "verification_or_authentication_fallback",
+				"matches": [
+					"password",
+					"security key",
+					"alternative method",
+					"verification fallback",
+					"text based verification",
+					"non voice authentication"
+				]
+			},
+			{
+				"id": "support_has_text_channel",
+				"matches": [
+					"chat",
+					"web form",
+					"email",
+					"sms",
+					"text channel",
+					"phone alternative"
+				]
+			},
+			{
+				"id": "voice_failure_recovery_without_losing_progress",
+				"matches": [
+					"dismiss",
+					"skip",
+					"without speaking",
+					"switch to text",
+					"text fallback",
+					"without losing progress",
+					"keep progress",
+					"graceful fallback"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "speech_required_assumption",
+				"matches": [
+					"just speak",
+					"call and say",
+					"use voice search",
+					"speak to continue"
+				]
+			}
+		]
+	},
+	"behavior_review_verification_and_support_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "voice_biometric_or_speak_now_is_blocker_without_fallback",
+				"matches": [
+					"voice biometric",
+					"speak now",
+					"voice based verification",
+					"voice required",
+					"blocked",
+					"voice gated"
+				]
+			},
+			{
+				"id": "alternative_authentication_or_recovery_path",
+				"matches": [
+					"password",
+					"security key",
+					"one time code",
+					"email verification",
+					"alternative method",
+					"non voice path"
+				]
+			},
+			{
+				"id": "text_support_channel_discoverable",
+				"matches": [
+					"chat",
+					"web form",
+					"email",
+					"sms",
+					"text based support",
+					"not phone only"
+				]
+			},
+			{
+				"id": "fallback_is_visible_and_not_buried",
+				"matches": [
+					"same context",
+					"co located",
+					"visible fallback",
+					"prominently visible",
+					"accessible without scrolling",
+					"discoverable",
+					"not buried",
+					"functional",
+					"same recovery",
+					"same escalation options",
+					"equally prominent"
+				]
+			},
+			{
+				"id": "can_recover_without_restart_or_loss",
+				"matches": [
+					"without restarting",
+					"without losing progress",
+					"blocking progress",
+					"avoid looping",
+					"resume",
+					"keep progress",
+					"recover access",
+					"sole method",
+					"no text fallback",
+					"graceful fallback"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "phone_or_voice_only_assumption",
+				"matches": [
+					"call support",
+					"use the phone tree",
+					"say your answer",
+					"retry speaking"
+				]
+			}
+		]
+	}
+}

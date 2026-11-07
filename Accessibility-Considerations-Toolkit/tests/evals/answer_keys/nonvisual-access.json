@@ -1,0 +1,512 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "screen_reader",
+				"matches": [
+					"screen reader",
+					"screen_reader"
+				]
+			},
+			{
+				"id": "braille_display",
+				"matches": [
+					"refreshable braille display",
+					"braille display",
+					"braille_display"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "jaws",
+				"matches": [
+					"jaws"
+				]
+			},
+			{
+				"id": "nvda",
+				"matches": [
+					"nvda"
+				]
+			},
+			{
+				"id": "voiceover_macos",
+				"matches": [
+					"voiceover (macos)",
+					"voiceover macos",
+					"voiceover on macos"
+				]
+			},
+			{
+				"id": "narrator",
+				"matches": [
+					"narrator"
+				]
+			},
+			{
+				"id": "voiceover_ios",
+				"matches": [
+					"voiceover (ios)",
+					"voiceover ios",
+					"voiceover on ios"
+				]
+			},
+			{
+				"id": "talkback",
+				"matches": [
+					"talkback"
+				]
+			},
+			{
+				"id": "refreshable_braille_display",
+				"matches": [
+					"refreshable braille display",
+					"braille display"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "heading_navigation",
+				"matches": [
+					"heading navigation",
+					"navigate by headings"
+				]
+			},
+			{
+				"id": "find_search",
+				"matches": [
+					"find search",
+					"find / search",
+					"search"
+				]
+			},
+			{
+				"id": "landmark_navigation",
+				"matches": [
+					"landmark navigation",
+					"navigate by landmarks"
+				]
+			},
+			{
+				"id": "tab_through_interactive_elements",
+				"matches": [
+					"tab through interactive elements",
+					"tab-through interactive elements",
+					"tab through focusable elements"
+				]
+			},
+			{
+				"id": "screen_reader_elements_list",
+				"matches": [
+					"screen reader elements list",
+					"elements list",
+					"screen reader element list"
+				]
+			},
+			{
+				"id": "sequential_reading",
+				"matches": [
+					"sequential reading",
+					"linear reading",
+					"read sequentially"
+				]
+			},
+			{
+				"id": "touch_exploration",
+				"matches": [
+					"touch exploration",
+					"explore by touch"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "desktop_screen_reader_user",
+				"matches": [
+					"desktop screen reader user",
+					"desktop user"
+				]
+			},
+			{
+				"id": "mobile_screen_reader_user",
+				"matches": [
+					"mobile screen reader user",
+					"mobile user"
+				]
+			},
+			{
+				"id": "beginner_screen_reader_user",
+				"matches": [
+					"beginner screen reader user",
+					"beginner user"
+				]
+			},
+			{
+				"id": "braille_display_user",
+				"matches": [
+					"braille display user",
+					"refreshable braille display user",
+					"braille user"
+				]
+			}
+		]
+	},
+	"behavior_navigation_button": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "desktop_button_quick_nav",
+				"matches": [
+					"b to buttons",
+					"b for buttons",
+					"b to jump",
+					"jump between buttons",
+					"jump to buttons",
+					"button quick-nav",
+					"quick nav to buttons",
+					"find/search",
+					"keyword search",
+					"heading navigation"
+				]
+			},
+			{
+				"id": "elements_list",
+				"matches": [
+					"elements list",
+					"screen reader elements list",
+					"list of buttons",
+					"rotor"
+				]
+			},
+			{
+				"id": "beginner_tab_path",
+				"matches": [
+					"tab key",
+					"tab through interactive elements",
+					"tab through all interactive elements",
+					"tab through all elements",
+					"tab to the button",
+					"tab through focusable elements",
+					"tab through all focusable elements",
+					"tab move through elements",
+					"tab move through interactive elements",
+					"tab repeatedly",
+					"tabbing through elements",
+					"tab to cycle through"
+				]
+			},
+			{
+				"id": "mobile_touch_path",
+				"matches": [
+					"touch exploration",
+					"explore by touch",
+					"swipe through elements",
+					"swipe right left",
+					"rotor"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "visual_scanning",
+				"matches": [
+					"visually scan",
+					"look around the page",
+					"find it by looking",
+					"see where the button is"
+				]
+			}
+		]
+	},
+	"behavior_navigation_main_content": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "heading_navigation",
+				"matches": [
+					"heading navigation",
+					"navigate by headings",
+					"skim through headings",
+					"jump to headings",
+					"headings list",
+					"h to headings",
+					"h to jump through headings"
+				]
+			},
+			{
+				"id": "landmark_or_main_region",
+				"matches": [
+					"landmark navigation",
+					"main landmark",
+					"jump to main",
+					"rotor > landmarks",
+					"landmarks"
+				]
+			},
+			{
+				"id": "direct_to_content_tools",
+				"matches": [
+					"elements list",
+					"headings list",
+					"skip link",
+					"skip to main content",
+					"bypass block",
+					"find / search",
+					"search",
+					"find command"
+				]
+			},
+			{
+				"id": "beginner_tab_fallback",
+				"matches": [
+					"tab key",
+					"tab through interactive elements",
+					"tab order",
+					"sequential reading",
+					"tab move through elements",
+					"tab move through interactive elements",
+					"tab repeatedly",
+					"tabbing through elements"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "visual_scanning",
+				"matches": [
+					"visually scan",
+					"look for the main area",
+					"see where the content starts",
+					"look at the layout"
+				]
+			}
+		]
+	},
+	"behavior_navigation_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "orient_by_headings_and_landmarks",
+				"matches": [
+					"heading navigation",
+					"navigate by headings",
+					"headings list",
+					"skim through headings",
+					"landmark navigation",
+					"main landmark",
+					"jump to main",
+					"landmarks"
+				]
+			},
+			{
+				"id": "bypass_repeated_chrome",
+				"matches": [
+					"skip link",
+					"skip to main content",
+					"bypass block",
+					"jump to main",
+					"main landmark",
+					"skip repeated navigation",
+					"skip repeated content"
+				]
+			},
+			{
+				"id": "targeted_jump_to_relevant_sections",
+				"matches": [
+					"elements list",
+					"screen reader elements list",
+					"find / search",
+					"find command",
+					"search for",
+					"jump to tables",
+					"table navigation",
+					"t to tables",
+					"rotor"
+				]
+			},
+			{
+				"id": "form_interaction_workflow",
+				"matches": [
+					"f to form fields",
+					"jump to form fields",
+					"form fields",
+					"forms mode",
+					"focus mode",
+					"tab through",
+					"tab to the form",
+					"move between fields"
+				]
+			},
+			{
+				"id": "confirm_status_or_errors",
+				"matches": [
+					"success message",
+					"submission confirmed",
+					"successful submission",
+					"status changes",
+					"announced",
+					"live region",
+					"error messages",
+					"associated with the relevant field"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "visual_scanning",
+				"matches": [
+					"visually scan",
+					"look around the page",
+					"see where the results are",
+					"look for the form",
+					"scan the layout"
+				]
+			},
+			{
+				"id": "mouse_or_pointer_navigation",
+				"matches": [
+					"click around with the mouse",
+					"hover over",
+					"move the pointer",
+					"use the mouse to find"
+				]
+			}
+		]
+	},
+	"behavior_interaction_form": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "find_form_fields",
+				"matches": [
+					"f to form fields",
+					"press f (JAWS/NVDA) to jump",
+					"jump to form fields",
+					"form fields",
+					"rotor > form controls",
+					"form controls"
+				]
+			},
+			{
+				"id": "forms_or_focus_mode",
+				"matches": [
+					"forms mode",
+					"focus mode",
+					"enter interaction mode",
+					"screen reader mode switching"
+				]
+			},
+			{
+				"id": "tab_or_field_navigation",
+				"matches": [
+					"tab",
+					"shift+tab",
+					"field navigation",
+					"move between fields"
+				]
+			},
+			{
+				"id": "labels_and_errors",
+				"matches": [
+					"clear labels",
+					"persistent label",
+					"required fields",
+					"error messages",
+					"inline validation errors",
+					"inline error messages",
+					"successful submission must be confirmed",
+					"submission confirmed"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "placeholder_only",
+				"matches": [
+					"placeholder text alone",
+					"just look at the placeholder",
+					"visual placeholder"
+				]
+			}
+		]
+	},
+	"behavior_recovery_form_errors": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "errors_announced",
+				"matches": [
+					"errors must be announced",
+					"announce an error message",
+					"error messages",
+					"status changes",
+					"announced",
+					"announces",
+					"announcement",
+					"live region"
+				]
+			},
+			{
+				"id": "error_associated_with_field",
+				"matches": [
+					"associated with the relevant field",
+					"associated with the field",
+					"specific and associated",
+					"specific field",
+					"invalid field",
+					"relevant field",
+					"associated with focused field",
+					"associated error message",
+					"announces field",
+					"inline error messages"
+				]
+			},
+			{
+				"id": "return_to_fields",
+				"matches": [
+					"tab",
+					"tabbing through",
+					"shift+tab",
+					"f key",
+					"form fields",
+					"move between fields",
+					"return to the field"
+				]
+			},
+			{
+				"id": "success_confirmed",
+				"matches": [
+					"successful submission must be confirmed",
+					"submission confirmed",
+					"confirmation",
+					"success message",
+					"successful submission",
+					"know the form has succeeded"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "visual_only_error_state",
+				"matches": [
+					"highlighted in red",
+					"red border",
+					"look for the red error",
+					"visual error state"
+				]
+			}
+		]
+	}
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "consideration-stub.schema.json",
+  "title": "Accessibility Consideration Stub",
+  "description": "Minimal schema for stub consideration files. Only metadata fields required. Use consideration.schema.json for elaborated considerations.",
+  "type": "object",
+  "required": ["clause", "title", "alias", "status", "fps_statement"],
+  "additionalProperties": false,
+  "properties": {
+    "clause": {
+      "type": "string",
+      "pattern": "^4\\.2\\.\\d+$",
+      "description": "EN 301 549 FPS clause number."
+    },
+    "title": {
+      "type": "string",
+      "description": "Official EN 301 549 FPS clause title."
+    },
+    "fps_statement": {
+      "type": "string",
+      "description": "The full EN 301 549 Functional Performance Statement text for this clause."
+    },
+    "alias": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Short kebab-case identifier."
+    },
+    "status": {
+      "const": "stub"
+    },
+    "device_context": {
+      "type": "string",
+      "enum": ["desktop", "mobile", "all"],
+      "description": "Default device context for all items in this consideration."
+    },
+    "shared_excludes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Shared item IDs to omit from this consideration."
+    }
+  }
+}

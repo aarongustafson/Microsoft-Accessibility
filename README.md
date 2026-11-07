@@ -1,8 +1,20 @@
 # Microsoft-Accessibility
 
-A collection of small Windows accessibility utilities from Microsoft.
+A collection of accessibility tools and resources from Microsoft.
 
 ## Projects
+
+### [Accessibility Considerations Toolkit (Act)](./Accessibility-Considerations-Toolkit)
+
+Access considerations, accessibility-focused usability heuristics, and evaluation guidance for
+AI agents, designers, researchers, and accessibility evaluators. The toolkit identifies possible
+interface barriers and requirements; it does not describe representative people or communities.
+Markdown is the authoring source; generated YAML supports structured consumption. This guidance
+and automated evaluations do not replace co-design and testing with people with disabilities.
+
+See the [toolkit README](./Accessibility-Considerations-Toolkit/README.md) for usage, limitations, and
+offline validation, and its [contribution guide](./Accessibility-Considerations-Toolkit/CONTRIBUTING.md)
+for authoring and consideration-to-schema conversion.
 
 ### [Maximize-All-Windows](./Maximize-All-Windows)
 

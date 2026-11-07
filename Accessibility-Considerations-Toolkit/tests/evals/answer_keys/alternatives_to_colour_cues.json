@@ -1,0 +1,456 @@
+{
+	"at_categories": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "colour_filter",
+				"matches": [
+					"colour filter",
+					"color filter",
+					"colour-filter",
+					"color-filter"
+				]
+			}
+		]
+	},
+	"assistive_technologies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "windows_colour_filters",
+				"matches": [
+					"windows colour filters",
+					"windows color filters"
+				]
+			},
+			{
+				"id": "macos_colour_filters",
+				"matches": [
+					"macos colour filters",
+					"macos color filters"
+				]
+			}
+		]
+	},
+	"exploration_strategies": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "scanning_for_non_colour_cues",
+				"matches": [
+					"scanning for non colour cues",
+					"scanning for non-colour cues",
+					"scanning for non color cues",
+					"scan for non-colour cues"
+				]
+			},
+			{
+				"id": "seeking_explicit_labels_and_legends",
+				"matches": [
+					"seeking explicit labels and legends",
+					"explicit labels and legends",
+					"labels and legends"
+				]
+			},
+			{
+				"id": "identifying_interactive_elements_by_shape_and_affordance",
+				"matches": [
+					"identifying interactive elements by shape and affordance",
+					"shape and affordance",
+					"interactive elements by shape"
+				]
+			},
+			{
+				"id": "interpreting_state_and_feedback_without_colour",
+				"matches": [
+					"interpreting state and feedback without colour",
+					"interpreting state and feedback without color",
+					"state and feedback without colour",
+					"state and feedback without color"
+				]
+			}
+		]
+	},
+	"interaction_contexts": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "achromatopsia_user",
+				"matches": [
+					"user with achromatopsia",
+					"achromatopsia",
+					"complete colour blindness",
+					"complete color blindness"
+				]
+			},
+			{
+				"id": "protanopia_or_deuteranopia_user",
+				"matches": [
+					"user with protanopia",
+					"user with deuteranopia",
+					"protanopia",
+					"deuteranopia",
+					"red blind",
+					"green blind"
+				]
+			},
+			{
+				"id": "tritanopia_user",
+				"matches": [
+					"user with tritanopia",
+					"tritanopia",
+					"blue yellow blind",
+					"blue-yellow blind"
+				]
+			}
+		]
+	},
+	"behavior_interpretation_state_feedback": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "text_or_icon_feedback",
+				"matches": [
+					"text label",
+					"text labels",
+					"icon",
+					"icons",
+					"error text",
+					"success text",
+					"warning text",
+					"error success warning"
+				]
+			},
+			{
+				"id": "non_colour_state_change",
+				"matches": [
+					"border",
+					"bold",
+					"underline",
+					"position",
+					"shape",
+					"fill vs no fill",
+					"border change"
+				]
+			},
+			{
+				"id": "active_selected_without_colour",
+				"matches": [
+					"active tab",
+					"selected item",
+					"selected state",
+					"active state",
+					"selection change",
+					"status or selection change",
+					"selected",
+					"active"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "red_green_only",
+				"matches": [
+					"red green only",
+					"red vs green only",
+					"just by colour",
+					"just by color"
+				]
+			}
+		]
+	},
+	"behavior_interaction_affordance": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "links_need_non_colour_treatment",
+				"matches": [
+					"underline",
+					"underlined text",
+					"underlined links",
+					"font weight",
+					"text treatment",
+					"links within body text"
+				]
+			},
+			{
+				"id": "buttons_need_shape_or_border",
+				"matches": [
+					"button shape",
+					"borders",
+					"visible borders",
+					"fill",
+					"shape and affordance",
+					"affordance"
+				]
+			},
+			{
+				"id": "labels_icons_patterns",
+				"matches": [
+					"labels",
+					"icons",
+					"pattern",
+					"patterns",
+					"legend",
+					"legends"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "blue_link_only",
+				"matches": [
+					"blue text alone",
+					"colour change alone",
+					"color change alone",
+					"blue as the sole link indicator"
+				]
+			}
+		]
+	},
+	"behavior_navigation_red_button_protanopia": {
+		"threshold": 1,
+		"items": [
+			{
+				"id": "label_or_button_text",
+				"matches": [
+					"label",
+					"text labels",
+					"text on or near the buttons",
+					"text on the button",
+					"button text",
+					"visible text",
+					"name of the button"
+				]
+			},
+			{
+				"id": "button_affordance_or_icon",
+				"matches": [
+					"button shape",
+					"button affordance",
+					"border",
+					"outline",
+					"outlines",
+					"fill",
+					"icon",
+					"icons or symbols",
+					"shape or size",
+					"visible button styling"
+				]
+			},
+			{
+				"id": "context_or_position",
+				"matches": [
+					"position",
+					"grouping",
+					"nearby instructions",
+					"near the form",
+					"section context",
+					"layout"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "red_alone",
+				"matches": [
+					"just look for red",
+					"look for the red one",
+					"find the red button by colour",
+					"find the red button by color",
+					"red alone"
+				]
+			}
+		]
+	},
+	"behavior_review_complex_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "status_needs_text_or_icon",
+				"matches": [
+					"text label",
+					"text labels",
+					"icon",
+					"icons",
+					"status text",
+					"error text",
+					"success text",
+					"warning text",
+					"badge text"
+				]
+			},
+			{
+				"id": "chart_needs_labels_patterns_or_legends",
+				"matches": [
+					"legend",
+					"legends",
+					"direct labels",
+					"pattern",
+					"patterns",
+					"texture",
+					"different line styles",
+					"markers",
+					"series labels"
+				]
+			},
+			{
+				"id": "selected_filters_need_non_colour_state",
+				"matches": [
+					"selected state",
+					"active state",
+					"border",
+					"underline",
+					"bold",
+					"checkmark",
+					"shape",
+					"fill vs no fill",
+					"position"
+				]
+			},
+			{
+				"id": "table_values_need_explicit_sign_or_labels",
+				"matches": [
+					"minus sign",
+					"negative sign",
+					"plus sign",
+					"positive sign",
+					"text label",
+					"icons",
+					"explicit labels",
+					"not rely on red green",
+					"red green"
+				]
+			},
+			{
+				"id": "form_validation_needs_non_colour_feedback",
+				"matches": [
+					"error text",
+					"success text",
+					"warning text",
+					"icon",
+					"icons",
+					"adjacent to the field",
+					"specific message",
+					"not just a red border",
+					"visible without scrolling"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "colour_only_interpretation",
+				"matches": [
+					"just use the colours",
+					"look for the green one",
+					"look for the red one",
+					"red means error and green means success",
+					"distinguish it by colour alone",
+					"distinguish it by color alone"
+				]
+			},
+			{
+				"id": "filter_fixes_content",
+				"matches": [
+					"turn on a colour filter and the problem is solved",
+					"color filter solves it",
+					"colour filter solves it",
+					"os filter adds the missing meaning"
+				]
+			}
+		]
+	},
+	"behavior_review_chart_heavy_analytics_page": {
+		"threshold": 0.8,
+		"items": [
+			{
+				"id": "series_need_patterns_labels_or_markers",
+				"matches": [
+					"direct labels",
+					"series labels",
+					"pattern",
+					"patterns",
+					"texture",
+					"different line styles",
+					"dash",
+					"markers",
+					"shapes"
+				]
+			},
+			{
+				"id": "legend_needs_non_colour_mapping",
+				"matches": [
+					"legend",
+					"legends",
+					"text labels",
+					"explicit labels",
+					"label each series",
+					"not just color swatches",
+					"not just colour swatches"
+				]
+			},
+			{
+				"id": "trend_indicators_need_text_icons_or_signs",
+				"matches": [
+					"text label",
+					"icons",
+					"arrow",
+					"arrows",
+					"plus sign",
+					"minus sign",
+					"positive",
+					"negative",
+					"up down"
+				]
+			},
+			{
+				"id": "heatmap_needs_values_or_patterns",
+				"matches": [
+					"heatmap",
+					"cell values",
+					"numeric labels",
+					"pattern",
+					"texture",
+					"annotations",
+					"text in each cell",
+					"legend with values"
+				]
+			},
+			{
+				"id": "tooltip_not_only_source_of_meaning",
+				"matches": [
+					"tooltips",
+					"hover",
+					"focus",
+					"direct labels",
+					"visible labels",
+					"without hover",
+					"not rely on hover alone"
+				]
+			}
+		],
+		"forbidden_items": [
+			{
+				"id": "colour_only_reading",
+				"matches": [
+					"follow the red line",
+					"follow the green line",
+					"read the chart by color",
+					"interpret the heatmap by color alone",
+					"use colour alone",
+					"use color alone"
+				]
+			},
+			{
+				"id": "hover_or_filter_solves_semantics",
+				"matches": [
+					"hover solves it",
+					"tooltips make color-only okay",
+					"colour filter solves it",
+					"color filter solves it",
+					"os filter makes the chart understandable"
+				]
+			}
+		]
+	}
+}

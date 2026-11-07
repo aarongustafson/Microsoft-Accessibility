@@ -1,0 +1,104 @@
+# yaml-language-server: $schema=consideration.schema.json
+
+clause: "4.2.4"
+title: "Usage without hearing"
+alias: "audio-alternatives"
+status: "elaborated"
+fps_statement: "Where ICT provides auditory modes of operation, the ICT provides at least one mode of operation that does not require hearing."
+device_context: "all"
+shared_excludes: []
+
+evaluation:
+  scope: "Evaluate task completion without relying on audio perception and check equivalent content, status, communication, and alerts. Assess captions/text and sign language as distinct options without assuming vision, movement, reading, or cognition; screenshots alone cannot verify caption or call behaviour."
+  access_constraints: ["audio-perception"]
+  contexts:
+    - "Sign language communication - When signing is preferred or primary (ASL, BSL, Auslan), assess captions and interpretation separately; VRS may support phone tasks."
+    - "Non-signing communication - When written/spoken language such as English is used without signing, assess captions and text; lip-reading may assist but is not assumed or a caption replacement."
+  checklist:
+    - "Audio output: Identify every feature producing spoken dialogue, sound effects, alerts, music, audio CAPTCHA, or other auditory information."
+    - "Captions: Verify all video and multimedia captions are accurate, synchronised, and toggleable."
+    - "Visual alerts: Verify every audio alert and notification also has a banner, badge, flash, icon change, or other visual indicator."
+    - "Communication: Verify captions and optional sign language interpretation for video calls, voice chat, and conferencing."
+    - "Phone and IVR: Verify an equivalent chat, web form, SMS, or email channel."
+    - "Sole audio channel: Find any information conveyed only through audio without a visual equivalent."
+
+assistive_tech:
+  - id: "auto-captions-and-live-captioning"
+    category: "captioning"
+    platforms: ["Windows", "macOS", "iOS", "Android", "Web (browser-level)"]
+    model: "Windows, macOS, and iOS Live Captions, Android Live Caption, Chrome/Edge auto-captions, and Teams/Zoom/Google Meet captions convert speech to text; verify platform coverage for video, meetings, messages, and spoken notifications. Accuracy varies with quality, clarity, accents, and noise; authored captions improve pre-recorded accuracy over unreviewed auto-generation."
+  - id: "visual-and-haptic-alerts"
+    category: "system_alerts"
+    platforms: ["Windows", "macOS", "iOS", "Android"]
+    model: "System settings supplement or replace audio with screen or LED flashes, notification banners, and vibration. They cover system events, but application-specific audio cues may not trigger them unless the application supplies its own visual notification."
+  - id: "video-relay-services-and-text-relay"
+    category: "relay_services"
+    platforms: ["Cross-platform (video call or phone integration)"]
+    model: "Video relay service (VRS) uses a sign language interpreter between a signing Deaf user and a hearing phone user; IP relay and TTY relay use a text intermediary. Direct chat, web form, or email alternatives should prevent routine phone, voice authentication, and support tasks from requiring relay services."
+
+strategies:
+  - id: "scanning-for-caption-controls-on-media"
+    mechanisms: ["visual-scanning", "mouse-touch-player-controls"]
+    behavior: "On encountering media, check discoverable CC/subtitle controls for default state, toggling, size, colour, and position. Hidden controls leave availability uncertain; a subtitle label alone does not establish complete captions."
+    reqs: "Caption controls must be visible in the player UI, not buried in a settings submenu; ideally default-on or clearly toggleable. Captions need accurate timing and speaker identification; live captioning must be available and indicated."
+  - id: "checking-for-visual-alternatives-to-audio-cues"
+    mechanisms: ["visual-scanning"]
+    behavior: "Inventory notification sounds, alerts, action sounds, and meaningful background-audio changes; check simultaneous visual equivalents. Audio-only feedback is unavailable under this lens."
+    reqs: "Pair every notification, error, success, and meaningful background-audio cue with a visible banner, badge, toast, error indicator, confirmation, animation, or status text."
+  - id: "verifying-text-channels-for-phone-voice-features"
+    mechanisms: ["visual-scanning", "support-contact-navigation"]
+    behavior: "For phone numbers, IVR, voice support, and calls, check equivalent chat, email, web forms, SMS, or messaging. Phone-only paths can block no-hearing access; relay availability does not replace evaluating direct text completion."
+    reqs: "Text support must be equally prominent and co-located with phone options. Critical phone-routed tasks such as identity verification and account recovery must have a text alternative."
+  - id: "evaluating-communication-features-for-sign-language-support"
+    mechanisms: ["visual-scanning", "video-call-ui"]
+    behavior: "Where signing is relevant, check resolution, frame rate, latency, interpreter pinning/spotlighting, simultaneous shared-content views, and advance interpretation requests separately from caption availability."
+    reqs: "Video must keep sign language legible; low frame rates, heavy compression, or small tiles make it illegible. Interpreter video must be pinnable or spotlightable; side-by-side shared content should be possible. Events should indicate interpretation availability in advance."
+
+interaction_contexts:
+  - id: "deaf-sign-language-user"
+    behavior: "When signing (ASL, BSL, Auslan) is preferred or primary, check accurate captions and interpretation separately for calls, meetings, presentations, and education. Complex or real-time communication may require signing; VRS may support phone tasks. Do not infer thinking or processing style."
+    uses_at: ["auto-captions-and-live-captioning", "video-relay-services-and-text-relay"]
+    uses_strategies: ["scanning-for-caption-controls-on-media"]
+    expects:
+      - "Accurate captions for all pre-recorded and live audio content."
+      - "Sign language interpretation available or supportable for video conferencing and events."
+      - "Video resolution, frame rate, and latency sufficient for sign language."
+      - "Interpreter video pinnable, spotlightable, or visible beside shared content."
+      - "Text alternatives for all phone and voice features."
+      - "Visual notifications for all audio alerts and sounds."
+      - "No audio-only content without a text or sign language alternative."
+  - id: "deaf-non-signing-user"
+    behavior: "When written/spoken language such as English is used without signing, check accurate captions and complete text alternatives. A visible, well-lit face may support lip-reading where used, not replace captions; interpretation is not the selected channel in this context."
+    uses_at: ["auto-captions-and-live-captioning"]
+    uses_strategies: ["scanning-for-caption-controls-on-media"]
+    expects:
+      - "Accurate captions for all video and multimedia."
+      - "Speaker face visible during video calls for lip-reading."
+      - "Text alternatives for all phone and voice features."
+      - "Visual notifications for all audio alerts and sounds."
+      - "No audio-only content without a transcript."
+      - "High-quality auto-captions with speaker identification, punctuation, and minimal errors."
+
+learning:
+  - id: "discovering-caption-availability"
+    facts: "Caption availability must be apparent before or as playback starts. Auto-play without visible captions or a CC control may make accessible content appear inaccessible after content has already been missed."
+  - id: "caption-quality-expectations"
+    facts: "Check authored and auto-captions for accuracy, timing, punctuation, and speaker labels without assuming prior experience. Missing words or attribution can reduce confidence and require transcripts or summaries."
+  - id: "communication-feature-assessment"
+    facts: "At call/conference entry, check live-caption availability and enabling before joining. Where signing is used, expose video quality and interpreter/shared-content layout options before conversation."
+  - id: "phone-ivr-alternative-discovery"
+    facts: "Audio-only IVR blocks the no-hearing condition. Co-locate text alternatives with phone numbers before the workflow begins; otherwise available options may remain undiscovered."
+  - id: "audio-indicator-recognition"
+    facts: "Check visual counterparts for message, completion, and error sounds. Audio-only feedback can leave results uncertain and prompt repetition or an assumption of failure."
+
+heuristic_overrides:
+  1: "Every audio status cue must have a simultaneous visual equivalent such as a banner, progress update, status text, or icon change. Live events such as participant joins or recording starts must appear as text, not only audio announcements."
+  2: "Use modality-neutral language instead of assuming listening or speaking. Podcasts, audio messages, and voice notes need captions or transcripts; audio controls alone do not show that content is accessible."
+  3: "Users need control over caption toggling, styling, and position, and must be able to enable captions before joining a call. Signing users need interpreter pinning and suitable layouts; audio CAPTCHA without a visual alternative is a trap."
+  4: "Visual alternatives and captions must be consistent across all content and call types, including 1:1, group, and webinar contexts. Partial coverage prevents a reliable model of what information will be missed."
+  5: "Every error needs a clear visual representation; an error tone alone does not reveal the error. Before joining communication, users should be able to confirm that captions are available."
+  6: "Caption controls, transcript links, and visual notification settings must be visible in context, not hidden in separate accessibility settings. Co-locate each audio alternative with its audio-dependent feature."
+  7: "Assess equivalent captions/transcripts, applicable live sign language interpretation, and chat/email beside phone support. A hypothetical 48-hour email versus 5-minute phone resolution illustrates unequal paths, not measured performance; signing contexts also need efficient layout customisation."
+  8: "Lead with or equally present transcripts and written summaries instead of centring inaccessible audio-only controls. Caption overlays must remain readable, well positioned, and clear of critical content."
+  9: "Call failures, caption outages, and video degradation below sign-language legibility must be shown visually. Recovery should restore the signing user's caption and video-layout settings rather than requiring reconfiguration."
+  10: "Provide text documentation for caption setup, sign language interpretation requests, text support, and sign-language video optimisation. Audio or video help must include captions or transcripts."

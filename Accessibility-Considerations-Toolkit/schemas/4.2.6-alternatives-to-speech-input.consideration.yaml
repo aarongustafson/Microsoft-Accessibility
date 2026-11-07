@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=consideration.schema.json
+
+clause: "4.2.6"
+title: "Usage with no or limited vocal capability"
+alias: "alternatives-to-speech-input"
+status: "elaborated"
+fps_statement: "Where ICT requires vocal input from users, the ICT provides at least one mode of operation that does not require them to generate vocal output."
+device_context: "all"
+
+evaluation:
+  scope: "Evaluate completion when vocal input is unavailable, skipped, or unreliably recognised. Restrict reliance on voice only for this lens; verify non-voice alternatives without assuming visual, auditory, motor, or cognitive capabilities. Include noise, quiet-space rules, and privacy; screenshots alone cannot verify fallback."
+  access_constraints: ["voice-input"]
+  contexts:
+    - "Absent vocal-input context - Check completion without attempting speech; any sole voice requirement blocks this condition."
+    - "Recognition-failure context - When a system repeatedly misrecognises speech, check immediate non-voice fallback without labelling anyone inherently unintelligible."
+  checklist:
+    - "Voice requirements: Find voice search, commands, dictation, voice CAPTCHA, voice biometrics, and other required vocal input."
+    - "Alternatives: Verify every voice feature always has an equivalent text, keyboard, or touch path."
+    - "Optionality: Verify voice is an optional enhancement, not the primary or sole path."
+    - "Failure fallback: Verify failed or skipped voice input offers immediate text input instead of a retry loop."
+    - "Phone and IVR: Verify an equivalent chat, web form, or SMS channel."
+    - "Authentication: Verify passwords, biometrics, or security keys can replace voice verification."
+
+assistive_tech:
+  - id: "standard-input-no-voice"
+    category: "keyboard_mouse_touch"
+    platforms: ["Windows", "macOS", "Linux", "iOS", "Android"]
+    model: "Keyboard, mouse, and touchscreen are possible alternatives to speech, not universal abilities or proof that specialised AT is unnecessary. Check typing, click/tap, text search, chat, messaging, and web forms for equivalent, suitably accessible functionality."
+
+strategies:
+  - id: "seeking-text-alternatives-to-voice-features"
+    mechanisms: ["visual-scanning", "keyboard-mouse-interaction"]
+    behavior: "For voice search, dictation, commands, authentication, phone/IVR, and vocal-response CAPTCHA, check keyboard search, text CAPTCHA, password/security key, chat, or web forms. Listening-only audio CAPTCHA is distinct from required vocal output."
+    reqs: "Every voice-dependent feature must have a visible, discoverable text or keyboard alternative in the same context. Voice and text paths should be co-located without extra steps or buried settings."
+  - id: "avoiding-voice-gated-workflows"
+    mechanisms: ["visual-scanning", "workflow-navigation"]
+    behavior: "Inspect account creation, verification, support, and completion for speech gates and non-voice authentication, text support, or keyboard paths throughout. A voice-only critical gate blocks this evaluation condition."
+    reqs: "No critical workflow step should require voice as the sole input. Authentication, verification, and support must offer an equally prominent, functional non-voice path."
+
+interaction_contexts:
+  - id: "user-who-cannot-use-voice-input"
+    behavior: "When voice is unavailable or repeatedly misrecognised, check alternatives before an attempt and immediate fallback after failure. Birth-related non-speaking contexts, post-laryngectomy, dysarthria, stuttering, or poorly supported accents may be relevant but predict neither individual speech nor preferred input; noise, quiet, and privacy also matter."
+    uses_at: ["standard-input-no-voice"]
+    expects:
+      - "Voice input never required for any feature or workflow step."
+      - "Text alternatives for every voice-dependent feature."
+      - "Authentication and verification never use voice biometrics as the sole method."
+      - "Phone and IVR services provide chat, web form, or email alternatives."
+      - "Voice recognition failure immediately offers text and never loops endlessly."
+      - "Voice features optional rather than default or sole paths."
+      - "Voice features bypassable without loss of functionality."
+
+learning:
+  - id: "discovering-voice-requirements"
+    facts: "Reveal voice requirements before users invest in a multi-step workflow. Upfront notices and visible text alternatives let users choose a viable path."
+  - id: "voice-recognition-failure-recovery"
+    facts: "Check 'Try typing instead' after failed or skipped voice input. Repeated retry prompts can hide non-voice access and discourage attempts; do not assume everyone tries voice first."
+  - id: "phone-ivr-alternative-discovery"
+    facts: "Check chat or web-form alternatives before phone-tree entry; a voice menu without those options can leave available non-voice routes undiscovered."
+
+heuristic_overrides:
+  1: "Show when the system expects or listens for voice and that text is also accepted. Failed or absent voice input needs visible feedback and an alternative path instead of silent waiting or timeout."
+  2: "Use input-neutral wording such as 'Enter your search' instead of 'Just say' or 'Speak your answer.' A microphone icon as the sole affordance implies voice-only input and needs a text input counterpart."
+  3: "Check dismissible/skippable prompts and text switching at every step without losing progress. A voice gate blocks this lens, analogous to a keyboard trap but not evidence of one."
+  4: "Every voice feature must consistently pair voice with a visible, equivalent text path. A text fallback for voice search does not compensate for voice authentication without a password alternative."
+  5: "Voice-only verification, vocal-response CAPTCHA, and voice biometrics without fallback block this no-voice condition. Check non-voice methods to prevent lockout or abandonment; severity depends on evidenced workflow consequences."
+  6: "Co-locate equally prominent text alternatives with voice controls. Hiding them in settings, help, or separate workflows forces users to recall a path they may not know exists."
+  7: "Multiple input modalities, such as keyboard, mouse, touch, or text, should be available as alternatives wherever voice is offered; no single modality is required. A text path must not add hidden steps."
+  8: "Check prompts, overlays, and microphone UI for blocked interaction or hidden text input. Present non-voice access as a primary option; optional voice UI alone is not a barrier."
+  9: "After unrecognised or unavailable speech, offer immediate text without discarding prior input. Avoid retry loops; IVR should offer text or human-assisted non-voice completion, not menu restart. An agent still requiring speech is not an equivalent fallback."
+  10: "Document how to use the interface without voice and expose chat, email, and web forms beside phone support. Voice-first onboarding needs an equally accessible text alternative."

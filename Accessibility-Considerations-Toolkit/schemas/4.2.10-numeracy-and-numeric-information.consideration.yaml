@@ -1,0 +1,129 @@
+# yaml-language-server: $schema=consideration.schema.json
+
+clause: "4.2.10"
+title: "Usage with limited cognition, language or learning (numeracy and mathematical concepts)"
+alias: numeracy-and-numeric-information
+status: elaborated
+fps_statement: "The ICT provides features and/or presentation that makes it simpler and easier to understand, operate, and use."
+device_context: all
+shared_excludes: []
+provenance:
+  source_urls:
+    - https://www.w3.org/TR/coga-usable/
+    - https://www.w3.org/TR/2026/DNOTE-coga-research-modules-20260205/
+  upstream_license: W3C Software and Document License
+  repository_license: MIT
+  required_notice: considerations/cognitive-accessibility-sources.LICENSE.md
+  adaptation: true
+  reviewed_on: "2026-10-12"
+
+evaluation:
+  scope: "Evaluate numeric, quantity, magnitude, and mathematical barriers, including varied dyscalculia research requirements; no one pattern represents everyone. Do not simulate a person, infer intelligence, or declare sensory, motor, language, or cognitive abilities unaffected; requirements overlap. Assess reading/comparison, greater/cheaper/sooner, differences among 10, 100, and 1000, quantity estimates, arithmetic, conversion, and percentages. Numeric-only schedules, 15:34 UTC, and ambiguous dates may need support. Prices/totals/choice costs should avoid unsupported addition; errors may be difficult to detect after repeated checking. These are possible task barriers, not universal behaviors."
+  access_constraints: []
+  contexts: []
+  checklist:
+    - "NUMBERS: Reinforce essential raw numbers with words or concepts such as cold, warm, hot or small, medium, large."
+    - "MAGNITUDE: Support comparisons of size, distance, time, or price instead of requiring unsupported relative judgment."
+    - "QUANTITY: Clarify ordering/selection quantity, e.g. six bananas versus one bunch of six, and warn before unusual or extreme amounts are committed."
+    - "UNITS: Default to familiar locale units and offer alternatives instead of forcing conversion."
+    - "CALCULATION: Compute totals, multiplication, and next-step results rather than requiring mental arithmetic."
+    - "NUMERIC TIME: Add concrete cues such as a now marker, a written-out date, or 'in 10 minutes' to numeric dates, schedules, and durations."
+    - "MONEY: State charges, totals, and each choice's cost clearly and early instead of requiring addition or late discovery."
+    - "ALTERNATIVES: Give charts and graphs plain summaries and reinforce key numbers with words, color, or pictures."
+
+assistive_tech:
+  - id: calculator-and-conversion-tools
+    category: calculation-aid
+    platforms: [OS, web, mobile, "browser extensions"]
+    model: "Calculators and unit/currency converters offload arithmetic, comparison, or conversion where mental calculation is difficult or undesired on All device contexts. Test selectable values, not numbers baked into images, and system-computed results avoiding transcription."
+  - id: text-to-speech-for-numbers
+    category: read-aloud
+    platforms: [Windows, macOS, iOS, Android, extensions]
+    model: "Read-aloud can help confirm a figure by speaking it, but long numbers, phone numbers, codes, Roman numerals, and unusual symbols may be misread or chunked incorrectly. Use correct markup, locale separators, and context so speech matches the intended value."
+  - id: spreadsheet-and-visual-aids
+    category: visual-aid
+    platforms: ["Spreadsheet apps", OS, extensions]
+    model: "Desktop color coding, spacing, and larger fonts may isolate figures and preserve place in shared spreadsheets/dense tables. Test customizable distinctions without color alone carrying meaning. Undifferentiated grids may increase effort, anxiety, or errors; effects vary."
+  - id: considerationlization-semantics-for-non-numeric-concepts
+    category: personalization
+    platforms: [Browser, extensions]
+    model: "Personalization can augment or substitute figures with cold/warm/hot or small/medium/large through exposed semantics on All device contexts. Users or chosen helpers may prefer words; evaluate meaningful annotations while preserving task-essential exact figures."
+  - id: platform-locale-and-unit-settings
+    category: platform-feature
+    platforms: [All]
+    model: "Platform locale handling may supply familiar numbers, currency, units, and dates on All device contexts. Unfamiliar temperature units, date order, or currency conversion can add barriers. Evaluate defaults/preferred alternatives rather than equate locale with individual familiarity."
+
+strategies:
+  - id: concept-over-number-reading
+    mechanisms: [visual-reading, considerationlization-non-numeric-concepts]
+    behavior: "Evaluate hot with temperature, large with measurement, or almost full with percentage. Raw figures may require effortful/error-prone interpretation; concepts may support decisions. Retain exact figures where essential."
+    reqs: "Reinforce important numbers with words, categories, descriptions, or visuals. Where exact figures are not essential, provide a verbal or visual equivalent."
+  - id: offloading-calculation
+    mechanisms: [calculator-conversion-tools, form-autofill]
+    behavior: "Test tool/system-computed totals, conversions, and next-step results instead of required mental arithmetic. Unsupported calculation may block completion in some contexts; assess inline computation or easy transfer of results without assigning universal ability."
+    reqs: "Compute and explicitly show totals, subtotals, conversions, and durations. Accept reasonable input formats and do not require the user to calculate a value first."
+  - id: magnitude-by-proxy-judgment
+    mechanisms: [visual-reading, visual-aids]
+    behavior: "Evaluate product/real-size pictures, 'you are half way', color scales with non-color meaning, now markers, and cheaper/dearer/sooner/larger labels for size, distance, time, or price. Comparing 0.9 m with 900 mm or deciding which is sooner may need support."
+    reqs: "Provide concrete references, relative labels, and visual scales for size, distance, time, and price. Do not require ranking raw numbers."
+  - id: verification-and-double-checking
+    mechanisms: [visual-reading, read-aloud-number-confirmation]
+    behavior: "Evaluate phone numbers, codes, quantities, and totals where errors may remain unobvious after checking. Pre-commit summaries and large-quantity/unexpected-total warnings may support verification without assuming error-detection ability."
+    reqs: "Summarize quantities, dates, and totals before commitment, allow correction without data loss, warn on unusual values, and chunk long numbers. Do not depend on users detecting a wrong figure."
+  - id: format-and-unit-normalization
+    mechanisms: [platform-locale-settings, calculator-conversion-tools]
+    behavior: "Test familiar units, currency, distances, temperatures, and date order via locale defaults and selectable alternatives. Unfamiliar forms may add conversion/confusion; locale does not prove familiarity or preference."
+    reqs: "Default numbers, units, currency, and dates to the user's locale; offer familiar alternatives when a fixed unit is unavoidable. Spell out month names and keep formatting consistent and locale-appropriate."
+
+interaction_contexts:
+  - id: number-and-calculation-user
+    behavior: "Evaluate reading, comparison, and calculation with needed supports, including counting on fingers for basic sums. This does not establish intelligence or capability elsewhere. Check computed results, words/visuals, and no-required-mental-arithmetic paths; bare-figure interpretation may need support."
+    uses_at: [calculator-and-conversion-tools, considerationlization-semantics-for-non-numeric-concepts]
+    uses_strategies: [offloading-calculation, concept-over-number-reading, verification-and-double-checking]
+    expects:
+      - "The system computes totals, subtotals, and conversions."
+      - "Words, concepts, or visuals reinforce important numbers."
+      - "No task requires mental arithmetic."
+      - "Accept reasonable number formats and check values back to the user."
+  - id: quantity-and-magnitude-user
+    behavior: "Evaluate quantity, size, distance, or cost judgments where unsupported comparison may cause over/under-ordering or obscure a better deal. Check actual-product/size pictures, relative labels, and unusual-value warnings; requirements vary by task/familiarity."
+    uses_at: [spreadsheet-and-visual-aids, calculator-and-conversion-tools]
+    uses_strategies: [magnitude-by-proxy-judgment, verification-and-double-checking, concept-over-number-reading]
+    expects:
+      - "Use images, examples, and relative terms as concrete size and quantity references."
+      - "Warn before committing unusually large or small quantities or totals."
+      - "Label comparisons as cheaper, sooner, or larger instead of requiring raw-number ranking."
+      - "Show an easily corrected quantity and cost summary before commitment."
+  - id: time-and-sequence-user
+    behavior: "Evaluate next-train calculations, whether meeting times passed, sequencing time-bound steps, and ambiguous dates. Concrete temporal cues and system-handled date/time logic may help where raw times/dates/durations are difficult."
+    uses_at: [platform-locale-and-unit-settings, calculator-and-conversion-tools]
+    uses_strategies: [magnitude-by-proxy-judgment, format-and-unit-normalization, verification-and-double-checking]
+    expects:
+      - "Use a now marker, 'in 10 minutes', and written-out dates instead of bare figures."
+      - "Write dates unambiguously and use the user's locale and conventions."
+      - "Prevent impossible choices such as return before departure."
+      - "Compute and show durations and time remaining."
+
+learning:
+  - id: numeracy-difficulty-is-orthogonal-to-intelligence
+    facts: "Do not infer intelligence or other abilities from numeric difficulty or assume no overlapping requirements. Target numeric support to numbers, magnitude, units, and calculation rather than indiscriminately simplify everything."
+  - id: numbers-do-not-self-check
+    facts: "Wrong codes, quantities, or totals may remain unnoticed after checking. Evaluate pre-commit summaries and unusual-value warnings without claiming text errors would be easier or defining internal detection ability."
+  - id: magnitude-needs-an-anchor
+    facts: "Pictures, comparisons, and progress markers may make size, distance, time, or price meaningful where bare figures are hard to interpret. Evaluate concrete references alongside correct numbers."
+  - id: conversions-compound-the-difficulty
+    facts: "Unfamiliar units may add conversion barriers even for readable values. Evaluate locale defaults and familiar alternatives without presuming conversion capability."
+  - id: calculation-is-a-barrier-not-a-step
+    facts: "Cart sums, durations, or price comparisons may block completion where arithmetic is unsupported. Evaluate system-computed results even for apparently simple calculations."
+
+heuristic_overrides:
+  "1": "Evaluate concrete status alongside figures: about 2 minutes left with a progress bar, almost done with a percentage, or now on a timeline. Bare percentages/counts/timestamps may be difficult to interpret; words/visuals can support meaning while preserving task-essential figures."
+  "2": "Evaluate cold/warm/hot, small/medium/large, and in 10 minutes alongside figures and familiar locale units. Trading consoles, engineering calculators, and statistics packages legitimately need numbers/mathematics for quantitative audiences; this content is not a defect. Assess unsupported mental arithmetic/multiplication, magnitude judgment, raw-figure decoding, unit mismatches/conversions, or ambiguous formats where systems could compute, add concrete references, or offer alternatives, not mere presence of numbers."
+  "3": "Let users freely change and reverse quantities, units, dates, and other numeric inputs. Warn before costly commitments involving large quantities, expensive choices, or non-refundable dates and provide an easy route back."
+  "4": "Keep units, currency, number formats, and date order consistent throughout. Switching metric and imperial, currencies, or date conventions forces conversion and repeated interpretation."
+  "5": "Compute totals and durations, validate unusual quantities, accept reasonable formats, chunk long numbers, default sensible units and dates, and prevent impossible choices. Do not require recalled PINs, codes, or card-verification numbers because the user may not catch an error afterward."
+  "6": "Show running totals, converted values, relative comparisons, and consequences at the point of use. Do not require users to retain figures, add them, or recall earlier quantities."
+  "7": "Offer persistent choices for concepts, familiar units, and visuals, plus inline calculators, converters, and computed results. Saved lists and reusable successful quantities can help; efficiency means removing quantitative work, not adding numeric shortcuts."
+  "8": "Evaluate findability in dense grids through color alongside spacing/larger type, fewer competing figures, and de-emphasis of secondary values without losing necessary information. Undifferentiated grids may increase anxiety/error; effects vary."
+  "9": "Explain numeric errors in words with a concrete expected example, such as 'Enter a whole number of tickets, for example 2', and preserve other entries. For unusual but valid values, confirm explicitly, such as 'That is 60 items - is that right?', before harm occurs."
+  "10": "Evaluate worked examples, non-numeric explanations, visuals, and plain chart/graph summaries, plus easy human support where needed. Restating figures/formulas alone may leave barriers in place; concepts, examples, and pictures should explain meaning while preserving accuracy."

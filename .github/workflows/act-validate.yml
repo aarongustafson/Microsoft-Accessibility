@@ -1,0 +1,70 @@
+name: Accessibility Considerations Toolkit (Act) validation
+
+on:
+  pull_request:
+    paths:
+      - 'Accessibility-Considerations-Toolkit/**'
+      - '.github/workflows/act-validate.yml'
+      - '.github/instructions/act.instructions.md'
+      - '.github/skills/consideration-to-schema/**'
+      - '.github/CODEOWNERS'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
+  push:
+    branches: [main]
+    paths:
+      - 'Accessibility-Considerations-Toolkit/**'
+      - '.github/workflows/act-validate.yml'
+      - '.github/instructions/act.instructions.md'
+      - '.github/skills/consideration-to-schema/**'
+      - '.github/CODEOWNERS'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: Accessibility-Considerations-Toolkit
+
+jobs:
+  markdown:
+    name: Act Markdown formatting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned Markdown formatter
+        run: npm ci --ignore-scripts
+      - name: Check Markdown formatting
+        run: npm run format:md:check
+  validate:
+    name: Act validation (${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.12', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install development dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Check installed dependencies
+        run: python -m pip check
+      - name: Validate structure and offline behavior
+        run: |
+          python tests/validate_structure.py
+          python -m pytest tests/validate_structure.py tests -q
+      - name: Validate generated-schema consumption
+        env:
+          CONSIDERATION_SOURCE: schema
+        run: python -m pytest tests/test_schema_loading.py tests/test_prompt_safeguards.py tests/evals/sub_agents/test_per_heuristic_loading.py -q

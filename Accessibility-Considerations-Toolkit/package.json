@@ -1,0 +1,11 @@
+{
+  "name": "accessibility-considerations-toolkit",
+  "private": true,
+  "scripts": {
+    "format:md": "prettier --write \"**/*.md\" \"../.github/skills/consideration-to-schema/SKILL.md\" \"../.github/instructions/act.instructions.md\" --config .prettierrc.json --ignore-path .gitignore --ignore-path .prettierignore",
+    "format:md:check": "prettier --check \"**/*.md\" \"../.github/skills/consideration-to-schema/SKILL.md\" \"../.github/instructions/act.instructions.md\" --config .prettierrc.json --ignore-path .gitignore --ignore-path .prettierignore"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}
