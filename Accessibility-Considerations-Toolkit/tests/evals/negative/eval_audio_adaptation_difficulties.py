@@ -1,4 +1,4 @@
-"""Negative eval: hard-of-hearing user blocked by poor audio support.
+"""Negative eval: audio adaptation barriers caused by poor audio support.
 
 This task follows the scenario-based negative-test pattern for consideration files:
 provide a bad interface scenario that should be judged as NOT meeting the
@@ -6,7 +6,7 @@ consideration's needs.
 
 Run with:
 
-    python -m tests.evals tests/evals/negative/eval_hearing_support_difficulties.py
+    python -m tests.evals tests/evals/negative/eval_audio_adaptation_difficulties.py
 """
 
 from __future__ import annotations
@@ -17,10 +17,10 @@ from tests.evals.negative._text_scenarios import build_negative_text_task
 
 
 @task
-def hearing_support_poor_audio_and_caption_support() -> Task:
+def audio_adaptation_poor_audio_and_caption_support() -> Task:
     return build_negative_text_task(
-        task_name="hearing_support_poor_audio_and_caption_support",
-        consideration_alias="hearing-support",
+        task_name="audio_adaptation_poor_audio_and_caption_support",
+        consideration_alias="audio-adaptation",
         prompt_text=(
             "Evaluate this app flow for the hard-of-hearing consideration. A user "
             "joins a training webinar where the presenter speaks quietly over "
@@ -70,7 +70,7 @@ def hearing_support_poor_audio_and_caption_support() -> Task:
                 "weight": 1.5,
             },
             {
-                "id": "ties_problem_to_hearing_support_consideration",
+                "id": "ties_problem_to_audio_adaptation_consideration",
                 "description": (
                     "Ties the failure to hard-of-hearing consideration needs such as audio "
                     "clarity, captions as a supplement, mono audio, and visual backup "

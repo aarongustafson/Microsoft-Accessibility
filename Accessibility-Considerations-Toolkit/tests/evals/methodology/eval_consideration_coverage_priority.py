@@ -48,7 +48,7 @@ def consideration_coverage_priority_triggers() -> Task:
                 "rather than defending its universal vision-first rationale."
             )},
             {"id": "prioritizes_deaf_and_hoh", "weight": 2.0, "description": (
-                "Includes audio alternatives and hearing support among the "
+                "Includes audio alternatives and audio adaptation among the "
                 "first four checks, identifying captions/speaker information "
                 "and audio clarity for the core spoken-meeting task; does "
                 "not equate this with a ranking of deaf or hard-of-hearing people."

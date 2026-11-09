@@ -69,7 +69,7 @@ provenance.json                 # Resource-relative source, notice, and fixture 
 | 4.2.2     | [Visual adaptation](considerations/4.2.2-visual-adaptation.md)                                                | Elaborated               |
 | 4.2.3     | [Alternatives to colour cues](considerations/4.2.3-alternatives-to-colour-cues.md)                            | Elaborated               |
 | 4.2.4     | [Audio alternatives](considerations/4.2.4-audio-alternatives.md)                                              | Elaborated               |
-| 4.2.5     | [Hearing support](considerations/4.2.5-hearing-support.md)                                                    | Elaborated               |
+| 4.2.5     | [Audio adaptation](considerations/4.2.5-audio-adaptation.md)                                                  | Elaborated               |
 | 4.2.6     | [Alternatives to speech input](considerations/4.2.6-alternatives-to-speech-input.md)                          | Elaborated               |
 | 4.2.7     | [Keyboard interaction](considerations/4.2.7-keyboard-interaction.md)                                          | Elaborated               |
 | 4.2.7     | [Voice control](considerations/4.2.7-voice-control.md)                                                        | Elaborated               |

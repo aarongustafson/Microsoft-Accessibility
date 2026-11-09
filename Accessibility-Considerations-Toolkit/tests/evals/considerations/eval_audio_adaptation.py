@@ -1,4 +1,4 @@
-"""Eval: hard-of-hearing consideration (clause 4.2.5).
+"""Eval: audio adaptation consideration (clause 4.2.5).
 
 Five sub-tests verifying the consideration file transfers SME knowledge:
 
@@ -10,7 +10,7 @@ Five sub-tests verifying the consideration file transfers SME knowledge:
 
 Each sub-test is a separate `@task` so it has its own rubric. Run with:
 
-    python -m tests.evals tests/evals/considerations/eval_hearing_support.py
+    python -m tests.evals tests/evals/considerations/eval_audio_adaptation.py
 
 Use `--consideration_context_mode all` to run the same tasks with all
 elaborated considerations loaded in background context, while still grading
@@ -29,7 +29,7 @@ from tests.evals import _providers
 from tests.evals._context import load_eval_consideration_context
 from tests.evals._scorers import rubric_scorer
 
-CONSIDERATION_ALIAS = "hearing-support"
+CONSIDERATION_ALIAS = "audio-adaptation"
 CONSIDERATION = load_eval_consideration_context(CONSIDERATION_ALIAS)
 
 
@@ -40,7 +40,7 @@ def _solver():
 @task
 def at_recall() -> Task:
     return Task(
-        name="hearing_support_at_recall",
+        name="audio_adaptation_at_recall",
         dataset=[
             Sample(
                 input=(
@@ -102,7 +102,7 @@ def at_recall() -> Task:
 @task
 def strategy_recall() -> Task:
     return Task(
-        name="hearing_support_strategy_recall",
+        name="audio_adaptation_strategy_recall",
         dataset=[
             Sample(
                 input=(
@@ -164,7 +164,7 @@ def strategy_recall() -> Task:
 @task
 def variant_recall() -> Task:
     return Task(
-        name="hearing_support_variant_recall",
+        name="audio_adaptation_variant_recall",
         dataset=[
             Sample(
                 input=(
@@ -211,7 +211,7 @@ def variant_recall() -> Task:
 @task
 def lens_override_h1() -> Task:
     return Task(
-        name="hearing_support_lens_override_h1",
+        name="audio_adaptation_lens_override_h1",
         dataset=[
             Sample(
                 input=(
@@ -275,7 +275,7 @@ def lens_override_h1() -> Task:
 @task
 def shared_inheritance() -> Task:
     return Task(
-        name="hearing_support_shared_inheritance",
+        name="audio_adaptation_shared_inheritance",
         dataset=[
             Sample(
                 input=(

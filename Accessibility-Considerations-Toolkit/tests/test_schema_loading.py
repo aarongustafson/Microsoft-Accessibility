@@ -70,6 +70,15 @@ def test_source_switch_does_not_reuse_other_source_cache(monkeypatch):
     assert structured != markdown
 
 
+@pytest.mark.parametrize("source", ("md", "schema"))
+def test_audio_adaptation_alias_preserves_en_clause(source, monkeypatch):
+    monkeypatch.setenv("CONSIDERATION_SOURCE", source)
+    content = _context.load_consideration_by_alias("audio-adaptation")
+    assert "alias: audio-adaptation" in content
+    assert 'clause: "4.2.5"' in content or "clause: 4.2.5" in content
+    assert "Usage with limited hearing" in content
+
+
 def test_invalid_source_is_reported(monkeypatch):
     monkeypatch.setenv("CONSIDERATION_SOURCE", "scheam")
     with pytest.raises(ValueError, match="Unsupported CONSIDERATION_SOURCE"):

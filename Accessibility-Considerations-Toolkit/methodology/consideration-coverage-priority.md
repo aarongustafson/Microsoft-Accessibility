@@ -49,7 +49,7 @@ equate checking one document with representing an entire community.
 | ------------------ | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Complex form       | Keyboard interaction, voice control, visual adaptation, alternatives to colour cues                | Verify focus and activation, visible-label/accessible-name matching, reflow and error proximity, and non-colour validation feedback.                         |
 | Data dashboard     | Alternatives to colour cues, nonvisual access, visual adaptation, pointer and keyboard interaction | Examine series differentiation, programmatic data alternatives, contrast/reflow, and alternatives to hover and dragging.                                     |
-| Video conferencing | Audio alternatives, hearing support, keyboard interaction, voice control, visual adaptation        | Examine communication without hearing, audio clarity and supplementary cues, reachable controls, label-based activation, and visibility under magnification. |
+| Video conferencing | Audio alternatives, audio adaptation, keyboard interaction, voice control, visual adaptation       | Examine communication without hearing, audio clarity and supplementary cues, reachable controls, label-based activation, and visibility under magnification. |
 
 These are starting points, not fixed priority rankings. Include cognition, language, numeracy, or
 other considerations when the task demands them. Findings should identify interface requirements and

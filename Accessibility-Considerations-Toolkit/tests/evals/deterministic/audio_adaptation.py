@@ -1,4 +1,4 @@
-"""Deterministic eval: hidden answer-key grading for the hard-of-hearing consideration.
+"""Deterministic eval: hidden answer-key grading for the audio adaptation consideration.
 
 This task uses a deterministic scorer backed by a hidden answer key in
 `Sample.metadata["answer_key"]`. The key is not sent to the model; only the prompt and
@@ -16,11 +16,11 @@ Run with:
 
     python -m tests.evals \
         copilot/gpt-5-mini \
-        deterministic/hearing_support.py
+        deterministic/audio_adaptation.py
 
     python -m tests.evals \
         copilot/claude-sonnet-4.5 \
-        deterministic/hearing_support.py
+        deterministic/audio_adaptation.py
 """
 
 from __future__ import annotations
@@ -30,13 +30,13 @@ from inspect_ai import Task, task
 from tests.evals._context import load_eval_consideration_context
 from tests.evals.deterministic._consideration import build_consideration_deterministic_task
 
-CONSIDERATION = load_eval_consideration_context("hearing-support")
+CONSIDERATION = load_eval_consideration_context("audio-adaptation")
 
 
 @task
 def at_categories() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="at_categories",
         task_name_suffix="",
         prompt=(
@@ -51,7 +51,7 @@ def at_categories() -> Task:
 @task
 def assistive_technologies() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="assistive_technologies",
         task_name_suffix="",
         prompt=(
@@ -67,7 +67,7 @@ def assistive_technologies() -> Task:
 @task
 def exploration_strategies() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="exploration_strategies",
         task_name_suffix="",
         prompt=(
@@ -83,7 +83,7 @@ def exploration_strategies() -> Task:
 @task
 def interaction_contexts() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="interaction_contexts",
         task_name_suffix="",
         prompt=(
@@ -98,7 +98,7 @@ def interaction_contexts() -> Task:
 @task
 def shared_strategies() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="shared_strategies",
         task_name_suffix="",
         prompt=(
@@ -117,7 +117,7 @@ def shared_strategies() -> Task:
 @task
 def behavior_media_audio_clarity() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="behavior_media_audio_clarity",
         task_name_suffix="",
         prompt=(
@@ -133,7 +133,7 @@ def behavior_media_audio_clarity() -> Task:
 @task
 def behavior_captions_as_supplement() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="behavior_captions_as_supplement",
         task_name_suffix="",
         prompt=(
@@ -149,7 +149,7 @@ def behavior_captions_as_supplement() -> Task:
 @task
 def behavior_audio_alert_redundancy() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="behavior_audio_alert_redundancy",
         task_name_suffix="",
         prompt=(
@@ -165,7 +165,7 @@ def behavior_audio_alert_redundancy() -> Task:
 @task
 def behavior_review_complex_page() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="behavior_review_complex_page",
         task_name_suffix="",
         prompt=(
@@ -185,7 +185,7 @@ def behavior_review_complex_page() -> Task:
 @task
 def behavior_review_communication_heavy_page() -> Task:
     return build_consideration_deterministic_task(
-        consideration_slug="hearing_support",
+        consideration_slug="audio_adaptation",
         section_slug="behavior_review_communication_heavy_page",
         task_name_suffix="",
         prompt=(

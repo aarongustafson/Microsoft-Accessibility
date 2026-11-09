@@ -2,7 +2,7 @@
 
 clause: "4.2.5"
 title: "Usage with limited hearing"
-alias: "hearing-support"
+alias: "audio-adaptation"
 status: "elaborated"
 fps_statement: "Where ICT provides auditory modes of operation, the ICT provides enhanced audio features."
 device_context: "all"

@@ -101,7 +101,7 @@ reliably be triggered by the prompt, such as:
 - `alternatives_to_colour_cues` covers `at_categories`, `assistive_technologies`,
   `exploration_strategies`, `interaction_contexts`, `behavior_interpretation_state_feedback`, and
   `behavior_interaction_affordance`.
-- `keyboard_interaction`, `audio_alternatives`, `hearing_support`, `alternatives_to_speech_input`,
+- `keyboard_interaction`, `audio_alternatives`, `audio_adaptation`, `alternatives_to_speech_input`,
   and `voice_control` each cover `at_categories`, `exploration_strategies`, `interaction_contexts`,
   and `shared_strategies`.
 
@@ -277,7 +277,7 @@ python -m tests.evals copilot/gpt-5-mini `
   considerations/eval_nonvisual_access.py `
   considerations/eval_alternatives_to_colour_cues.py `
   considerations/eval_audio_alternatives.py `
-  considerations/eval_hearing_support.py `
+  considerations/eval_audio_adaptation.py `
   considerations/eval_alternatives_to_speech_input.py `
   considerations/eval_keyboard_interaction.py `
   considerations/eval_voice_control.py
@@ -290,7 +290,7 @@ python -m tests.evals copilot/gpt-5-mini \
   considerations/eval_nonvisual_access.py \
   considerations/eval_alternatives_to_colour_cues.py \
   considerations/eval_audio_alternatives.py \
-  considerations/eval_hearing_support.py \
+  considerations/eval_audio_adaptation.py \
   considerations/eval_alternatives_to_speech_input.py \
   considerations/eval_keyboard_interaction.py \
   considerations/eval_voice_control.py
