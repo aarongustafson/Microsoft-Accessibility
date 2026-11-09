@@ -12,6 +12,10 @@ interface barriers and requirements; it does not describe representative people 
 Markdown is the authoring source; generated YAML supports structured consumption. This guidance
 and automated evaluations do not replace co-design and testing with people with disabilities.
 
+**Automated evaluations cannot identify every accessibility issue.** A result with no findings is not
+proof of accessibility or standards conformance. Use automated checks alongside manual evaluation,
+assistive-technology testing, and research with people with disabilities.
+
 See the [toolkit README](./Accessibility-Considerations-Toolkit/README.md) for usage, limitations, and
 offline validation, and its [contribution guide](./Accessibility-Considerations-Toolkit/CONTRIBUTING.md)
 for authoring and consideration-to-schema conversion.

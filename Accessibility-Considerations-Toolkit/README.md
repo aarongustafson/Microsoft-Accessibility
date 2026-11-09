@@ -30,6 +30,10 @@ We welcome people with disabilities to help review and improve this resource. Re
 automated evaluations do not replace co-design and testing with people with disabilities. No
 individual's perspective represents an entire disability community.
 
+**Automated evaluations cannot identify every accessibility issue.** A result with no findings is
+not proof of accessibility or standards conformance. Use automated checks alongside manual
+evaluation, assistive-technology testing, and research with people with disabilities.
+
 ## Who this is for
 
 - **Agent developers** building evaluation, design-review, or requirements-analysis tools.
