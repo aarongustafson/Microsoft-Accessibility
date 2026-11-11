@@ -13,7 +13,7 @@ workflow, or governance. For other projects, mark them not applicable. -->
 
 ## Content provenance
 
-Complete these checks when changing Act considerations, heuristics, methodology, or standards:
+Complete these checks when changing ACT considerations, heuristics, methodology, or standards:
 
 - [ ] External sources, versions or dates, applicable licenses, adaptation status, and required
       notices are recorded.
@@ -23,7 +23,7 @@ Complete these checks when changing Act considerations, heuristics, methodology,
 
 ## AI-consumed content security
 
-Complete these checks when changing Act considerations, schemas, heuristics, methodology, standards,
+Complete these checks when changing ACT considerations, schemas, heuristics, methodology, standards,
 repository skills, agent instructions, or model-evaluation prompts and rubrics:
 
 - [ ] A CODEOWNER reviewed changes that can become agent or model context.

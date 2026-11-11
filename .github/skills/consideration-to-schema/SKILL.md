@@ -1,6 +1,6 @@
 ---
 name: consideration-to-schema
-description: "Create or update Accessibility Considerations Toolkit (Act) YAML from shared guidance and access-topic Markdown. Use when converting, serializing, migrating, synchronizing, refreshing, batching, or updating generated consideration schemas after Markdown sources change."
+description: "Create or update Accessibility Considerations Toolkit (ACT) YAML from shared guidance and access-topic Markdown. Use when converting, serializing, migrating, synchronizing, refreshing, batching, or updating generated consideration schemas after Markdown sources change."
 argument-hint: "<consideration-selector> [<consideration-selector> ...] | all"
 user-invocable: true
 disable-model-invocation: false
@@ -567,10 +567,10 @@ indicated.
 **YAML output**:
 
 ```yaml
-  - id: caption-controls-scanning
-    mechanisms: [visual-scanning, mouse, touch]
-    behavior: For video/multimedia, evaluate discovery of CC controls, subtitles toggles, and caption settings through in-scope access methods. Check defaults and adjustment without assuming one preference or navigation strategy.
-    reqs: Caption controls visible in player UI, not buried in submenus. Captions ideally default-on or clearly toggleable. Caption quality matters — authored preferred over auto-generated; live captioning available and clearly indicated.
+- id: caption-controls-scanning
+  mechanisms: [visual-scanning, mouse, touch]
+  behavior: For video/multimedia, evaluate discovery of CC controls, subtitles toggles, and caption settings through in-scope access methods. Check defaults and adjustment without assuming one preference or navigation strategy.
+  reqs: Caption controls visible in player UI, not buried in submenus. Captions ideally default-on or clearly toggleable. Caption quality matters — authored preferred over auto-generated; live captioning available and clearly indicated.
 ```
 
 ## Self-check before finalizing

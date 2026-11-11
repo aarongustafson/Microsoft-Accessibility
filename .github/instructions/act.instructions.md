@@ -1,9 +1,9 @@
 ---
-description: "Authoring and validation instructions for Accessibility Considerations Toolkit (Act), including access considerations, propagation of shared guidance, generated schemas, provenance, and evaluation tooling."
+description: "Authoring and validation instructions for Accessibility Considerations Toolkit (ACT), including access considerations, propagation of shared guidance, generated schemas, provenance, and evaluation tooling."
 applyTo: "Accessibility-Considerations-Toolkit/**,.github/instructions/act.instructions.md,.github/skills/consideration-to-schema/**,.github/workflows/act-validate.yml"
 ---
 
-# Accessibility Considerations Toolkit (Act)
+# Accessibility Considerations Toolkit (ACT)
 
 For toolkit work, follow
 [the resource instructions](../../Accessibility-Considerations-Toolkit/AGENTS.md). Run toolkit

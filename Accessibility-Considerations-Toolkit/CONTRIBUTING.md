@@ -1,4 +1,4 @@
-# Contributing to Accessibility Considerations Toolkit (Act)
+# Contributing to Accessibility Considerations Toolkit (ACT)
 
 ## Elaborating a stub consideration
 
