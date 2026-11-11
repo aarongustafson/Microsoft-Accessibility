@@ -4,7 +4,7 @@ A collection of accessibility tools and resources from Microsoft.
 
 ## Projects
 
-### [Accessibility Considerations Toolkit (Act)](./Accessibility-Considerations-Toolkit)
+### [Accessibility Considerations Toolkit (ACT)](./Accessibility-Considerations-Toolkit)
 
 Access considerations, accessibility-focused usability heuristics, and evaluation guidance for
 AI agents, designers, researchers, and accessibility evaluators. The toolkit identifies possible

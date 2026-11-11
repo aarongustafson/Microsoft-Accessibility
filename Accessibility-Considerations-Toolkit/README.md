@@ -1,4 +1,4 @@
-# Accessibility Considerations Toolkit (Act)
+# Accessibility Considerations Toolkit (ACT)
 
 Reference guidance for identifying considerations that can make user experiences more accessible.
 For designers, researchers, accessibility evaluators, and developers of AI agents and evaluation
